@@ -1,0 +1,35 @@
+{
+  "name": "index",
+  "version": "1.0.0",
+  "description": "Implementation of StackHack 2.0 hackathon on hackerearth",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon index.js",
+    "client": "cd client && npm run start",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chaudharirohit2810/StackHack-2.0.git"
+  },
+  "author": "Nucleus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chaudharirohit2810/StackHack-2.0/issues"
+  },
+  "homepage": "https://github.com/chaudharirohit2810/StackHack-2.0#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.3.0",
+    "config": "^3.3.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.9",
+    "nodemon": "^2.0.6"
+  }
+}
