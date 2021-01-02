@@ -1,4 +1,5 @@
 {
     "mongoURI": "mongodb://localhost:27017",
-    "mongoAtlas": ""
+    "mongoAtlas": "",
+    "backendURL": "http://localhost:5000/api"
 }
