@@ -4,7 +4,7 @@ import {
     UserOutlined,
     LockOutlined,
     EyeTwoTone,
-    EyeInvisibleOutlined
+    EyeInvisibleOutlined,
 } from "@ant-design/icons";
 
 const Login = ({ onFinish }) => {
@@ -13,10 +13,10 @@ const Login = ({ onFinish }) => {
             name="normal_login"
             style={{
                 maxWidth: "500px",
-                minWidth: "300px"
+                minWidth: "300px",
             }}
             initialValues={{
-                remember: true
+                remember: true,
             }}
             onFinish={onFinish}
         >
@@ -25,8 +25,8 @@ const Login = ({ onFinish }) => {
                 rules={[
                     {
                         required: true,
-                        message: "Please input your Username!"
-                    }
+                        message: "Please input your Username!",
+                    },
                 ]}
             >
                 <Input
@@ -39,8 +39,8 @@ const Login = ({ onFinish }) => {
                 rules={[
                     {
                         required: true,
-                        message: "Please input your Password!"
-                    }
+                        message: "Please input your Password!",
+                    },
                 ]}
             >
                 <Input.Password

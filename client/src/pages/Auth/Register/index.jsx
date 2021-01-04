@@ -7,37 +7,37 @@ const salaries = {
     10000: "10000",
     100000: "100000",
     200000: "200000",
-    300000: "300000"
+    300000: "300000",
 };
 
 const TeamOptions = [
     {
         value: "team1",
-        name: "Team 1"
+        name: "Team 1",
     },
     {
         value: "team2",
-        name: "Team 2"
+        name: "Team 2",
     },
     {
         value: "team3",
-        name: "Team 3"
-    }
+        name: "Team 3",
+    },
 ];
 
 const RoleOptions = [
     {
         value: "role1",
-        name: "Role 1"
+        name: "Role 1",
     },
     {
         value: "role2",
-        name: "Role 2"
+        name: "Role 2",
     },
     {
         value: "role3",
-        name: "Role 3"
-    }
+        name: "Role 3",
+    },
 ];
 
 const Register = ({ onFinish }) => {
@@ -46,10 +46,10 @@ const Register = ({ onFinish }) => {
             name="normal_login"
             style={{
                 maxWidth: "500px",
-                minWidth: "300px"
+                minWidth: "300px",
             }}
             initialValues={{
-                remember: true
+                remember: true,
             }}
             scrollToFirstError
             onFinish={onFinish}
@@ -59,8 +59,8 @@ const Register = ({ onFinish }) => {
                 rules={[
                     {
                         required: true,
-                        message: "Please input your Username!"
-                    }
+                        message: "Please input your Username!",
+                    },
                 ]}
             >
                 <Input
@@ -73,8 +73,8 @@ const Register = ({ onFinish }) => {
                 rules={[
                     {
                         required: true,
-                        message: "Please input your name!"
-                    }
+                        message: "Please input your name!",
+                    },
                 ]}
             >
                 <Input
@@ -87,12 +87,12 @@ const Register = ({ onFinish }) => {
                 rules={[
                     {
                         type: "email",
-                        message: "The input is not valid E-mail!"
+                        message: "The input is not valid E-mail!",
                     },
                     {
                         required: true,
-                        message: "Please input your E-mail!"
-                    }
+                        message: "Please input your E-mail!",
+                    },
                 ]}
             >
                 <Input
@@ -106,8 +106,8 @@ const Register = ({ onFinish }) => {
                 rules={[
                     {
                         required: true,
-                        message: "Please input your phone number!"
-                    }
+                        message: "Please input your phone number!",
+                    },
                 ]}
             >
                 <Input addonBefore="+91" placeholder="Phone Number" />
