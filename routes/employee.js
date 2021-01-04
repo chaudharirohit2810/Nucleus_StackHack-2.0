@@ -29,7 +29,6 @@ router.route("/login").post(async (req, res) => {
         const employee = await Employee.findOne({ username });
         if (employee) {
             const parsedEmployee = JSON.parse(JSON.stringify(employee));
-            console.log(password);
             compareHashedPassword(password, parsedEmployee.password)
                 .then(result => {
                     if (result)

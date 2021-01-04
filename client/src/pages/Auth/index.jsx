@@ -19,7 +19,12 @@ class Auth extends React.Component {
             .then(res => {
                 if (!res.data.error) {
                     console.log(res.data.result);
-                    alert("Employee Login Success !");
+                    localStorage.setItem(
+                        "employeeEmail",
+                        res.data.result.email
+                    );
+                    this.props.history.push("/employee");
+                    // alert("Employee Login Success !");
                 }
             })
             .catch(error => {
