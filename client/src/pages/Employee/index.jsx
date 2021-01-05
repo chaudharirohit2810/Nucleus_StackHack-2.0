@@ -1,9 +1,7 @@
 import React from "react";
 import { Layout, Breadcrumb } from "antd";
 
-import { Header, Footer, Drawer } from "./components";
-
-const { Content } = Layout;
+import { Header, Footer, Drawer, Attendance } from "./components";
 
 class SiderDemo extends React.Component {
     constructor(props) {
@@ -28,10 +26,7 @@ class SiderDemo extends React.Component {
         return (
             <div>
                 <Layout style={{ minHeight: "100vh" }}>
-                    <Header
-                        logout={this.logoutDashboard}
-                        title={"HR Management App"}
-                    />
+                    <Header logout={this.logoutDashboard} title={"Nucleus"} />
                     <Layout>
                         <Drawer
                             onCollapse={this.onCollapse}
@@ -43,16 +38,7 @@ class SiderDemo extends React.Component {
                                 <Breadcrumb.Item>List</Breadcrumb.Item>
                                 <Breadcrumb.Item>App</Breadcrumb.Item>
                             </Breadcrumb>
-                            <Content
-                                className="site-layout-background"
-                                style={{
-                                    padding: 24,
-                                    margin: 0,
-                                    minHeight: 280
-                                }}
-                            >
-                                Content
-                            </Content>
+                            <Attendance />
                             <Footer />
                         </Layout>
                     </Layout>
