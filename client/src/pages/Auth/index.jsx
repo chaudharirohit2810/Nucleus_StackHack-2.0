@@ -1,6 +1,6 @@
 import React from "react";
 import "antd/dist/antd.css";
-import { Tabs } from "antd";
+import { Tabs, message } from "antd";
 import Login from "./Login";
 import Register from "./Register";
 import { backendURL } from "../../config";
@@ -13,46 +13,51 @@ class Auth extends React.Component {
         super(props);
         this.state = {};
     }
+
     onFinish = values => {
+        const key = "login";
+        message.loading({ content: "Logging you in.....", key });
         axios
             .post(backendURL + "/employee/login", values)
             .then(res => {
                 if (!res.data.error) {
                     console.log(res.data.result);
+                    message.success({ content: "Login Successful", key });
                     localStorage.setItem(
                         "employeeEmail",
                         res.data.result.email
                     );
                     this.props.history.push("/employee");
-                    // alert("Employee Login Success !");
                 }
             })
             .catch(error => {
                 if (error.response && error.response.data.error) {
                     const data = error.response.data;
-                    alert(data.result);
+                    message.error({ content: data.result, key });
                 }
             });
-        // console.log("User Logged In: ", values);
     };
 
     register = values => {
+        const key = "register";
+        message.loading({ content: "Registering your account.....", key });
         axios
             .post(backendURL + "/employee/register", values)
             .then(res => {
                 if (!res.data.error) {
                     // console.log(res.data);
-                    alert(res.data.result);
+                    message.success({ content: res.data.result, key });
                 }
             })
             .catch(error => {
                 if (error.response && error.response.data.error) {
                     const data = error.response.data;
-                    alert(data.result);
+                    message.error({ content: data.result, key });
                 }
             });
         // console.log("User Registered: ", values);
     };
+
     render() {
         return (
             <div
@@ -60,7 +65,7 @@ class Auth extends React.Component {
                     display: "flex",
                     width: "100%",
                     justifyContent: "center",
-                    paddingTop: "2rem",
+                    paddingTop: "2rem"
                 }}
             >
                 <Tabs centered>
