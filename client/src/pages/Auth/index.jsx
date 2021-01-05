@@ -22,7 +22,10 @@ class Auth extends React.Component {
             .then(res => {
                 if (!res.data.error) {
                     console.log(res.data.result);
-                    message.success({ content: "Login Successful", key });
+                    message.success({
+                        content: "Login Successful",
+                        key
+                    });
                     localStorage.setItem(
                         "employeeEmail",
                         res.data.result.email
