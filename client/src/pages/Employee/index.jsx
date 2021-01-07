@@ -1,7 +1,8 @@
 import React from "react";
 import { Layout, Breadcrumb } from "antd";
 
-import { Header, Footer, Drawer, Attendance } from "./components";
+import { Header, Footer, Drawer, Attendance, DrawerMobile } from "./components";
+import { FAQ } from "./pages";
 
 class SiderDemo extends React.Component {
     constructor(props) {
@@ -10,6 +11,39 @@ class SiderDemo extends React.Component {
             collapsed: false
         };
     }
+
+    faqs = [
+        {
+            question:
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
+            answer:
+                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!"
+        },
+        {
+            question:
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
+            answer:
+                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!"
+        },
+        {
+            question:
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
+            answer:
+                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!"
+        },
+        {
+            question:
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
+            answer:
+                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!"
+        },
+        {
+            question:
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
+            answer:
+                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!"
+        }
+    ];
 
     onCollapse = collapsed => {
         this.setState({ collapsed });
@@ -26,19 +60,18 @@ class SiderDemo extends React.Component {
         return (
             <div>
                 <Layout style={{ minHeight: "100vh" }}>
-                    <Header logout={this.logoutDashboard} title={"Nucleus"} />
+                    <DrawerMobile logoutDashboard={this.logoutDashboard} />
                     <Layout>
-                        <Drawer
-                            onCollapse={this.onCollapse}
-                            collapsed={this.state.collapsed}
-                        />
+                        <Drawer />
                         <Layout style={{ padding: "0 24px 24px" }}>
                             <Breadcrumb style={{ margin: "16px 0" }}>
                                 <Breadcrumb.Item>Home</Breadcrumb.Item>
                                 <Breadcrumb.Item>List</Breadcrumb.Item>
                                 <Breadcrumb.Item>App</Breadcrumb.Item>
                             </Breadcrumb>
-                            <Attendance />
+                            <div style={{ minHeight: "70.5vh" }}>
+                                <FAQ faqs={this.faqs} />
+                            </div>
                             <Footer />
                         </Layout>
                     </Layout>
@@ -49,4 +82,3 @@ class SiderDemo extends React.Component {
 }
 
 export default SiderDemo;
-// ReactDOM.render(<SiderDemo />, mountNode);
