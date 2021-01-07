@@ -1,13 +1,15 @@
 import React from "react";
 import { Layout, Breadcrumb } from "antd";
 
-import { Header, Footer, Drawer, Attendance } from "./components";
+import { Header, Footer, Drawer, Attendance, SubmitLeave } from "./components";
+
+const { Content } = Layout;
 
 class SiderDemo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            collapsed: false
+            collapsed: false,
         };
     }
 
@@ -38,7 +40,16 @@ class SiderDemo extends React.Component {
                                 <Breadcrumb.Item>List</Breadcrumb.Item>
                                 <Breadcrumb.Item>App</Breadcrumb.Item>
                             </Breadcrumb>
-                            <Attendance />
+                            <Content
+                                style={{
+                                    padding: 24,
+                                    margin: 0,
+                                    minHeight: 280,
+                                }}
+                            >
+                                <Attendance />
+                                <SubmitLeave />
+                            </Content>
                             <Footer />
                         </Layout>
                     </Layout>
