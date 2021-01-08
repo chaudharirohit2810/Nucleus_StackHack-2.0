@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { backendURL } from "../../../config";
+import { backendURL } from "../../config";
 import { Typography, Layout, Space, Col } from "antd";
 const { Title, Text } = Typography;
 
@@ -15,11 +15,12 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        const id = localStorage.getItem("id");
+        const id = localStorage.getItem("employeeID");
+        // console.log(id)
         axios
             .get(`${backendURL}/employee/details/${id}`)
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 this.setState({
                     loading: false,
                     user: res.data

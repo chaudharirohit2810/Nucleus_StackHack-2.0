@@ -11,7 +11,6 @@ const Attendance = () => {
         return (
             <div
                 className="ant-picker-cell-inner"
-                // onClick={() => console.log(value.date())}
                 style={{
                     backgroundColor: absentDates.find(
                         item => item === value.date()

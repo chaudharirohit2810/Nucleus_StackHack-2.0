@@ -1,25 +1,33 @@
 import React from "react";
 import Auth from "./pages/Auth";
-import EmployeeLayout from "./pages/Employee";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-// import { FAQ, Attendance, SubmitLeave } from "./pages/Employee/pages/pages";
-import employeeRoutes from "./pages/Employee/pages";
+import { Employee } from "./layouts";
+import routes from "./routes";
+import withTracker from "./withTracker";
+
+const EmployeeContainer = () => (
+    <Employee>
+        {routes.map((route, index) => {
+            return (
+                <Route
+                    key={index}
+                    path={route.path}
+                    exact={route.exact}
+                    component={withTracker(props => {
+                        return <route.component {...props} />;
+                    })}
+                />
+            );
+        })}
+    </Employee>
+);
 
 function App() {
     return (
         <Router>
             <Switch>
                 <Route exact path="/" component={Auth} />
-                <EmployeeLayout>
-                    {employeeRoutes.map((item, index) => (
-                        <Route
-                            exact
-                            key={index}
-                            path={`/employee/${item.route}`}
-                            component={item.component}
-                        />
-                    ))}
-                </EmployeeLayout>
+                <Route path="/employee" component={EmployeeContainer} />
             </Switch>
         </Router>
     );
