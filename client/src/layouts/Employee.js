@@ -17,16 +17,16 @@ const DefaultLayout = ({ children }) => {
             <DrawerMobile logoutDashboard={logoutDashboard} />
             <Layout>
                 <Drawer />
-                <Layout style={{ padding: "0 24px 24px" }}>
+                <Layout style={{ padding: "0 24px 24px", minHeight: "80vh" }}>
                     <Breadcrumb style={{ margin: "16px 0" }}>
                         <Breadcrumb.Item>Home</Breadcrumb.Item>
                         <Breadcrumb.Item>List</Breadcrumb.Item>
                         <Breadcrumb.Item>App</Breadcrumb.Item>
                     </Breadcrumb>
                     {children}
-                    <Footer />
                 </Layout>
             </Layout>
+            <Footer />
         </Layout>
     );
 };

@@ -2,7 +2,13 @@
 // import { Redirect } from "react-router-dom";
 import { Employee } from "./layouts";
 
-import { Attendance, SubmitLeave, FAQ } from "./pages/Employee/components";
+import {
+    Attendance,
+    SubmitLeave,
+    FAQ,
+    Home,
+    LeaveTable,
+} from "./pages/Employee/components";
 // import Auth from "./pages/Auth";
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -13,10 +19,10 @@ export default [
     //     component: Auth,
     // },
     {
-        path: "/employee",
+        path: "/employee/home",
         exact: true,
         layout: Employee,
-        component: Attendance,
+        component: Home,
     },
     {
         path: "/employee/attendence",
@@ -28,7 +34,7 @@ export default [
         path: "/employee/submitLeave",
         exact: true,
         layout: Employee,
-        component: SubmitLeave,
+        component: LeaveTable,
     },
     {
         path: "/employee/faq",

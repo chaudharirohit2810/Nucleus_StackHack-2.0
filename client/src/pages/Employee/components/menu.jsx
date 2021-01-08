@@ -3,18 +3,39 @@ import { Menu } from "antd";
 import {
     // UserOutlined,
     LaptopOutlined,
-    NotificationOutlined,
+    // NotificationOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 const { SubMenu } = Menu;
 
 const MyMenu = () => {
+    const employeeRoutes = [
+        {
+            title: "Home",
+            path: "home",
+        },
+        {
+            title: "Attendence",
+            content: [
+                {
+                    title: "Attendence",
+                    path: "attendence",
+                },
+                {
+                    title: "Mark Leave",
+                    path: "submitLeave",
+                },
+            ],
+        },
+        {
+            title: "FAQs",
+            path: "faq",
+        },
+    ];
     return (
         <Menu
             mode="inline"
-            defaultSelectedKeys={["1"]}
-            defaultOpenKeys={["sub1"]}
             style={{
                 display: "flex",
                 flexDirection: "column",
@@ -22,55 +43,47 @@ const MyMenu = () => {
                 border: "none",
             }}
         >
-            <Menu.Item>
-                <Link
-                    style={{
-                        textDecoration: "none",
-                        color: "inherit",
-                    }}
-                    to="/employee/attendence"
-                >
-                    Attendance
-                </Link>
-            </Menu.Item>
-            <Menu.Item>
-                <Link
-                    style={{
-                        textDecoration: "none",
-                        color: "inherit",
-                    }}
-                    to="/employee/submitLeave"
-                >
-                    Mark Leave
-                </Link>
-            </Menu.Item>
-            <Menu.Item>
-                <Link
-                    style={{
-                        textDecoration: "none",
-                        color: "inherit",
-                    }}
-                    to="/employee/faq"
-                >
-                    FAQs
-                </Link>
-            </Menu.Item>
-            <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
-                <Menu.Item key="5">option5</Menu.Item>
-                <Menu.Item key="6">option6</Menu.Item>
-                <Menu.Item key="7">option7</Menu.Item>
-                <Menu.Item key="8">option8</Menu.Item>
-            </SubMenu>
-            <SubMenu
-                key="sub3"
-                icon={<NotificationOutlined />}
-                title="subnav 3"
-            >
-                <Menu.Item key="9">option9</Menu.Item>
-                <Menu.Item key="10">option10</Menu.Item>
-                <Menu.Item key="11">option11</Menu.Item>
-                <Menu.Item key="12">option12</Menu.Item>
-            </SubMenu>
+            {employeeRoutes.map((data, index) => {
+                if (!("content" in data)) {
+                    return (
+                        <Menu.Item key={index}>
+                            <Link
+                                style={{
+                                    textDecoration: "none",
+                                    color: "inherit",
+                                }}
+                                to={`/employee/${data.path}`}
+                            >
+                                {data.title}
+                            </Link>
+                        </Menu.Item>
+                    );
+                } else {
+                    return (
+                        <SubMenu
+                            key={index}
+                            icon={<LaptopOutlined />}
+                            title={`${data.title}`}
+                        >
+                            {data.content.map((d, i) => {
+                                return (
+                                    <Menu.Item key={i}>
+                                        <Link
+                                            style={{
+                                                textDecoration: "none",
+                                                color: "inherit",
+                                            }}
+                                            to={`/employee/${d.path}`}
+                                        >
+                                            {d.title}
+                                        </Link>
+                                    </Menu.Item>
+                                );
+                            })}
+                        </SubMenu>
+                    );
+                }
+            })}
         </Menu>
     );
 };

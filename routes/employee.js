@@ -104,4 +104,14 @@ router.route("/register").post(async (req, res) => {
     }
 });
 
+router.route("/details/:id").get(async (req, res) => {
+    // console.log(req.params.id);
+    try {
+        const employee = await Employee.findById(req.params.id);
+        res.status(200).json(employee);
+    } catch (error) {
+        res.status(400).json(error.message);
+    }
+});
+
 module.exports = router;
