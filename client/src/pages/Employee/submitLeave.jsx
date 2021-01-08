@@ -1,9 +1,8 @@
 import React from "react";
-import { Form, Input, Button, DatePicker, Typography, Layout } from "antd";
+import { Form, Input, Button, DatePicker, Layout } from "antd";
 import moment from "moment";
 
 const { RangePicker } = DatePicker;
-const { Title } = Typography;
 
 const layout = {
     labelCol: {
@@ -41,6 +40,10 @@ export default class submitLeave extends React.Component {
         // decided on database fi   eld
         const startDate = range[0]._d;
         const endDate = range[1]._d;
+        this.props.loadModal();
+        this.props.showModal();
+        this.props.handleAdd();
+        this.props.loadModal();
     };
     render() {
         return (
@@ -49,14 +52,6 @@ export default class submitLeave extends React.Component {
                     marginTop: "2rem"
                 }}
             >
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "center"
-                    }}
-                >
-                    <Title level={1}>Mark Leave</Title>
-                </div>
                 <Form
                     {...layout}
                     name="Leave"
@@ -66,9 +61,6 @@ export default class submitLeave extends React.Component {
                     }}
                     validateMessages={validateMessages}
                 >
-                    {/* <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                        <Title> Mark Leave</Title>
-                    </Form.Item> */}
                     <Form.Item
                         name={["range"]}
                         label="Leave Range"
@@ -103,7 +95,11 @@ export default class submitLeave extends React.Component {
                         />
                     </Form.Item>
                     <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                        <Button type="primary" htmlType="submit">
+                        <Button
+                            disabled={this.props.modalLoading}
+                            type="primary"
+                            htmlType="submit"
+                        >
                             Submit
                         </Button>
                     </Form.Item>
@@ -113,11 +109,4 @@ export default class submitLeave extends React.Component {
     }
 }
 
-// const submitLeave = () => {
 
-//     return (
-//         <div></div>
-//     );
-// };
-
-// export default submitLeave;

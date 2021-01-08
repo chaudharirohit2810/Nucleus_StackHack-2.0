@@ -22,16 +22,12 @@ class Auth extends React.Component {
             .post(backendURL + "/employee/login", values)
             .then(res => {
                 if (!res.data.error) {
-                    console.log(res.data.result);
+                    // console.log(res.data.result);
                     message.success({
                         content: "Login Successful",
-                        key
+                        key,
                     });
-                    localStorage.setItem(
-                        "employeeEmail",
-                        res.data.result.email
-                    );
-                    localStorage.setItem("id", res.data.result._id);
+                    localStorage.setItem("employeeID", res.data.result._id);
                     this.props.history.push("/employee/home");
                 }
             })
@@ -70,7 +66,7 @@ class Auth extends React.Component {
                     display: "flex",
                     width: "100%",
                     justifyContent: "center",
-                    paddingTop: "2rem"
+                    paddingTop: "2rem",
                 }}
             >
                 <Tabs centered>
