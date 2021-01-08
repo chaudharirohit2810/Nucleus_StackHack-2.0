@@ -1,18 +1,13 @@
 import React from "react";
-import { Layout, Breadcrumb } from "antd";
+import { Collapse, Typography } from "antd";
 
-import { Footer, Drawer, DrawerMobile } from "./components";
-import { FAQ } from "./pages";
+const { Panel } = Collapse;
+const { Title } = Typography;
 
-class SiderDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            collapsed: false,
-        };
-    }
+const Header = ({ title }) => <h1>{title}</h1>;
 
-    faqs = [
+const FAQ = () => {
+    const faqs = [
         {
             question:
                 "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
@@ -44,41 +39,21 @@ class SiderDemo extends React.Component {
                 "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!",
         },
     ];
+    return (
+        <div>
+            <Title level={2}>Frequently Asked Questions</Title>
+            <Collapse defaultActiveKey={["1"]}>
+                {faqs.map((item, index) => (
+                    <Panel
+                        header={<Header title={item.question} />}
+                        key={index + 1}
+                    >
+                        <p style={{ paddingLeft: 24 }}>{item.answer}</p>
+                    </Panel>
+                ))}
+            </Collapse>
+        </div>
+    );
+};
 
-    onCollapse = collapsed => {
-        this.setState({ collapsed });
-    };
-
-    logoutDashboard = () => {
-        if (localStorage.getItem("employeeEmail") !== null) {
-            localStorage.removeItem("employeeEmail");
-        }
-        this.props.history.replace("/");
-    };
-
-    render() {
-        return (
-            <div>
-                <Layout style={{ minHeight: "100vh" }}>
-                    <DrawerMobile logoutDashboard={this.logoutDashboard} />
-                    <Layout>
-                        <Drawer />
-                        <Layout style={{ padding: "0 24px 24px" }}>
-                            <Breadcrumb style={{ margin: "16px 0" }}>
-                                <Breadcrumb.Item>Home</Breadcrumb.Item>
-                                <Breadcrumb.Item>List</Breadcrumb.Item>
-                                <Breadcrumb.Item>App</Breadcrumb.Item>
-                            </Breadcrumb>
-                            <div style={{ minHeight: "70.5vh" }}>
-                                <FAQ faqs={this.faqs} />
-                            </div>
-                            <Footer />
-                        </Layout>
-                    </Layout>
-                </Layout>
-            </div>
-        );
-    }
-}
-
-export default SiderDemo;
+export default FAQ;

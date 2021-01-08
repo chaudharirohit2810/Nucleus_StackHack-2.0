@@ -4,3 +4,4 @@ export { default as Drawer } from "./drawer";
 export { default as DrawerMobile } from "./drawerMobile";
 export { default as Attendance } from "./attendance";
 export { default as SubmitLeave } from "./submitLeave";
+export { default as FAQ } from "./faq";

@@ -1,10 +1,11 @@
 import React from "react";
 import { Menu } from "antd";
 import {
-    UserOutlined,
+    // UserOutlined,
     LaptopOutlined,
-    NotificationOutlined
+    NotificationOutlined,
 } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 const { SubMenu } = Menu;
 
@@ -18,10 +19,42 @@ const MyMenu = () => {
                 display: "flex",
                 flexDirection: "column",
                 height: "100%",
-                border: "none"
+                border: "none",
             }}
         >
-            <Menu.Item>Attendance</Menu.Item>
+            <Menu.Item>
+                <Link
+                    style={{
+                        textDecoration: "none",
+                        color: "inherit",
+                    }}
+                    to="/employee/attendence"
+                >
+                    Attendance
+                </Link>
+            </Menu.Item>
+            <Menu.Item>
+                <Link
+                    style={{
+                        textDecoration: "none",
+                        color: "inherit",
+                    }}
+                    to="/employee/submitLeave"
+                >
+                    Mark Leave
+                </Link>
+            </Menu.Item>
+            <Menu.Item>
+                <Link
+                    style={{
+                        textDecoration: "none",
+                        color: "inherit",
+                    }}
+                    to="/employee/faq"
+                >
+                    FAQs
+                </Link>
+            </Menu.Item>
             <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
                 <Menu.Item key="5">option5</Menu.Item>
                 <Menu.Item key="6">option6</Menu.Item>
