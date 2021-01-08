@@ -2,12 +2,7 @@
 // import { Redirect } from "react-router-dom";
 import { Employee } from "./layouts";
 
-import {
-    Attendance,
-    FAQ,
-    Home,
-    LeaveTable,
-} from "./pages/Employee"
+import { Attendance, FAQ, Home, LeaveTable, Policy } from "./pages/Employee";
 
 export default [
     {
@@ -33,5 +28,11 @@ export default [
         exact: true,
         layout: Employee,
         component: FAQ,
+    },
+    {
+        path: "/employee/policy",
+        exact: true,
+        layout: Employee,
+        component: Policy,
     },
 ];

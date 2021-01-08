@@ -1,5 +1,6 @@
 import React from "react";
-import { Calendar } from "antd";
+import { Calendar, message } from "antd";
+import CalendarHeader from "./calendarHeader";
 
 const Attendance = () => {
     const dateFullCellRender = value => {
@@ -23,7 +24,7 @@ const Attendance = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    textAlign: "center"
+                    textAlign: "center",
                 }}
             >
                 <div>
@@ -41,21 +42,35 @@ const Attendance = () => {
 
     function monthCellRender(value) {
         const num = getMonthData(value);
-        return num ? (
-            <div className="notes-month">
-                <section>{num}</section>
-                <span>Backlog number</span>
-            </div>
-        ) : null;
+        return null;
     }
+
+    const markAttendance = () => {
+        message.loading({
+            content: "Marking Your Attendance....",
+            key: "attendance",
+        });
+
+        setTimeout(() => {
+            message.success({
+                content: "Attendance marked",
+                key: "attendance",
+            });
+        }, 1000);
+    };
 
     return (
         <div style={{ maxWidth: "80vw", margin: "0px auto" }}>
             <Calendar
-                // dateCellRender={dateCellRender}
                 dateFullCellRender={dateFullCellRender}
                 monthCellRender={monthCellRender}
                 fullscreen={false}
+                headerRender={props => (
+                    <CalendarHeader
+                        {...props}
+                        markAttendance={markAttendance}
+                    />
+                )}
             />
         </div>
     );

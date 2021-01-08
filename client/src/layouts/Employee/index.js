@@ -12,18 +12,24 @@ const EmployeeLayout = ({ children }) => {
         }
         props.history.replace("/");
     }
-    
+
     return (
         <Layout style={{ minHeight: "100vh" }}>
             <DrawerMobile logoutDashboard={logoutDashboard} />
             <Layout>
                 <Drawer />
-                <Layout style={{ padding: "0 24px 24px", minHeight: "80vh" }}>
-                    <Breadcrumb style={{ margin: "16px 0" }}>
+                <Layout
+                    style={{
+                        padding: "0 24px 24px",
+                        minHeight: "80vh",
+                        marginTop: "2rem",
+                    }}
+                >
+                    {/* <Breadcrumb style={{ margin: "16px 0" }}>
                         <Breadcrumb.Item>Home</Breadcrumb.Item>
                         <Breadcrumb.Item>List</Breadcrumb.Item>
                         <Breadcrumb.Item>App</Breadcrumb.Item>
-                    </Breadcrumb>
+                    </Breadcrumb> */}
                     {children}
                 </Layout>
             </Layout>
@@ -31,7 +37,5 @@ const EmployeeLayout = ({ children }) => {
         </Layout>
     );
 };
-
-
 
 export default EmployeeLayout;

@@ -8,12 +8,12 @@ const DrawerTemp = () => {
     return (
         <Sider
             className="sidebar"
-            breakpoint={"lg"}
+            breakpoint={"md"}
             theme="light"
             collapsedWidth={0}
             trigger={null}
         >
-            <Menu setVisible={item => console.log(item)} />
+            <Menu setVisible={item => item} />
         </Sider>
     );
 };

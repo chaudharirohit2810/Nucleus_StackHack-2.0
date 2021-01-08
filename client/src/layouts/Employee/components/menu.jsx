@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const { SubMenu } = Menu;
 
-const MyMenu = () => {
+const MyMenu = ({ setVisible }) => {
     const employeeRoutes = [
         {
             title: "Home",
@@ -39,6 +39,11 @@ const MyMenu = () => {
             path: "faq",
             icon: <QuestionCircleOutlined />,
         },
+        {
+            title: "Policies",
+            path: "policy",
+            icon: <QuestionCircleOutlined />,
+        },
     ];
     return (
         <Menu
@@ -60,6 +65,7 @@ const MyMenu = () => {
                                     color: "inherit",
                                 }}
                                 to={`/employee/${data.path}`}
+                                onClick={() => setVisible(false)}
                             >
                                 {data.title}
                             </Link>
@@ -81,6 +87,7 @@ const MyMenu = () => {
                                                 color: "inherit",
                                             }}
                                             to={`/employee/${d.path}`}
+                                            onClick={() => setVisible(false)}
                                         >
                                             {d.title}
                                         </Link>
