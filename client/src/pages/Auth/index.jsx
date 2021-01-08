@@ -11,6 +11,7 @@ const { TabPane } = Tabs;
 class Auth extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {};
     }
 
@@ -30,7 +31,8 @@ class Auth extends React.Component {
                         "employeeEmail",
                         res.data.result.email
                     );
-                    this.props.history.push("/employee");
+                    localStorage.setItem("id", res.data.result._id);
+                    this.props.history.push("/employee/home");
                 }
             })
             .catch(error => {

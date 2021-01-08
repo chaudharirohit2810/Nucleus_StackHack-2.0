@@ -1,66 +1,18 @@
 import React from "react";
 import { Layout, Breadcrumb } from "antd";
+import { Redirect } from "react-router-dom";
+import { Footer, Drawer, DrawerMobile } from "./components";
 
-import { Header, Footer, Drawer, Attendance, DrawerMobile } from "./components";
-import { FAQ } from "./pages";
-
-class SiderDemo extends React.Component {
+class MainLayout extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            collapsed: false
-        };
     }
-
-    faqs = [
-        {
-            question:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
-            answer:
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!"
-        },
-        {
-            question:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
-            answer:
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!"
-        },
-        {
-            question:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
-            answer:
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!"
-        },
-        {
-            question:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
-            answer:
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!"
-        },
-        {
-            question:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
-            answer:
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!"
-        }
-    ];
-
-    onCollapse = collapsed => {
-        this.setState({ collapsed });
-    };
-
-    logoutDashboard = () => {
-        if (localStorage.getItem("employeeEmail") !== null) {
-            localStorage.removeItem("employeeEmail");
-        }
-        this.props.history.replace("/");
-    };
 
     render() {
         return (
             <div>
                 <Layout style={{ minHeight: "100vh" }}>
-                    <DrawerMobile logoutDashboard={this.logoutDashboard} />
+                    <DrawerMobile />
                     <Layout>
                         <Drawer />
                         <Layout style={{ padding: "0 24px 24px" }}>
@@ -70,7 +22,7 @@ class SiderDemo extends React.Component {
                                 <Breadcrumb.Item>App</Breadcrumb.Item>
                             </Breadcrumb>
                             <div style={{ minHeight: "70.5vh" }}>
-                                <FAQ faqs={this.faqs} />
+                                {this.props.children}
                             </div>
                             <Footer />
                         </Layout>
@@ -81,4 +33,4 @@ class SiderDemo extends React.Component {
     }
 }
 
-export default SiderDemo;
+export default MainLayout;

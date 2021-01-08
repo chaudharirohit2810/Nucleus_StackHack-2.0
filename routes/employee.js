@@ -38,7 +38,7 @@ router.route("/login").post(async (req, res) => {
                     else
                         return res.status(403).json({
                             result: "Invalid password !",
-                            error: true,
+                            error: true
                         });
                 })
                 .catch(error => console.log(error.message));
@@ -50,7 +50,7 @@ router.route("/login").post(async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             result: "Employee Login Failed !",
-            error: true,
+            error: true
         });
     }
 });
@@ -65,13 +65,13 @@ router.route("/register").post(async (req, res) => {
             password,
             confirmPassword,
             team,
-            role,
+            role
         } = req.body;
         const employee = await Employee.findOne({ email });
         if (employee) {
             return res.status(409).send({
                 result: "Employee Already Exists !",
-                error: true,
+                error: true
             });
         } else {
             returnHashedPassowrd(password)
@@ -83,7 +83,7 @@ router.route("/register").post(async (req, res) => {
                         phone,
                         password: hashPassord,
                         team,
-                        role,
+                        role
                     });
                     newEmployee
                         .save()
@@ -93,14 +93,24 @@ router.route("/register").post(async (req, res) => {
                 .catch(error => console.log(error.message));
             return res.status(200).json({
                 result: "Employee Registeration Successful !",
-                error: false,
+                error: false
             });
         }
     } catch (error) {
         return res.status(500).json({
             result: "Employee Registeration Failed !",
-            error: true,
+            error: true
         });
+    }
+});
+
+router.route("/details/:id").get(async (req, res) => {
+    console.log(req.params.id);
+    try {
+        const employee = await Employee.findById(req.params.id);
+        res.status(200).json(employee);
+    } catch (error) {
+        res.status(400).json(error.message);
     }
 });
 

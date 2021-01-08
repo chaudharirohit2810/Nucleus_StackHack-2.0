@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, DatePicker, Typography } from "antd";
+import { Form, Input, Button, DatePicker, Typography, Layout } from "antd";
 import moment from "moment";
 
 const { RangePicker } = DatePicker;
@@ -7,16 +7,16 @@ const { Title } = Typography;
 
 const layout = {
     labelCol: {
-        span: 8,
+        span: 8
     },
     wrapperCol: {
-        span: 10,
-    },
+        span: 10
+    }
 };
 
 const validateMessages = {
     // eslint-disable-next-line no-template-curly-in-string
-    required: "${label} is required!",
+    required: "${label} is required!"
 };
 
 export default class submitLeave extends React.Component {
@@ -44,15 +44,15 @@ export default class submitLeave extends React.Component {
     };
     render() {
         return (
-            <div
+            <Layout
                 style={{
-                    marginTop: "2rem",
+                    marginTop: "2rem"
                 }}
             >
                 <div
                     style={{
                         display: "flex",
-                        justifyContent: "center",
+                        justifyContent: "center"
                     }}
                 >
                     <Title level={1}>Mark Leave</Title>
@@ -62,7 +62,7 @@ export default class submitLeave extends React.Component {
                     name="Leave"
                     onFinish={this.onFinish}
                     style={{
-                        marginTop: "2rem",
+                        marginTop: "2rem"
                     }}
                     validateMessages={validateMessages}
                 >
@@ -75,8 +75,8 @@ export default class submitLeave extends React.Component {
                         wrapperCol={{ ...layout.wrapperCol }}
                         rules={[
                             {
-                                required: true,
-                            },
+                                required: true
+                            }
                         ]}
                     >
                         <RangePicker
@@ -92,8 +92,8 @@ export default class submitLeave extends React.Component {
                         label="Reason"
                         rules={[
                             {
-                                required: true,
-                            },
+                                required: true
+                            }
                         ]}
                     >
                         <Input.TextArea
@@ -108,7 +108,7 @@ export default class submitLeave extends React.Component {
                         </Button>
                     </Form.Item>
                 </Form>
-            </div>
+            </Layout>
         );
     }
 }

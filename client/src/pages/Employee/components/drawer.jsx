@@ -13,7 +13,7 @@ const DrawerTemp = () => {
             collapsedWidth={0}
             trigger={null}
         >
-            <Menu />
+            <Menu setVisible={item => console.log(item)} />
         </Sider>
     );
 };
