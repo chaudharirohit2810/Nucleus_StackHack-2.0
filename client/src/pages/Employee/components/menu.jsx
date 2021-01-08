@@ -1,9 +1,11 @@
 import React from "react";
 import { Menu } from "antd";
 import {
-    // UserOutlined,
+    HomeOutlined,
     LaptopOutlined,
-    // NotificationOutlined,
+    QuestionCircleOutlined,
+    CheckOutlined,
+    FormOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
@@ -14,23 +16,28 @@ const MyMenu = () => {
         {
             title: "Home",
             path: "home",
+            icon: <HomeOutlined />,
         },
         {
             title: "Attendence",
+            icon: <LaptopOutlined />,
             content: [
                 {
                     title: "Attendence",
                     path: "attendence",
+                    icon: <CheckOutlined />,
                 },
                 {
                     title: "Mark Leave",
                     path: "submitLeave",
+                    icon: <FormOutlined />,
                 },
             ],
         },
         {
             title: "FAQs",
             path: "faq",
+            icon: <QuestionCircleOutlined />,
         },
     ];
     return (
@@ -46,7 +53,7 @@ const MyMenu = () => {
             {employeeRoutes.map((data, index) => {
                 if (!("content" in data)) {
                     return (
-                        <Menu.Item key={index}>
+                        <Menu.Item icon={data.icon} key={index}>
                             <Link
                                 style={{
                                     textDecoration: "none",
@@ -62,12 +69,12 @@ const MyMenu = () => {
                     return (
                         <SubMenu
                             key={index}
-                            icon={<LaptopOutlined />}
-                            title={`${data.title}`}
+                            icon={data.icon}
+                            title={data.title}
                         >
                             {data.content.map((d, i) => {
                                 return (
-                                    <Menu.Item key={i}>
+                                    <Menu.Item icon={d.icon} key={i}>
                                         <Link
                                             style={{
                                                 textDecoration: "none",

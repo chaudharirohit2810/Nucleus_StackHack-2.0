@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { backendURL } from "../../../config";
-import { Typography, Layout, Space, Col } from "antd";
+import { Typography, Layout, Space, Col, Card, Row } from "antd";
 const { Title, Text } = Typography;
 
 class Home extends React.Component {
@@ -40,6 +40,17 @@ class Home extends React.Component {
         const { user } = this.state;
         return (
             <Layout>
+                <Row gutter={16}>
+                    {[...Array(3)].map((data, index) => {
+                        return (
+                            <Col key={index} span={8}>
+                                <Card title={`Team ${index + 1}`} bordered>
+                                    {`Team Content ${index + 1}`}
+                                </Card>
+                            </Col>
+                        );
+                    })}
+                </Row>
                 <Title level={2}>Personal Info</Title>
                 <Layout.Content>
                     <Title level={4}>{user.name}</Title>
