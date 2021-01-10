@@ -6,6 +6,8 @@ import {
     QuestionCircleOutlined,
     CheckOutlined,
     FormOutlined,
+    SmileOutlined,
+    InfoCircleOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
@@ -40,9 +42,14 @@ const MyMenu = ({ setVisible }) => {
             icon: <QuestionCircleOutlined />,
         },
         {
+            title: "Holidays",
+            path: "holiday",
+            icon: <SmileOutlined />,
+        },
+        {
             title: "Policies",
             path: "policy",
-            icon: <QuestionCircleOutlined />,
+            icon: <InfoCircleOutlined />,
         },
     ];
     return (
