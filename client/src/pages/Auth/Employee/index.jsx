@@ -3,12 +3,12 @@ import "antd/dist/antd.css";
 import { Tabs, message } from "antd";
 import Login from "./Login";
 import Register from "./Register";
-import { backendURL } from "../../config";
+import { backendURL } from "../../../config";
 import axios from "axios";
 
 const { TabPane } = Tabs;
 
-class Auth extends React.Component {
+class EmployeeAuth extends React.Component {
     constructor(props) {
         super(props);
 
@@ -82,7 +82,7 @@ class Auth extends React.Component {
     }
 }
 
-export default Auth;
+export default EmployeeAuth;
 
 // const Auth = () => {
 //     const onFinish = values => {
