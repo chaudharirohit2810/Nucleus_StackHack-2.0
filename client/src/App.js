@@ -1,17 +1,17 @@
 import React from "react";
 import Auth from "./pages/Auth";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Employee } from "./layouts";
-import routes from "./routes";
+import MainLayout from "./layout";
+import { EmployeeRoutes, HRRoutes } from "./routes";
 import withTracker from "./withTracker";
 
 const EmployeeContainer = () => (
-    <Employee>
-        {routes.map((route, index) => {
+    <MainLayout type={1}>
+        {EmployeeRoutes.map((route, index) => {
             return (
                 <Route
                     key={index}
-                    path={route.path}
+                    path={`/employee/${route.path}`}
                     exact={route.exact}
                     component={withTracker(props => {
                         return <route.component {...props} />;
@@ -19,7 +19,24 @@ const EmployeeContainer = () => (
                 />
             );
         })}
-    </Employee>
+    </MainLayout>
+);
+
+const HRContainer = () => (
+    <MainLayout type={2}>
+        {HRRoutes.map((route, index) => {
+            return (
+                <Route
+                    key={index}
+                    path={`/hr/${route.path}`}
+                    exact={route.exact}
+                    component={withTracker(props => {
+                        return <route.component {...props} />;
+                    })}
+                />
+            );
+        })}
+    </MainLayout>
 );
 
 function App() {
@@ -28,6 +45,7 @@ function App() {
             <Switch>
                 <Route exact path="/" component={Auth} />
                 <Route path="/employee" component={EmployeeContainer} />
+                <Route path="/hr" component={HRContainer} />
             </Switch>
         </Router>
     );

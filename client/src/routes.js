@@ -1,7 +1,3 @@
-// import React from "react";
-// import { Redirect } from "react-router-dom";
-import { Employee } from "./layouts";
-
 import {
     Attendance,
     FAQ,
@@ -11,42 +7,45 @@ import {
     Holiday,
 } from "./pages/Employee";
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default [
+import { Home as HRHome } from "./pages/HR";
+
+export const EmployeeRoutes = [
     {
-        path: "/employee/home",
+        path: "home",
         exact: true,
-        layout: Employee,
         component: Home,
     },
     {
-        path: "/employee/attendence",
+        path: "attendence",
         exact: true,
-        layout: Employee,
         component: Attendance,
     },
     {
-        path: "/employee/submitLeave",
+        path: "submitLeave",
         exact: true,
-        layout: Employee,
         component: LeaveTable,
     },
     {
-        path: "/employee/faq",
+        path: "faq",
         exact: true,
-        layout: Employee,
         component: FAQ,
     },
     {
-        path: "/employee/policy",
+        path: "policy",
         exact: true,
-        layout: Employee,
         component: Policy,
     },
     {
-        path: "/employee/holiday",
+        path: "holiday",
         exact: true,
-        layout: Employee,
         component: Holiday,
+    },
+];
+
+export const HRRoutes = [
+    {
+        path: "home",
+        exact: true,
+        component: HRHome,
     },
 ];

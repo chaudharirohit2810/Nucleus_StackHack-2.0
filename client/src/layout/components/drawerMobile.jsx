@@ -3,12 +3,13 @@ import React, { useState } from "react";
 import { MenuOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router-dom";
 import "./drawerMobile.css";
-import Menu from "./menu";
+import EmployeeMenu from "./menuEmployee";
+import HRMenu from "./menuHR";
 import { Layout, Row, Col, Typography, Button, Drawer } from "antd";
 const { Header } = Layout;
 const { Title } = Typography;
 
-const NavBar = () => {
+const NavBar = ({ type }) => {
     const [visible, setVisible] = useState(false);
     const his = useHistory();
 
@@ -28,7 +29,7 @@ const NavBar = () => {
                                 backgroundColor: "initial",
                                 color: "#fff",
                                 border: "none",
-                                marginTop: "0.35rem"
+                                marginTop: "0.35rem",
                             }}
                             icon={<MenuOutlined />}
                             onClick={() => setVisible(true)}
@@ -36,7 +37,7 @@ const NavBar = () => {
                         <Title
                             style={{
                                 color: "white",
-                                marginTop: "1rem"
+                                marginTop: "1rem",
                             }}
                             level={3}
                         >
@@ -56,7 +57,11 @@ const NavBar = () => {
                         visible={visible}
                         bodyStyle={{ padding: "0px" }}
                     >
-                        <Menu setVisible={setVisible} />
+                        {type == 1 ? (
+                            <EmployeeMenu setVisible={setVisible} />
+                        ) : (
+                            <HRMenu setVisible={setVisible} />
+                        )}
                     </Drawer>
                 </Col>
             </Row>

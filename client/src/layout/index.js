@@ -4,7 +4,7 @@ import { Layout, Breadcrumb } from "antd";
 
 import { Footer, Drawer, DrawerMobile } from "./components";
 
-const EmployeeLayout = ({ children }) => {
+const MainLayout = ({ children, type }) => {
     const { props } = children;
     function logoutDashboard() {
         if (localStorage.getItem("employeeEmail") !== null) {
@@ -15,9 +15,9 @@ const EmployeeLayout = ({ children }) => {
 
     return (
         <Layout style={{ minHeight: "100vh" }}>
-            <DrawerMobile logoutDashboard={logoutDashboard} />
+            <DrawerMobile logoutDashboard={logoutDashboard} type={type} />
             <Layout>
-                <Drawer />
+                <Drawer type={type} />
                 <Layout
                     style={{
                         padding: "0 24px 24px",
@@ -25,11 +25,6 @@ const EmployeeLayout = ({ children }) => {
                         marginTop: "2rem",
                     }}
                 >
-                    {/* <Breadcrumb style={{ margin: "16px 0" }}>
-                        <Breadcrumb.Item>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item>List</Breadcrumb.Item>
-                        <Breadcrumb.Item>App</Breadcrumb.Item>
-                    </Breadcrumb> */}
                     {children}
                 </Layout>
             </Layout>
@@ -38,4 +33,4 @@ const EmployeeLayout = ({ children }) => {
     );
 };
 
-export default EmployeeLayout;
+export default MainLayout;
