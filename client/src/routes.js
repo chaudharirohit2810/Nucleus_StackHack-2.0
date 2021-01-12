@@ -7,7 +7,12 @@ import {
     Holiday,
 } from "./pages/Employee";
 
-import { Home as HRHome } from "./pages/HR";
+import {
+    Home as HRHome,
+    FAQ as HRFAQ,
+    Policy as HRPolicy,
+    Holiday as HRHoliday,
+} from "./pages/HR";
 
 export const EmployeeRoutes = [
     {
@@ -47,5 +52,20 @@ export const HRRoutes = [
         path: "home",
         exact: true,
         component: HRHome,
+    },
+    {
+        path: "faq",
+        exact: true,
+        component: HRFAQ,
+    },
+    {
+        path: "policy",
+        exact: true,
+        component: HRPolicy,
+    },
+    {
+        path: "holiday",
+        exact: true,
+        component: HRHoliday,
     },
 ];

@@ -1,5 +1,6 @@
 import React from "react";
-import Auth from "./pages/Auth";
+import EmployeeAuth from "./pages/Auth/Employee";
+import HRAuth from "./pages/Auth/HR";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import MainLayout from "./layout";
 import { EmployeeRoutes, HRRoutes } from "./routes";
@@ -43,7 +44,8 @@ function App() {
     return (
         <Router>
             <Switch>
-                <Route exact path="/" component={Auth} />
+                <Route exact path="/" component={EmployeeAuth} />
+                <Route exact path="/login/hr" component={HRAuth} />
                 <Route path="/employee" component={EmployeeContainer} />
                 <Route path="/hr" component={HRContainer} />
             </Switch>
