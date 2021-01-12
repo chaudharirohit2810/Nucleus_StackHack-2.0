@@ -57,7 +57,7 @@ const NavBar = ({ type }) => {
                         visible={visible}
                         bodyStyle={{ padding: "0px" }}
                     >
-                        {type == 1 ? (
+                        {type === 1 ? (
                             <EmployeeMenu setVisible={setVisible} />
                         ) : (
                             <HRMenu setVisible={setVisible} />

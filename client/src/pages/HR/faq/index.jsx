@@ -5,8 +5,9 @@ import {
     Typography,
     message,
     Skeleton,
-    List,
+    // List,
     Row,
+    Empty,
 } from "antd";
 import AddFAQModal from "./addFAQModal";
 import axios from "axios";
@@ -20,40 +21,8 @@ const Header = ({ title }) => <h1>{title}</h1>;
 
 const FAQ = () => {
     const [loading, setLoading] = useState(true);
-    const defaultFaq = [
-        {
-            question:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
-            answer:
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!",
-        },
-        {
-            question:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
-            answer:
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!",
-        },
-        {
-            question:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
-            answer:
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!",
-        },
-        {
-            question:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
-            answer:
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!",
-        },
-        {
-            question:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
-            answer:
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!",
-        },
-    ];
 
-    const [faqs, setFaqs] = useState(defaultFaq);
+    const [faqs, setFaqs] = useState([]);
 
     useEffect(() => {
         axios
@@ -95,7 +64,7 @@ const FAQ = () => {
                     <div style={{ marginBottom: "1.5rem" }}>
                         <Skeleton.Button active />
                     </div>
-                ) : (
+                ) : faqs.length !== 0 ? (
                     <Button
                         type="primary"
                         style={{
@@ -105,6 +74,8 @@ const FAQ = () => {
                     >
                         Add FAQ
                     </Button>
+                ) : (
+                    <div />
                 )}
             </Row>
 
@@ -120,17 +91,33 @@ const FAQ = () => {
                         />
                     </div>
                 ))}
-            {!loading && (
-                <Collapse defaultActiveKey={["1"]}>
-                    {faqs.map((item, index) => (
-                        <Panel
-                            header={<Header title={item.question} />}
-                            key={index + 1}
+            {!loading ? (
+                faqs.length !== 0 ? (
+                    <Collapse defaultActiveKey={["1"]}>
+                        {faqs.map((item, index) => (
+                            <Panel
+                                header={<Header title={item.question} />}
+                                key={index + 1}
+                            >
+                                <p style={{ paddingLeft: 24 }}>{item.answer}</p>
+                            </Panel>
+                        ))}
+                    </Collapse>
+                ) : (
+                    <Empty>
+                        <Button
+                            type="primary"
+                            style={{
+                                marginBottom: "1.5rem",
+                            }}
+                            onClick={() => setModalVisible(true)}
                         >
-                            <p style={{ paddingLeft: 24 }}>{item.answer}</p>
-                        </Panel>
-                    ))}
-                </Collapse>
+                            Add FAQ
+                        </Button>
+                    </Empty>
+                )
+            ) : (
+                <div />
             )}
         </div>
     );

@@ -63,7 +63,7 @@ const AddFAQModal = ({
                 <Form.Item
                     name="question"
                     style={{
-                        marginBottom: "0",
+                        marginBottom: "1rem",
                     }}
                     rules={[
                         {

@@ -14,7 +14,7 @@ const DrawerTemp = ({ type }) => {
             collapsedWidth={0}
             trigger={null}
         >
-            {type == 1 ? (
+            {type === 1 ? (
                 <Menu setVisible={item => item} />
             ) : (
                 <MenuHR setVisible={item => item} />
