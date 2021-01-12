@@ -116,7 +116,9 @@ class Policy extends React.Component {
                             Save Policy
                         </Button>
                     </div>
-                ) : policyText !== "" ? (
+                ) : policyText !== undefined &&
+                  policyText !== null &&
+                  policyText !== "" ? (
                     <Button
                         onClick={this.handlePolicy}
                         type="primary"
@@ -141,7 +143,9 @@ class Policy extends React.Component {
                         />
                     ) : loading ? (
                         <Skeleton active />
-                    ) : policyText !== "" ? (
+                    ) : policyText !== undefined &&
+                      policyText !== null &&
+                      policyText !== "" ? (
                         <Space direction="vertical">
                             <Text>{policyText}</Text>
                         </Space>
