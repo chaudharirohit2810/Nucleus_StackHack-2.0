@@ -56,7 +56,6 @@ class Auth extends React.Component {
                     message.error({ content: data.result, key });
                 }
             });
-        // console.log("User Registered: ", values);
     };
 
     render() {
