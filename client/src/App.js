@@ -45,7 +45,7 @@ function App() {
         <Router>
             <Switch>
                 <Route exact path="/" component={EmployeeAuth} />
-                <Route exact path="/login/hr" component={HRAuth} />
+                <Route exact path="/hr/login" component={HRAuth} />
                 <Route path="/employee" component={EmployeeContainer} />
                 <Route path="/hr" component={HRContainer} />
             </Switch>

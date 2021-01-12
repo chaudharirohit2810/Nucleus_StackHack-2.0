@@ -17,6 +17,7 @@ class HRAuth extends React.Component {
 
     onFinish = values => {
         const key = "login";
+        console.log("Entered");
         message.loading({ content: "Logging you in.....", key });
         axios
             .post(backendURL + "/hr/login", values)
