@@ -81,9 +81,8 @@ const FAQ = () => {
 
             {loading &&
                 _.times(5, i => (
-                    <div style={{ marginBottom: "2rem" }}>
+                    <div key={i} style={{ marginBottom: "2rem" }}>
                         <Skeleton
-                            key={i}
                             active
                             loading={loading}
                             title={{ width: "50%" }}
