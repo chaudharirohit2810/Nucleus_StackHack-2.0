@@ -7,6 +7,7 @@ const CalendarHeader = ({
     onChange,
     onTypeChange,
     markAttendance,
+    buttonDisabled,
 }) => {
     const start = 0;
     const end = 12;
@@ -86,7 +87,11 @@ const CalendarHeader = ({
                 </Row>
             </Col>
             <Col style={{ marginTop: "0.75rem" }}>
-                <Button type="primary" onClick={markAttendance}>
+                <Button
+                    type="primary"
+                    onClick={markAttendance}
+                    disabled={buttonDisabled}
+                >
                     Mark Today's Attendance
                 </Button>
             </Col>

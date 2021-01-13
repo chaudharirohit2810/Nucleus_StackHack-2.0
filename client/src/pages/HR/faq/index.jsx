@@ -103,7 +103,7 @@ const FAQ = () => {
                         ))}
                     </Collapse>
                 ) : (
-                    <Empty>
+                    <Empty description="No FAQs Added">
                         <Button
                             type="primary"
                             style={{

@@ -67,7 +67,10 @@ class FAQ extends React.Component {
                         ))}
                     </Collapse>
                 ) : (
-                    <Empty style={{ marginTop: "2rem" }} />
+                    <Empty
+                        style={{ marginTop: "2rem" }}
+                        description="No FAQS Available"
+                    />
                 )}
             </div>
         );
