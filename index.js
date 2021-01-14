@@ -5,7 +5,15 @@ const connectDatabase = require("./config/database");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 5000;
-const routes = ["employee", "hr", "faq", "policy", "attendance", "holidays"];
+const routes = [
+    "employee",
+    "hr",
+    "faq",
+    "policy",
+    "attendance",
+    "holidays",
+    "leave",
+];
 
 const app = express();
 

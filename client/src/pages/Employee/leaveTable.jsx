@@ -1,6 +1,10 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { Table, Input, Button, Popconfirm, Form, Modal } from "antd";
+import { Table, Input, Button, Form, Modal, message } from "antd";
 import SubmitLeave from "./submitLeave";
+import axios from "axios";
+import { backendURL } from "../../config";
+import _ from "lodash";
+
 const EditableContext = React.createContext(null);
 
 const EditableRow = ({ index, ...props }) => {
@@ -88,54 +92,88 @@ class LeaveTable extends React.Component {
         super(props);
         this.columns = [
             {
-                title: "name",
-                dataIndex: "name",
+                title: "Reason",
+                dataIndex: "reason",
                 width: "30%",
-                editable: true,
+                // editable: true,
             },
             {
-                title: "status",
+                title: "Status",
                 dataIndex: "status",
             },
             {
-                title: "reason",
-                dataIndex: "reason",
+                title: "Start Date",
+                dataIndex: "startDate",
             },
             {
-                title: "operation",
-                dataIndex: "operation",
-                render: (_, record) =>
-                    this.state.dataSource.length >= 1 ? (
-                        <Popconfirm
-                            title="Sure to delete?"
-                            onConfirm={() => this.handleDelete(record.key)}
-                        >
-                            <span style={{ color: "red", cursor: "pointer" }}>
-                                Delete
-                            </span>
-                        </Popconfirm>
-                    ) : null,
+                title: "End Date",
+                dataIndex: "endDate",
             },
+            // {
+            //     title: "operation",
+            //     dataIndex: "operation",
+            //     render: (_, record) =>
+            //         this.state.dataSource.length >= 1 ? (
+            //             <Popconfirm
+            //                 title="Sure to delete?"
+            //                 onConfirm={() => this.handleDelete(record.key)}
+            //             >
+            //                 <span style={{ color: "red", cursor: "pointer" }}>
+            //                     Delete
+            //                 </span>
+            //             </Popconfirm>
+            //         ) : null,
+            // },
         ];
         this.state = {
-            dataSource: [
-                {
-                    key: "0",
-                    name: "Edward King 0",
-                    status: "Accepted",
-                    reason: "London, Park Lane no. 0",
-                },
-                {
-                    key: "1",
-                    name: "Edward King 1",
-                    status: "Rejected",
-                    reason: "London, Park Lane no. 1",
-                },
-            ],
-            count: 2,
+            dataSource: [],
             isOpen: false,
             modalLoading: false,
+            employeeData: {},
+            reason: "",
+            startDate: "",
+            endDate: "",
+            status: "",
         };
+    }
+
+    async componentDidMount() {
+        try {
+            let employeeid = "";
+            if (localStorage.getItem("employeeID") !== null) {
+                employeeid = localStorage.getItem("employeeID");
+            }
+            const response = await axios.get(
+                `${backendURL}/leave/getByEmployee`,
+                {
+                    headers: {
+                        employeeid,
+                    },
+                }
+            );
+            if (!response.data.error) {
+                const result = response.data.result;
+                if (!_.isEmpty(result)) {
+                    const dataSource = result.leaveData.map((d, i) => {
+                        return {
+                            key: i + 1,
+                            reason: d.reason,
+                            status: d.status,
+                            startDate: d.startDate,
+                            endDate: d.endDate,
+                        };
+                    });
+                    this.setState({
+                        employeeData: result,
+                        dataSource,
+                    });
+                }
+            } else {
+                console.log(response.data.result);
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 
     handleDelete = key => {
@@ -145,16 +183,16 @@ class LeaveTable extends React.Component {
         });
     };
     handleAdd = () => {
-        const { count, dataSource } = this.state;
+        const { reason, startDate, endDate, status, dataSource } = this.state;
         const newData = {
-            key: count,
-            name: `Edward King ${count}`,
-            status: "32",
-            reason: `London, Park Lane no. ${count}`,
+            key: dataSource.length + 1,
+            reason,
+            status,
+            startDate,
+            endDate,
         };
         this.setState({
             dataSource: [...dataSource, newData],
-            count: count + 1,
         });
     };
     handleSave = row => {
@@ -181,6 +219,54 @@ class LeaveTable extends React.Component {
     handleCancel = () => {
         // console.log("Clicked cancel button");
         this.showModal();
+    };
+
+    onFinish = values => {
+        // console.log(values);
+        const { range, reason } = values;
+        // Date Object
+        // can convert into string
+        // decided on database field
+        const startDate = String(range[0]._d);
+        const endDate = String(range[1]._d);
+        this.loadModal();
+        this.showModal();
+        let employeeID = "";
+        if (localStorage.getItem("employeeID") !== null) {
+            employeeID = localStorage.getItem("employeeID");
+        }
+        const data = {
+            employeeID,
+            leaveData: {
+                reason,
+                status: "Pending",
+                startDate: startDate,
+                endDate: endDate,
+            },
+        };
+        this.setState({
+            reason,
+            startDate,
+            endDate,
+            status: "Pending",
+        });
+        axios
+            .post(`${backendURL}/leave/add`, data)
+            .then(response => {
+                if (!response.data.error) {
+                    this.handleAdd();
+                    message.success({ content: response.data.result });
+                    // console.log(response.data.result);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.data.error) {
+                    message.error({ content: error.response.data.result });
+                }
+                console.log(error.message);
+            });
+
+        this.loadModal();
     };
 
     render() {
@@ -217,9 +303,7 @@ class LeaveTable extends React.Component {
                     width={900}
                 >
                     <SubmitLeave
-                        showModal={this.showModal}
-                        loadModal={this.loadModal}
-                        handleAdd={this.handleAdd}
+                        onFinish={this.onFinish}
                         modalLoading={this.state.modalLoading}
                     />
                 </Modal>
