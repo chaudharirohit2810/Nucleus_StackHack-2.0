@@ -66,6 +66,7 @@ router.route("/register").post(async (req, res) => {
             confirmPassword,
             team,
             role,
+            salary,
         } = req.body;
         const employee = await Employee.findOne({ email });
         if (employee) {
@@ -84,6 +85,7 @@ router.route("/register").post(async (req, res) => {
                         password: hashPassord,
                         team,
                         role,
+                        salary,
                     });
                     newEmployee
                         .save()
