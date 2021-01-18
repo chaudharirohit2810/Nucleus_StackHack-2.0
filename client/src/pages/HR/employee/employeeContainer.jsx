@@ -62,7 +62,7 @@ const EmployeeContainer = ({ employees, actionsVisible = true }) => {
                         prefix={
                             <SearchOutlined className="site-form-item-icon" />
                         }
-                        placeholder="Search employee names"
+                        placeholder="Search Employee Names"
                         style={{
                             minWidth: 200,
                             maxWidth: 400,

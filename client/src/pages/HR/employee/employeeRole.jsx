@@ -1,7 +1,8 @@
 import React from "react";
-import { Collapse } from "antd";
-import { CaretRightOutlined } from "@ant-design/icons";
+import { Collapse, Row, Input } from "antd";
+import { CaretRightOutlined, SearchOutlined } from "@ant-design/icons";
 import EmployeeContainer from "./employeeContainer";
+import TeamLoading from "./teamLoading";
 
 const { Panel } = Collapse;
 
@@ -18,6 +19,7 @@ class employeeRole extends React.Component {
         super(props);
         this.state = {
             employees: this.props.employees,
+            loading: false,
         };
     }
     groupBy = (list, keyGetter) => {
@@ -34,8 +36,21 @@ class employeeRole extends React.Component {
         });
         return map;
     };
+    onSearch = e => {
+        this.setState({
+            loading: true,
+        });
+        const value = e.target.value;
+        let employees = this.props.employees.filter(
+            item => item["role"].toUpperCase().indexOf(value.toUpperCase()) > -1
+        );
+        this.setState({
+            employees,
+            loading: false,
+        });
+    };
     render() {
-        const { employees } = this.state;
+        const { employees, loading } = this.state;
         let finalEmployee = [];
         return (
             <div>
@@ -51,16 +66,34 @@ class employeeRole extends React.Component {
                         );
                     }
                 )}
-                <Collapse
-                    bordered={false}
-                    // defaultActiveKey={["1"]}
-                    expandIcon={({ isActive }) => (
-                        <CaretRightOutlined rotate={isActive ? 90 : 0} />
-                    )}
-                    style={style}
-                >
-                    {finalEmployee}
-                </Collapse>
+                <Row>
+                    <Input
+                        prefix={
+                            <SearchOutlined className="site-form-item-icon" />
+                        }
+                        placeholder="Search Employee Roles"
+                        style={{
+                            borderBottom: "1px solid",
+                            borderRadius: "0",
+                            marginBottom: "1rem",
+                        }}
+                        onChange={e => this.onSearch(e)}
+                        bordered={false}
+                    />
+                </Row>
+                <TeamLoading loading={loading} />
+                {!loading ? (
+                    <Collapse
+                        bordered={false}
+                        // defaultActiveKey={["1"]}
+                        expandIcon={({ isActive }) => (
+                            <CaretRightOutlined rotate={isActive ? 90 : 0} />
+                        )}
+                        style={style}
+                    >
+                        {finalEmployee}
+                    </Collapse>
+                ) : null}
             </div>
         );
     }
