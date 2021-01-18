@@ -6,6 +6,8 @@ import {
     QuestionCircleOutlined,
     // CheckOutlined,
     // FormOutlined,
+    UserOutlined,
+    TeamOutlined,
     SmileOutlined,
     InfoCircleOutlined,
 } from "@ant-design/icons";
@@ -34,6 +36,11 @@ const HRMenu = ({ setVisible }) => {
             title: "Policies",
             path: "policy",
             icon: <InfoCircleOutlined />,
+        },
+        {
+            title: "Edit team and roles",
+            path: "teamrole",
+            icon: <TeamOutlined />,
         },
     ];
     return (

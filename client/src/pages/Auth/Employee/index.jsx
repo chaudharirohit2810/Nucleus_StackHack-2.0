@@ -41,6 +41,7 @@ class EmployeeAuth extends React.Component {
 
     register = values => {
         const key = "register";
+
         message.loading({ content: "Registering your account.....", key });
         axios
             .post(backendURL + "/employee/register", values)
