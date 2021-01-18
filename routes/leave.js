@@ -2,6 +2,51 @@ const router = require("express").Router();
 const Leave = require("../models/Leave");
 const Types = require("mongoose").Types;
 
+router.route("/updateStatus").post(async (req, res) => {
+    try {
+        const { ID, status } = req.body;
+        await Leave.updateOne({ _id: ID }, { $set: { status } });
+        return res.status(200).json({
+            result: "Leave Updated !",
+            error: false,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            result: "Failed to update Leave !",
+            error: true,
+        });
+    }
+});
+
+router.route("/getAllLeaves").get(async (req, res) => {
+    try {
+        await Leave.aggregate([
+            {
+                $lookup: {
+                    from: "employees",
+                    localField: "employeeID",
+                    foreignField: "_id",
+                    as: "employeeData",
+                },
+            },
+        ]).exec(function (err, data) {
+            if (err) {
+                res.status(500).json({
+                    result:
+                        "Failed to fetch Leaves, Error joining collections !",
+                    error: true,
+                });
+            }
+            res.status(200).json({ result: data, error: false });
+        });
+    } catch (error) {
+        return res.status(500).json({
+            result: "Failed to fetch Leaves !",
+            error: true,
+        });
+    }
+});
+
 router.route("/getByEmployee").get(async (req, res) => {
     try {
         const employeeID = Types.ObjectId(req.headers.employeeid);
