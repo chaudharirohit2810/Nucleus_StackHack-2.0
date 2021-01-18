@@ -3,7 +3,6 @@ import { Table, Input, Button, Form, Modal, message } from "antd";
 import SubmitLeave from "./submitLeave";
 import axios from "axios";
 import { backendURL } from "../../config";
-import _ from "lodash";
 
 const EditableContext = React.createContext(null);
 
@@ -153,8 +152,8 @@ class LeaveTable extends React.Component {
             );
             if (!response.data.error) {
                 const result = response.data.result;
-                if (!_.isEmpty(result)) {
-                    const dataSource = result.leaveData.map((d, i) => {
+                if (result.length !== 0) {
+                    const dataSource = result.map((d, i) => {
                         return {
                             key: i + 1,
                             reason: d.reason,
@@ -237,12 +236,10 @@ class LeaveTable extends React.Component {
         }
         const data = {
             employeeID,
-            leaveData: {
-                reason,
-                status: "Pending",
-                startDate: startDate,
-                endDate: endDate,
-            },
+            reason,
+            status: "Pending",
+            startDate: startDate,
+            endDate: endDate,
         };
         this.setState({
             reason,
