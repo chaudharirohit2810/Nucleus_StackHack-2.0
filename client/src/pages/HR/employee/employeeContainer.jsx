@@ -30,7 +30,7 @@ function tagRender(props) {
     );
 }
 
-const EmployeeContainer = ({ employees }) => {
+const EmployeeContainer = ({ employees, actionsVisible = true }) => {
     const [employeeList, setEmployeeList] = useState(employees);
     const [loading, setLoading] = useState(false);
     const [filters, setFilters] = useState(["email", "phone", "team", "role"]);
@@ -56,83 +56,99 @@ const EmployeeContainer = ({ employees }) => {
 
     return (
         <>
-            <Row>
-                <Input
-                    prefix={<SearchOutlined className="site-form-item-icon" />}
-                    placeholder="Search employee names"
-                    style={{
-                        minWidth: 200,
-                        maxWidth: 400,
-                        borderBottom: "1px solid",
-                        borderRadius: "0",
-                        marginRight: 16,
-                        // border: "2px solid",
-                    }}
-                    onChange={onSearch}
-                    bordered={false}
-                />
+            {actionsVisible ? (
+                <Row>
+                    <Input
+                        prefix={
+                            <SearchOutlined className="site-form-item-icon" />
+                        }
+                        placeholder="Search employee names"
+                        style={{
+                            minWidth: 200,
+                            maxWidth: 400,
+                            borderBottom: "1px solid",
+                            borderRadius: "0",
+                            marginRight: 16,
+                            // border: "2px solid",
+                        }}
+                        onChange={onSearch}
+                        bordered={false}
+                    />
 
-                <Select
-                    mode="multiple"
-                    placeholder="Please select visible items"
-                    onChange={value => {
-                        setFilters(value);
-                    }}
-                    value={filters}
-                    style={{
-                        width: 300,
-                        marginTop: 16,
-                        borderBottom: "1px solid",
-                        marginRight: 16,
-                    }}
-                    bordered={false}
-                    tagRender={tagRender}
-                >
-                    {options.map((item, index) => (
-                        <Option value={item.value} label={item.name}>
+                    <Select
+                        mode="multiple"
+                        placeholder="Please select visible items"
+                        onChange={value => {
+                            setFilters(value);
+                        }}
+                        value={filters}
+                        style={{
+                            width: 300,
+                            marginTop: 16,
+                            borderBottom: "1px solid",
+                            marginRight: 16,
+                        }}
+                        bordered={false}
+                        tagRender={tagRender}
+                    >
+                        {options.map((item, index) => (
+                            <Option
+                                key={index}
+                                value={item.value}
+                                label={item.name}
+                            >
+                                <div className="demo-option-label-item">
+                                    <item.icon style={{ marginRight: "8px" }} />
+                                    {item.name}
+                                </div>
+                            </Option>
+                        ))}
+                    </Select>
+                    <Select
+                        placeholder="Sort By"
+                        onChange={value => {
+                            setLoading(true);
+                            const newList = [...employees];
+                            const sortedList = newList.sort((a, b) => {
+                                var textA = a[value].toUpperCase();
+                                var textB = b[value].toUpperCase();
+                                return textA < textB
+                                    ? -1
+                                    : textA > textB
+                                    ? 1
+                                    : 0;
+                            });
+                            setEmployeeList(sortedList);
+                            setLoading(false);
+                        }}
+                        style={{
+                            width: 300,
+                            marginTop: 16,
+                            borderBottom: "1px solid",
+                        }}
+                        bordered={false}
+                    >
+                        <Option value="name" label="Name">
                             <div className="demo-option-label-item">
-                                <item.icon style={{ marginRight: "8px" }} />
-                                {item.name}
+                                <UserOutlined style={{ marginRight: "8px" }} />
+                                Name
                             </div>
                         </Option>
-                    ))}
-                </Select>
-                <Select
-                    placeholder="Sort By"
-                    onChange={value => {
-                        setLoading(true);
-                        const newList = [...employees];
-                        const sortedList = newList.sort((a, b) => {
-                            var textA = a[value].toUpperCase();
-                            var textB = b[value].toUpperCase();
-                            return textA < textB ? -1 : textA > textB ? 1 : 0;
-                        });
-                        setEmployeeList(sortedList);
-                        setLoading(false);
-                    }}
-                    style={{
-                        width: 300,
-                        marginTop: 16,
-                        borderBottom: "1px solid",
-                    }}
-                    bordered={false}
-                >
-                    <Option value="name" label="Name">
-                        <div className="demo-option-label-item">
-                            <UserOutlined style={{ marginRight: "8px" }} />
-                            Name
-                        </div>
-                    </Option>
-                    {options.map((item, index) => (
-                        <Option value={item.value} label={item.name}>
-                            <div className="demo-option-label-item">
-                                <item.icon style={{ marginRight: "8px" }} />
-                                {item.name}
-                            </div>
-                        </Option>
-                    ))}
-                </Select>
-            </Row>
+                        {options.map((item, index) => (
+                            <Option
+                                key={index}
+                                value={item.value}
+                                label={item.name}
+                            >
+                                <div className="demo-option-label-item">
+                                    <item.icon style={{ marginRight: "8px" }} />
+                                    {item.name}
+                                </div>
+                            </Option>
+                        ))}
+                    </Select>
+                </Row>
+            ) : null}
 
             {loading ? (
                 <CardLoading number={employees.length} />

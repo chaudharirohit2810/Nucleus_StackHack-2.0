@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Divider, Timeline, Row, Tabs } from "antd";
+import { Typography, Divider, Timeline, Tabs } from "antd";
 const { Title } = Typography;
 const { TabPane } = Tabs;
 

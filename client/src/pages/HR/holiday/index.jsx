@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
     Button,
-    Timeline,
+    // Timeline,
     message,
     Skeleton,
     Empty,
     Typography,
     Row,
-    Divider,
+    // Divider,
 } from "antd";
 import AddHolidayModal from "./addHolidayModal";
 import axios from "axios";
@@ -85,7 +85,7 @@ const Holiday = () => {
                     </div>
                 ))}
             {!loading &&
-                (holidays.length != 0 ? (
+                (holidays.length !== 0 ? (
                     <HolidayTimeline holidays={holidays} />
                 ) : (
                     <Empty description="No Holidays Added">

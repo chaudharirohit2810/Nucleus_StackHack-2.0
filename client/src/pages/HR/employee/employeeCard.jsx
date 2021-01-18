@@ -6,7 +6,7 @@ import {
     TeamOutlined,
     UserOutlined,
 } from "@ant-design/icons";
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 const EmployeeCard = ({ employee, isVisibleList }) => {
     const IconsTextList = [
@@ -45,7 +45,11 @@ const EmployeeCard = ({ employee, isVisibleList }) => {
                 {IconsTextList.map((item, index) => {
                     if (item.visible) {
                         return (
-                            <Row align="middle" style={{ fontSize: "16px" }}>
+                            <Row
+                                key={index}
+                                align="middle"
+                                style={{ fontSize: "16px" }}
+                            >
                                 <item.icon
                                     style={{
                                         marginRight: "8px",
