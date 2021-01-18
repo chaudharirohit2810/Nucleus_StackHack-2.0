@@ -13,6 +13,7 @@ const routes = [
     "attendance",
     "holidays",
     "leave",
+    "teamrole",
 ];
 
 const app = express();

@@ -23,7 +23,6 @@ class Policy extends React.Component {
     async componentDidMount() {
         try {
             const response = await axios.get(`${backendURL}/policy/get`);
-            console.log(response);
             if (!response.data.error) {
                 this.setState({
                     policyText: response.data.result.policyData,
@@ -45,7 +44,6 @@ class Policy extends React.Component {
         const { policyText, loading } = this.state;
         return (
             <div>
-                {console.log(policyText)}
                 <Layout>
                     <Title level={1}>Policies</Title>
                     {loading ? (

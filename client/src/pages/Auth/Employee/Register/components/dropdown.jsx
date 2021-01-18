@@ -2,16 +2,20 @@ import React from "react";
 import { Form, Select } from "antd";
 const { Option } = Select;
 
-const DropDown = ({ options, name }) => (
+const DropDown = ({ options, name, loading }) => (
     <Form.Item
         name={name}
         hasFeedback
         rules={[{ required: true, message: `Please select your ${name}!` }]}
     >
-        <Select placeholder={`Please select a ${name}`}>
+        <Select
+            placeholder={`Please select a ${name}`}
+            loading={loading}
+            disabled={loading}
+        >
             {options.map((item, index) => (
-                <Option value={item.value} key={index}>
-                    {item.name}
+                <Option value={item} key={index}>
+                    {item}
                 </Option>
             ))}
         </Select>
