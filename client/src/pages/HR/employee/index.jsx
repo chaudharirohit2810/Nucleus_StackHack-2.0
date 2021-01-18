@@ -6,6 +6,7 @@ import CardLoading from "./cardLoading";
 import TeamLoading from "./teamLoading";
 import EmployeeContainer from "./employeeContainer";
 import EmployeeTeam from "./employeeTeam";
+import EmployeeRole from "./employeeRole";
 
 const { Meta } = Card;
 const { Text, Title } = Typography;
@@ -38,7 +39,7 @@ class HRHome extends React.Component {
         return (
             <div>
                 <Tabs
-                    defaultActiveKey="2"
+                    defaultActiveKey="3"
                     size="large"
                     style={{ marginBottom: 32 }}
                 >
@@ -56,7 +57,10 @@ class HRHome extends React.Component {
                         ) : null}
                     </TabPane>
                     <TabPane tab="Roles" key="3">
-                        Content of tab 3
+                        <TeamLoading loading={loading} />
+                        {!loading ? (
+                            <EmployeeRole employees={employees} />
+                        ) : null}
                     </TabPane>
                 </Tabs>
             </div>

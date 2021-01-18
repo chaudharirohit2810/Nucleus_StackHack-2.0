@@ -13,7 +13,7 @@ const style = {
     overflow: "hidden",
 };
 
-class employeeTeam extends React.Component {
+class employeeRole extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -39,7 +39,7 @@ class employeeTeam extends React.Component {
         let finalEmployee = [];
         return (
             <div>
-                {this.groupBy(employees, employee => employee.team).forEach(
+                {this.groupBy(employees, employee => employee.role).forEach(
                     (data, key) => {
                         finalEmployee.push(
                             <Panel header={key} key={key} style={style}>
@@ -66,4 +66,4 @@ class employeeTeam extends React.Component {
     }
 }
 
-export default employeeTeam;
+export default employeeRole;
