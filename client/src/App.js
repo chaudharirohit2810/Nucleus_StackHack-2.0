@@ -5,12 +5,13 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import MainLayout from "./layout";
 import { EmployeeRoutes, HRRoutes } from "./routes";
 import withTracker from "./withTracker";
+import ProtectedRoute from "./ProtectedRoute";
 
 const EmployeeContainer = () => (
     <MainLayout type={1}>
         {EmployeeRoutes.map((route, index) => {
             return (
-                <Route
+                <ProtectedRoute
                     key={index}
                     path={`/employee/${route.path}`}
                     exact={route.exact}

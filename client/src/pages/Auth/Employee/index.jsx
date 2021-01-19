@@ -27,7 +27,14 @@ class EmployeeAuth extends React.Component {
                         content: "Login Successful",
                         key,
                     });
-                    localStorage.setItem("employeeID", res.data.result._id);
+                    localStorage.setItem(
+                        "employeetoken",
+                        String(res.data.result.token)
+                    );
+                    localStorage.setItem(
+                        "employeeID",
+                        String(res.data.result.parsedEmployee._id)
+                    );
                     this.props.history.push("/employee/home");
                 }
             })
