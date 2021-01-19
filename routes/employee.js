@@ -118,6 +118,7 @@ router.route("/details/:id").get(async (req, res) => {
 router.route("/hrdetails/:id").get(async (req, res) => {
     try {
         const { id } = req.params;
+        console.log(id);
         await Employee.aggregate([
             { $addFields: { employeeId: { $toString: "$_id" } } },
             {
