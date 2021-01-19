@@ -1,5 +1,5 @@
 import React from "react";
-import { Tabs } from "antd";
+import { Tabs, Empty } from "antd";
 import axios from "axios";
 import { backendURL } from "../../../config";
 import CardLoading from "./cardLoading";
@@ -46,20 +46,36 @@ class HRHome extends React.Component {
                     <TabPane tab="All" key="1">
                         {loading ? (
                             <CardLoading number={4} />
-                        ) : (
+                        ) : employees !== undefined &&
+                          employees !== null &&
+                          employees.length !== 0 ? (
                             <EmployeeContainer employees={employees} />
+                        ) : (
+                            <Empty />
                         )}
                     </TabPane>
                     <TabPane tab="Teams" key="2">
                         <TeamLoading loading={loading} />
                         {!loading ? (
-                            <EmployeeTeam employees={employees} />
+                            employees !== undefined &&
+                            employees !== null &&
+                            employees.length !== 0 ? (
+                                <EmployeeTeam employees={employees} />
+                            ) : (
+                                <Empty />
+                            )
                         ) : null}
                     </TabPane>
                     <TabPane tab="Roles" key="3">
                         <TeamLoading loading={loading} />
                         {!loading ? (
-                            <EmployeeRole employees={employees} />
+                            employees !== undefined &&
+                            employees !== null &&
+                            employees.length !== 0 ? (
+                                <EmployeeRole employees={employees} />
+                            ) : (
+                                <Empty />
+                            )
                         ) : null}
                     </TabPane>
                 </Tabs>
