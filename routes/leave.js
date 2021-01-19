@@ -2,10 +2,55 @@ const router = require("express").Router();
 const Leave = require("../models/Leave");
 const Types = require("mongoose").Types;
 
+router.route("/updateStatus").post(async (req, res) => {
+    try {
+        const { ID, status } = req.body;
+        await Leave.updateOne({ _id: ID }, { $set: { status } });
+        return res.status(200).json({
+            result: "Leave Updated !",
+            error: false,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            result: "Failed to update Leave !",
+            error: true,
+        });
+    }
+});
+
+router.route("/getAllLeaves").get(async (req, res) => {
+    try {
+        await Leave.aggregate([
+            {
+                $lookup: {
+                    from: "employees",
+                    localField: "employeeID",
+                    foreignField: "_id",
+                    as: "employeeData",
+                },
+            },
+        ]).exec(function (err, data) {
+            if (err) {
+                res.status(500).json({
+                    result:
+                        "Failed to fetch Leaves, Error joining collections !",
+                    error: true,
+                });
+            }
+            res.status(200).json({ result: data, error: false });
+        });
+    } catch (error) {
+        return res.status(500).json({
+            result: "Failed to fetch Leaves !",
+            error: true,
+        });
+    }
+});
+
 router.route("/getByEmployee").get(async (req, res) => {
     try {
         const employeeID = Types.ObjectId(req.headers.employeeid);
-        const employeeLeaves = await Leave.findOne({
+        const employeeLeaves = await Leave.find({
             employeeID,
         });
         if (employeeLeaves !== undefined && employeeLeaves !== null) {
@@ -15,7 +60,7 @@ router.route("/getByEmployee").get(async (req, res) => {
             });
         } else {
             return res.status(200).json({
-                result: {},
+                result: [],
                 error: false,
             });
         }
@@ -29,37 +74,23 @@ router.route("/getByEmployee").get(async (req, res) => {
 
 router.route("/add").post(async (req, res) => {
     try {
-        const { employeeID, leaveData } = req.body;
+        const { employeeID, reason, status, startDate, endDate } = req.body;
         const EID = Types.ObjectId(employeeID);
-        const existLeave = await Leave.findOne({
+        const newLeave = new Leave({
             employeeID: EID,
+            reason,
+            status,
+            startDate,
+            endDate,
         });
-        if (existLeave !== undefined && existLeave !== null) {
-            let parsedExistLeave = JSON.parse(JSON.stringify(existLeave));
-            const id = parsedExistLeave._id;
-            let leaves = parsedExistLeave.leaveData;
-            leaves.push(leaveData);
-            await Leave.updateOne({ _id: id }, { $set: { leaveData: leaves } });
-            return res.status(200).json({
-                result: "Leave Submitted !",
-                error: false,
-            });
-        } else {
-            let leaves = [];
-            leaves.push(leaveData);
-            const newLeave = new Leave({
-                employeeID: EID,
-                leaveData: leaves,
-            });
-            newLeave
-                .save()
-                .then(p => res.json(p))
-                .catch(error => console.log(error.message));
-            return res.status(200).json({
-                result: "Leave Submitted !",
-                error: false,
-            });
-        }
+        newLeave
+            .save()
+            .then(p => res.json(p))
+            .catch(error => console.log(error.message));
+        return res.status(200).json({
+            result: "Leave Submitted !",
+            error: false,
+        });
     } catch (error) {
         return res.status(500).json({
             result: "Leave was not added !",

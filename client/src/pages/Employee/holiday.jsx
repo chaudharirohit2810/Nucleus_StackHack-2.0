@@ -37,7 +37,7 @@ function Holiday() {
                     </div>
                 ))}
             {!loading &&
-                (holidays.length != 0 ? (
+                (holidays.length !== 0 ? (
                     <HolidayTimeline holidays={holidays} />
                 ) : (
                     <Empty description="No Holidays Available" />

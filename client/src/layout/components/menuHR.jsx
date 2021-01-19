@@ -2,11 +2,8 @@ import React from "react";
 import { Menu } from "antd";
 import {
     HomeOutlined,
-    // LaptopOutlined,
     QuestionCircleOutlined,
-    // CheckOutlined,
-    // FormOutlined,
-    UserOutlined,
+    FormOutlined,
     TeamOutlined,
     SmileOutlined,
     InfoCircleOutlined,
@@ -23,14 +20,19 @@ const HRMenu = ({ setVisible }) => {
             icon: <HomeOutlined />,
         },
         {
-            title: "FAQs",
-            path: "faq",
-            icon: <QuestionCircleOutlined />,
+            title: "Leaves",
+            path: "checkLeaves",
+            icon: <FormOutlined />,
         },
         {
             title: "Holidays",
             path: "holiday",
             icon: <SmileOutlined />,
+        },
+        {
+            title: "FAQs",
+            path: "faq",
+            icon: <QuestionCircleOutlined />,
         },
         {
             title: "Policies",

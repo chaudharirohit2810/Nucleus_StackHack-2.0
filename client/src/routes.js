@@ -12,6 +12,7 @@ import {
     FAQ as HRFAQ,
     Policy as HRPolicy,
     Holiday as HRHoliday,
+    Leaves as HRLeaves,
     TeamRole as HRTeamRole,
     EmployeeDetails as HREmployeeDetails,
 } from "./pages/HR";
@@ -54,6 +55,11 @@ export const HRRoutes = [
         path: "home",
         exact: true,
         component: HRHome,
+    },
+    {
+        path: "checkLeaves",
+        exact: true,
+        component: HRLeaves,
     },
     {
         path: "faq",
