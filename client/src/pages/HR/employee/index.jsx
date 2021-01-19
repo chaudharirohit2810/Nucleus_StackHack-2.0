@@ -39,7 +39,7 @@ class HRHome extends React.Component {
         return (
             <div>
                 <Tabs
-                    defaultActiveKey="3"
+                    defaultActiveKey="1"
                     size="large"
                     style={{ marginBottom: 32 }}
                 >

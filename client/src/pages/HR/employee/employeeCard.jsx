@@ -6,6 +6,7 @@ import {
     TeamOutlined,
     UserOutlined,
 } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 const { Text } = Typography;
 
 const EmployeeCard = ({ employee, isVisibleList }) => {
@@ -69,6 +70,7 @@ const EmployeeCard = ({ employee, isVisibleList }) => {
                         return null;
                     }
                 })}
+                <Link to={`employeeDetails/${employee._id}`}>Details</Link>
             </Space>
         </Card>
     );

@@ -13,6 +13,7 @@ import {
     Policy as HRPolicy,
     Holiday as HRHoliday,
     TeamRole as HRTeamRole,
+    EmployeeDetails as HREmployeeDetails,
 } from "./pages/HR";
 
 export const EmployeeRoutes = [
@@ -73,5 +74,10 @@ export const HRRoutes = [
         path: "teamrole",
         exact: true,
         component: HRTeamRole,
+    },
+    {
+        path: "employeeDetails/:id",
+        exact: true,
+        component: HREmployeeDetails,
     },
 ];
