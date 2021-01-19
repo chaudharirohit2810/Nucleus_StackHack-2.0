@@ -1,5 +1,5 @@
+import { Button, Col, Radio, Row, Select, Typography } from "antd";
 import React from "react";
-import { Row, Col, Typography, Select, Radio, Button, Space } from "antd";
 
 const CalendarHeader = ({
     value,
@@ -8,6 +8,7 @@ const CalendarHeader = ({
     onTypeChange,
     markAttendance,
     buttonDisabled,
+    isButtonVisible,
 }) => {
     const start = 0;
     const end = 12;
@@ -42,7 +43,7 @@ const CalendarHeader = ({
     return (
         <div style={{ padding: 8 }}>
             <Typography.Title level={4}>
-                Attendance: {months[month]} {String(year)}
+                {months[month]} {String(year)}
             </Typography.Title>
             <Col>
                 <Row gutter={16}>
@@ -86,15 +87,17 @@ const CalendarHeader = ({
                     </Col>
                 </Row>
             </Col>
-            <Col style={{ marginTop: "0.75rem" }}>
-                <Button
-                    type="primary"
-                    onClick={markAttendance}
-                    disabled={buttonDisabled}
-                >
-                    Mark Today's Attendance
-                </Button>
-            </Col>
+            {isButtonVisible && (
+                <Col style={{ marginTop: "0.75rem" }}>
+                    <Button
+                        type="primary"
+                        onClick={markAttendance}
+                        disabled={buttonDisabled}
+                    >
+                        Mark Today's Attendance
+                    </Button>
+                </Col>
+            )}
         </div>
     );
 };

@@ -115,6 +115,49 @@ router.route("/details/:id").get(async (req, res) => {
     }
 });
 
+router.route("/hrdetails/:id").get(async (req, res) => {
+    try {
+        const { id } = req.params;
+        await Employee.aggregate([
+            { $addFields: { employeeId: { $toString: "$_id" } } },
+            {
+                $lookup: {
+                    from: "attendances",
+                    localField: "employeeId",
+                    foreignField: "employeeId",
+                    as: "attendanceData",
+                },
+            },
+            // $unwind the array to denormalize
+            { $unwind: "$attendanceData" },
+
+            // Then match on the condtion for tb2
+            { $match: { "attendanceData.employeeId": `${id}` } },
+
+            {
+                $project: {
+                    username: 1,
+                    name: 1,
+                    email: 1,
+                    phone: 1,
+                    team: 1,
+                    role: 1,
+                    salary: 1,
+                    "attendanceData.presentDays": 1, //if need full mapping then mapping:1
+                },
+            },
+        ]).exec(function (err, data) {
+            if (err) {
+                throw err;
+            }
+
+            res.status(200).json(data[0]);
+        });
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+});
+
 router.route("/").get(async (req, res) => {
     try {
         const employees = await Employee.find();
