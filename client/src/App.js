@@ -6,6 +6,7 @@ import MainLayout from "./layout";
 import { EmployeeRoutes, HRRoutes } from "./routes";
 import withTracker from "./withTracker";
 import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRouteHR from "./ProtectedRouteHR";
 
 const EmployeeContainer = () => (
     <MainLayout type={1}>
@@ -28,7 +29,7 @@ const HRContainer = () => (
     <MainLayout type={2}>
         {HRRoutes.map((route, index) => {
             return (
-                <Route
+                <ProtectedRouteHR
                     key={index}
                     path={`/hr/${route.path}`}
                     exact={route.exact}

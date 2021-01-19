@@ -28,7 +28,14 @@ class HRAuth extends React.Component {
                         content: "Login Successful",
                         key,
                     });
-                    localStorage.setItem("hrID", res.data.result._id);
+                    localStorage.setItem(
+                        "hrtoken",
+                        String(res.data.result.token)
+                    );
+                    localStorage.setItem(
+                        "hrID",
+                        String(res.data.result.parsedEmployee._id)
+                    );
                     this.props.history.push("/hr/home");
                 }
             })

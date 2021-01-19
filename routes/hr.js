@@ -2,6 +2,7 @@ const HR = require("../models/HR");
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const config = require("config");
 
 async function compareHashedPassword(password, dbpassword) {
     try {
@@ -23,6 +24,18 @@ async function returnHashedPassowrd(password) {
     }
 }
 
+router.route("/verify").post(async (req, res) => {
+    const token = req.body.headers["hrtoken"];
+    if (!token) return res.status(400).json({ result: false });
+    try {
+        await jwt.verify(token, config.get("jwtHRSecret"));
+        return res.status(200).json({ result: true });
+    } catch (error) {
+        console.log(error.message);
+        return res.status(400).json({ result: false });
+    }
+});
+
 router.route("/login").post(async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -31,11 +44,20 @@ router.route("/login").post(async (req, res) => {
             const parsedEmployee = JSON.parse(JSON.stringify(employee));
             compareHashedPassword(password, parsedEmployee.password)
                 .then(result => {
-                    if (result)
-                        return res
-                            .status(200)
-                            .json({ result: parsedEmployee, error: false });
-                    else
+                    if (result) {
+                        jwt.sign(
+                            { hrID: parsedEmployee._id },
+                            config.get("jwtHRSecret"),
+                            { expiresIn: 36000 },
+                            (err, token) => {
+                                if (err) throw err;
+                                res.status(200).json({
+                                    result: { parsedEmployee, token },
+                                    error: false,
+                                });
+                            }
+                        );
+                    } else
                         return res.status(403).json({
                             result: "Invalid password !",
                             error: true,
