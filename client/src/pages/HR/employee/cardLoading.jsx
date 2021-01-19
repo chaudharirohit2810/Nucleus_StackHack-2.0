@@ -1,6 +1,6 @@
-import React from "react";
-import { Card, Avatar, Row, Col, Skeleton, Space } from "antd";
+import { Avatar, Card, Row } from "antd";
 import _ from "lodash";
+import React from "react";
 const { Meta } = Card;
 
 const CardLoading = ({ number }) => {

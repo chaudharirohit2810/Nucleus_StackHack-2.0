@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Form, Input, Button, Modal, DatePicker } from "antd";
+import { Button, DatePicker, Form, Input, Modal } from "antd";
 import axios from "axios";
+import React, { useState } from "react";
 import { backendURL } from "../../../config";
-const { TextArea } = Input;
+
 const AddHolidayModal = ({
     isModalVisible,
     handleSuccess,

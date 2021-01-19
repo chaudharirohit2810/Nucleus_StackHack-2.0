@@ -18,7 +18,7 @@ const DeleteAction = ({
         <DeleteFilled
             style={{ cursor: "pointer" }}
             onClick={() => {
-                if (label == "role") {
+                if (label === "role") {
                     setRoleLoading(true);
                 } else {
                     setTeamLoading(true);
@@ -47,7 +47,7 @@ const DeleteAction = ({
                         }
                     })
                     .catch(err => {
-                        if (label == "role") {
+                        if (label === "role") {
                             setRoleLoading(true);
                         } else {
                             setTeamLoading(true);

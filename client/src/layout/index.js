@@ -1,8 +1,7 @@
-import React from "react";
 // import PropTypes from "prop-types";
-import { Layout, Breadcrumb } from "antd";
-
-import { Footer, Drawer, DrawerMobile } from "./components";
+import { Layout } from "antd";
+import React from "react";
+import { Drawer, DrawerMobile, Footer } from "./components";
 
 const MainLayout = ({ children, type }) => {
     const { props } = children;

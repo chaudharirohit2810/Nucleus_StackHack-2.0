@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Typography, Tabs } from "antd";
+import { Tabs } from "antd";
 import axios from "axios";
 import { backendURL } from "../../../config";
 import CardLoading from "./cardLoading";
@@ -8,8 +8,8 @@ import EmployeeContainer from "./employeeContainer";
 import EmployeeTeam from "./employeeTeam";
 import EmployeeRole from "./employeeRole";
 
-const { Meta } = Card;
-const { Text, Title } = Typography;
+// const { Meta } = Card;
+// const { Text, Title } = Typography;
 const { TabPane } = Tabs;
 
 class HRHome extends React.Component {

@@ -12,36 +12,6 @@ const salaries = {
     300000: "300000",
 };
 
-const TeamOptions = [
-    {
-        value: "team1",
-        name: "Team 1",
-    },
-    {
-        value: "team2",
-        name: "Team 2",
-    },
-    {
-        value: "team3",
-        name: "Team 3",
-    },
-];
-
-const RoleOptions = [
-    {
-        value: "role1",
-        name: "Role 1",
-    },
-    {
-        value: "role2",
-        name: "Role 2",
-    },
-    {
-        value: "role3",
-        name: "Role 3",
-    },
-];
-
 const Register = ({ onFinish }) => {
     const [teams, setTeams] = useState([]);
     const [roles, setRoles] = useState([]);

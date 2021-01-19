@@ -12,7 +12,7 @@ import {
 const { Option } = Select;
 
 function tagRender(props) {
-    const { label, value, closable, onClose } = props;
+    const { value, closable, onClose } = props;
 
     return (
         <Tag

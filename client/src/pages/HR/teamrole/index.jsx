@@ -1,27 +1,9 @@
-import React, { useEffect, useState } from "react";
-import {
-    Tabs,
-    List,
-    Button,
-    Col,
-    Row,
-    Modal,
-    Form,
-    Input,
-    message,
-    Space,
-} from "antd";
+import { Button, Col, List, message, Row, Tabs } from "antd";
 import axios from "axios";
-import AddTeamModal from "./addModal";
+import React, { useEffect, useState } from "react";
 import { backendURL } from "../../../config";
+import AddTeamModal from "./addModal";
 import DeleteAction from "./deleteAction";
-
-const IconText = ({ icon, text }) => (
-    <Space>
-        {React.createElement(icon)}
-        {text}
-    </Space>
-);
 
 const { TabPane } = Tabs;
 

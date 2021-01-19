@@ -1,5 +1,5 @@
+import { Divider, Tabs, Timeline, Typography } from "antd";
 import React from "react";
-import { Typography, Divider, Timeline, Tabs } from "antd";
 const { Title } = Typography;
 const { TabPane } = Tabs;
 
