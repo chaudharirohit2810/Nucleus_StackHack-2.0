@@ -30,7 +30,11 @@ function tagRender(props) {
     );
 }
 
-const EmployeeContainer = ({ employees, actionsVisible = true }) => {
+const EmployeeContainer = ({
+    employees,
+    actionsVisible = true,
+    detailsVisible = true,
+}) => {
     const [employeeList, setEmployeeList] = useState(employees);
     const [loading, setLoading] = useState(false);
     const [filters, setFilters] = useState(["email", "phone", "team", "role"]);
@@ -159,6 +163,7 @@ const EmployeeContainer = ({ employees, actionsVisible = true }) => {
                             employee={item}
                             key={index}
                             isVisibleList={filters}
+                            detailsVisible={detailsVisible}
                         />
                     ))}
                 </Row>

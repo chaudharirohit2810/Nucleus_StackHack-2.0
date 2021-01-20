@@ -71,7 +71,7 @@ router.route("/login").post(async (req, res) => {
                 .json({ result: "Employee is not registered !", error: true });
         }
     } catch (error) {
-        return res.status(500).json({
+        return res.status(400).json({
             result: "Employee Login Failed !",
             error: true,
         });
@@ -91,7 +91,7 @@ router.route("/register").post(async (req, res) => {
             role,
             salary,
         } = req.body;
-        const employee = await Employee.findOne({ username });
+        const employee = await Employee.findOne({ username, email });
         if (employee) {
             return res.status(409).send({
                 result: "Employee Already Exists !",
@@ -122,7 +122,7 @@ router.route("/register").post(async (req, res) => {
             });
         }
     } catch (error) {
-        return res.status(500).json({
+        return res.status(400).json({
             result: "Employee Registeration Failed !",
             error: true,
         });
@@ -180,6 +180,32 @@ router.route("/hrdetails").get(authHR, async (req, res) => {
         });
     } catch (error) {
         res.status(400).send(error.message);
+    }
+});
+
+router.route("/getTeamMembers").get(async (req, res) => {
+    try {
+        const { team, username } = req.headers;
+        const members = await Employee.find({ team });
+        if (members !== undefined && members !== null && members.length !== 0) {
+            let newMembers = JSON.parse(JSON.stringify(members));
+            let data = [];
+            data = newMembers.filter(member => member.username !== username);
+            res.status(200).json({
+                result: data,
+                error: false,
+            });
+        } else {
+            res.status(200).json({
+                result: [],
+                error: false,
+            });
+        }
+    } catch (error) {
+        res.status(400).json({
+            result: "Failed to fetch Employee Team Members !",
+            error: true,
+        });
     }
 });
 

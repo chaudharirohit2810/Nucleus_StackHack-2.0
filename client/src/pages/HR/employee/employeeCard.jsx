@@ -9,7 +9,7 @@ import {
 import { Link } from "react-router-dom";
 const { Text } = Typography;
 
-const EmployeeCard = ({ employee, isVisibleList }) => {
+const EmployeeCard = ({ employee, isVisibleList, detailsVisible = true }) => {
     const IconsTextList = [
         {
             icon: MailFilled,
@@ -70,7 +70,11 @@ const EmployeeCard = ({ employee, isVisibleList }) => {
                         return null;
                     }
                 })}
-                <Link to={`employeeDetails/${employee.username}`}>Details</Link>
+                {detailsVisible ? (
+                    <Link to={`employeeDetails/${employee.username}`}>
+                        Details
+                    </Link>
+                ) : null}
             </Space>
         </Card>
     );
