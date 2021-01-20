@@ -35,6 +35,7 @@ export default class LoanModal extends React.Component {
     //     this.props.loadModal();
     // };
     render() {
+        const { bonusText } = this.props;
         return (
             <Layout
                 style={{
@@ -52,7 +53,7 @@ export default class LoanModal extends React.Component {
                 >
                     <Form.Item
                         name={["amount"]}
-                        label="Amount"
+                        label={bonusText ? "Bonus Amount" : "Loan Amount"}
                         wrapperCol={{ ...layout.wrapperCol }}
                         rules={[
                             {

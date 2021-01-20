@@ -173,6 +173,7 @@ class Bonus extends React.Component {
                     <LoanModal
                         onFinish={this.onFinish}
                         modalLoading={this.state.modalLoading}
+                        bonusText={true}
                     />
                 </Modal>
                 <Button
