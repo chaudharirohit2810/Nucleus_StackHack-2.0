@@ -70,7 +70,7 @@ const EmployeeCard = ({ employee, isVisibleList }) => {
                         return null;
                     }
                 })}
-                <Link to={`employeeDetails/${employee._id}`}>Details</Link>
+                <Link to={`employeeDetails/${employee.username}`}>Details</Link>
             </Space>
         </Card>
     );

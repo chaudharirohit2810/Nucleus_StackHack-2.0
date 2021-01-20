@@ -91,7 +91,7 @@ router.route("/register").post(async (req, res) => {
             role,
             salary,
         } = req.body;
-        const employee = await Employee.findOne({ email });
+        const employee = await Employee.findOne({ username });
         if (employee) {
             return res.status(409).send({
                 result: "Employee Already Exists !",
@@ -141,7 +141,8 @@ router.route("/details/").get(authEmployee, async (req, res) => {
 
 router.route("/hrdetails").get(authHR, async (req, res) => {
     try {
-        const id = req.header("employeeID");
+        // const id = req.header("employeeID");
+        const username = req.header("username");
         await Employee.aggregate([
             { $addFields: { employeeId: { $toString: "$_id" } } },
             {
@@ -156,7 +157,7 @@ router.route("/hrdetails").get(authHR, async (req, res) => {
             { $unwind: "$attendanceData" },
 
             // Then match on the condtion for tb2
-            { $match: { "attendanceData.employeeId": `${id}` } },
+            { $match: { username: `${username}` } },
 
             {
                 $project: {

@@ -36,8 +36,8 @@ router.route("/").post(authEmployee, async (req, res) => {
                 presentDays: req.body.presentDays,
             });
         } else {
-            const data = [employeeId, ...req.body];
-            const attend = new Attendance(req.body);
+            const data = { employeeId, ...req.body };
+            const attend = new Attendance(data);
             await attend.save();
         }
         res.status(200).send("Attendance Marked");

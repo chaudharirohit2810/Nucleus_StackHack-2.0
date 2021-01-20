@@ -82,7 +82,7 @@ export const HRRoutes = [
         component: HRTeamRole,
     },
     {
-        path: "employeeDetails/:id",
+        path: "employeeDetails/:username",
         exact: true,
         component: HREmployeeDetails,
     },

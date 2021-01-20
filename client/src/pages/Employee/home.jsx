@@ -36,11 +36,8 @@ class Home extends React.Component {
     }
 
     render() {
-        if (this.state.loading) {
-            return <h1>Loading.....</h1>;
-        }
         const { user } = this.state;
-        return <UserDetails user={user} />;
+        return <UserDetails user={user} loading={this.state.loading} />;
     }
 }
 

@@ -13,7 +13,7 @@ const EmployeeDetails = props => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [presentDays, setPresentDays] = useState([]);
-    const id = props.match.params.id;
+    const username = props.match.params.username;
     const his = useHistory();
     useEffect(() => {
         const token = localStorage.getItem("hrtoken");
@@ -22,7 +22,7 @@ const EmployeeDetails = props => {
             .get(`${backendURL}/employee/hrdetails`, {
                 headers: {
                     hrtoken: token,
-                    employeeID: id,
+                    username: username,
                 },
             })
             .then(res => {
