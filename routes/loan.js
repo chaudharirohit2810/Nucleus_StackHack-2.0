@@ -1,7 +1,52 @@
 const Loan = require("../models/Loan");
 const router = require("express").Router();
-const { authEmployee } = require("../middleware/auth");
+const { authEmployee, authHR } = require("../middleware/auth");
 const Types = require("mongoose").Types;
+
+router.route("/updateLoan").post(authHR, async (req, res) => {
+    try {
+        const { ID, status } = req.body;
+        await Loan.updateOne({ _id: ID }, { $set: { status } });
+        res.status(200).json({
+            result: "Loan Status Updated !",
+            error: false,
+        });
+    } catch (error) {
+        res.status(400).json({
+            result: "Failed to update Loan Status !",
+            error: true,
+        });
+    }
+});
+
+router.route("/getAllLoans").get(authHR, async (req, res) => {
+    try {
+        await Loan.aggregate([
+            {
+                $lookup: {
+                    from: "employees",
+                    localField: "employeeID",
+                    foreignField: "_id",
+                    as: "employeeData",
+                },
+            },
+        ]).exec(function (err, data) {
+            if (err) {
+                res.status(400).json({
+                    result:
+                        "Failed to fetch Loans, Error joining collections !",
+                    error: true,
+                });
+            }
+            res.status(200).json({ result: data, error: false });
+        });
+    } catch (error) {
+        res.status(400).json({
+            result: "Failed to fetch Loans !",
+            error: true,
+        });
+    }
+});
 
 router.route("/getLoansByID").get(authEmployee, async (req, res) => {
     try {
