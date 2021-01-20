@@ -1,0 +1,74 @@
+.equal__width {
+    flex: 1;
+}
+
+.hero__main {
+    display: flex;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .hero__main {
+        flex-direction: column;
+    }
+    /* .hero__header {
+        width: 0;
+        display: none;
+    } */
+    .hero__header {
+        height: 250px !important;
+    }
+    .equal__width {
+        flex: initial;
+    }
+    .hero__login__form {
+        width: 100vw;
+        min-height: initial !important;
+    }
+    .input__element .input__login__element {
+        width: 80%;
+    }
+}
+
+.hero__header__title {
+    font-size: clamp(30px, 5vw, 50px) !important;
+    margin: 0 !important;
+    text-align: center;
+    color: #fff !important;
+    font-weight: bold;
+}
+
+.hero__header__subtitle {
+    font-size: clamp(15px, 2.5vw, 25px) !important;
+    margin: 0 !important;
+    text-align: center;
+    color: #fff !important;
+    font-weight: bold;
+}
+
+.hero__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 3rem;
+    background-color: #1f2029;
+}
+
+.hero__login__form {
+    min-height: 100vh;
+    padding: 2rem 1.5rem 1rem;
+}
+
+.input__element {
+    margin-right: 0.5rem;
+    width: 45%;
+    min-width: 275px;
+    max-width: 600px;
+}
+
+.input__login__element {
+    width: 80%;
+    max-width: 500px;
+    min-width: 275px;
+}

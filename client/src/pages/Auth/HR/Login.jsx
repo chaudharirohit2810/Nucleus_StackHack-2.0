@@ -12,7 +12,7 @@ const Login = ({ onFinish }) => {
         <Form
             name="normal_login"
             style={{
-                maxWidth: "500px",
+                maxWidth: "700px",
                 minWidth: "300px",
             }}
             initialValues={{
@@ -21,6 +21,7 @@ const Login = ({ onFinish }) => {
             onFinish={onFinish}
         >
             <Form.Item
+                className="input__login__element"
                 name="username"
                 rules={[
                     {
@@ -35,6 +36,7 @@ const Login = ({ onFinish }) => {
                 />
             </Form.Item>
             <Form.Item
+                className="input__login__element"
                 name="password"
                 rules={[
                     {
@@ -54,11 +56,7 @@ const Login = ({ onFinish }) => {
             </Form.Item>
 
             <Form.Item>
-                <Button
-                    type="primary"
-                    htmlType="submit"
-                    style={{ width: "100%" }}
-                >
+                <Button type="primary" htmlType="submit">
                     Log in
                 </Button>
             </Form.Item>

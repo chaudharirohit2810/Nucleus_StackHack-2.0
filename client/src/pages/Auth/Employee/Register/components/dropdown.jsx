@@ -6,6 +6,7 @@ const DropDown = ({ options, name, loading }) => (
     <Form.Item
         name={name}
         hasFeedback
+        className="input__element"
         rules={[{ required: true, message: `Please select your ${name}!` }]}
     >
         <Select
