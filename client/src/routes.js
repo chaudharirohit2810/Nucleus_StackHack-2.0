@@ -5,6 +5,8 @@ import {
     LeaveTable,
     Policy,
     Holiday,
+    Loan,
+    Bonus,
 } from "./pages/Employee";
 
 import {
@@ -27,6 +29,16 @@ export const EmployeeRoutes = [
         path: "attendence",
         exact: true,
         component: Attendance,
+    },
+    {
+        path: "loan",
+        exact: true,
+        component: Loan,
+    },
+    {
+        path: "bonus",
+        exact: true,
+        component: Bonus,
     },
     {
         path: "submitLeave",

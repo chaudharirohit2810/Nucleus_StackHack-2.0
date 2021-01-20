@@ -49,7 +49,7 @@ class Home extends React.Component {
                 const response = await axios.get(
                     `${backendURL}/employee/getTeamMembers`,
                     {
-                        headers: { team, username },
+                        headers: { team, username, employeetoken: token },
                     }
                 );
                 this.setState({

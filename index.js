@@ -14,6 +14,7 @@ const routes = [
     "holidays",
     "leave",
     "teamrole",
+    "loan",
 ];
 
 const app = express();

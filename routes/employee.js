@@ -92,7 +92,7 @@ router.route("/register").post(async (req, res) => {
             role,
             salary,
         } = req.body;
-        const employee = await Employee.findOne({ username, email });
+        const employee = await Employee.findOne({ username });
         if (employee) {
             res.status(409).send({
                 result: "Employee Already Exists !",
@@ -184,7 +184,7 @@ router.route("/hrdetails").get(authHR, async (req, res) => {
     }
 });
 
-router.route("/getTeamMembers").get(async (req, res) => {
+router.route("/getTeamMembers").get(authEmployee, async (req, res) => {
     try {
         const { team, username } = req.headers;
         const members = await Employee.find({ team });

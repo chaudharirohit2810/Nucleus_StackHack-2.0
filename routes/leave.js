@@ -2,7 +2,6 @@ const router = require("express").Router();
 const { authEmployee, authHR } = require("../middleware/auth");
 const Leave = require("../models/Leave");
 const Types = require("mongoose").Types;
-// const jwtUtils = require("../middleware");
 
 router.route("/updateStatus").post(authHR, async (req, res) => {
     try {

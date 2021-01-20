@@ -8,6 +8,8 @@ import {
     FormOutlined,
     SmileOutlined,
     InfoCircleOutlined,
+    MoneyCollectOutlined,
+    FileTextOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
@@ -37,14 +39,30 @@ const MyMenu = ({ setVisible }) => {
             ],
         },
         {
-            title: "FAQs",
-            path: "faq",
-            icon: <QuestionCircleOutlined />,
+            title: "Payroll",
+            icon: <LaptopOutlined />,
+            content: [
+                {
+                    title: "Request Loan",
+                    path: "loan",
+                    icon: <FileTextOutlined />,
+                },
+                {
+                    title: "Request Bonus",
+                    path: "bonus",
+                    icon: <MoneyCollectOutlined />,
+                },
+            ],
         },
         {
             title: "Holidays",
             path: "holiday",
             icon: <SmileOutlined />,
+        },
+        {
+            title: "FAQs",
+            path: "faq",
+            icon: <QuestionCircleOutlined />,
         },
         {
             title: "Policies",
