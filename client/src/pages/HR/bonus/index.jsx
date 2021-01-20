@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Typography, Tabs } from "antd";
 import BonusTable from "./bonusTable";
+import LendForm from "./lendForm";
 
 const { Title } = Typography;
 const { TabPane } = Tabs;
@@ -15,11 +16,11 @@ class Bonus extends Component {
                     size="large"
                     style={{ marginBottom: 32 }}
                 >
-                    <TabPane tab="Lend" key="1">
-                        Lend Bonus
-                    </TabPane>
-                    <TabPane tab="Requested" key="2">
+                    <TabPane tab="Requested" key="1">
                         <BonusTable />
+                    </TabPane>
+                    <TabPane tab="Lend Bonus" key="2">
+                        <LendForm />
                     </TabPane>
                 </Tabs>
             </div>

@@ -65,6 +65,32 @@ router.route("/getBonusByID").get(authEmployee, async (req, res) => {
     }
 });
 
+router.route("/lend").post(authHR, async (req, res) => {
+    try {
+        const { reason, amount, status, employeeID } = req.body;
+        const EID = Types.ObjectId(employeeID);
+        const newBonus = new Bonus({
+            employeeID: EID,
+            reason,
+            amount,
+            status,
+        });
+        newBonus
+            .save()
+            .then(p => res.json(p))
+            .catch(error => console.log(error.message));
+        res.status(200).json({
+            result: "Bonus Approved !",
+            error: false,
+        });
+    } catch (error) {
+        res.status(400).json({
+            result: "Failed to approve Bonus !",
+            error: true,
+        });
+    }
+});
+
 router.route("/request").post(authEmployee, async (req, res) => {
     try {
         const employeeID = req.headers["employeeID"];
