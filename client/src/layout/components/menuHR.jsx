@@ -7,6 +7,9 @@ import {
     TeamOutlined,
     SmileOutlined,
     InfoCircleOutlined,
+    LaptopOutlined,
+    FileTextOutlined,
+    MoneyCollectOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
@@ -25,6 +28,27 @@ const HRMenu = ({ setVisible }) => {
             icon: <FormOutlined />,
         },
         {
+            title: "Payroll",
+            icon: <LaptopOutlined />,
+            content: [
+                {
+                    title: "Loans",
+                    path: "loan",
+                    icon: <FileTextOutlined />,
+                },
+                {
+                    title: "Bonus",
+                    path: "bonus",
+                    icon: <MoneyCollectOutlined />,
+                },
+            ],
+        },
+        {
+            title: "Teams and roles",
+            path: "teamrole",
+            icon: <TeamOutlined />,
+        },
+        {
             title: "Holidays",
             path: "holiday",
             icon: <SmileOutlined />,
@@ -38,11 +62,6 @@ const HRMenu = ({ setVisible }) => {
             title: "Policies",
             path: "policy",
             icon: <InfoCircleOutlined />,
-        },
-        {
-            title: "Edit team and roles",
-            path: "teamrole",
-            icon: <TeamOutlined />,
         },
     ];
     return (

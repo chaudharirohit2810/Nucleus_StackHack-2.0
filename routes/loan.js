@@ -23,12 +23,13 @@ router.route("/getLoansByID").get(authEmployee, async (req, res) => {
 router.route("/request").post(authEmployee, async (req, res) => {
     try {
         const employeeID = req.headers["employeeID"];
-        const { reason, amount } = req.body;
+        const { reason, amount, status } = req.body;
         const EID = Types.ObjectId(employeeID);
         const newLoan = new Loan({
             employeeID: EID,
             reason,
             amount,
+            status,
         });
         newLoan
             .save()

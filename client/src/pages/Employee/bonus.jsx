@@ -18,6 +18,10 @@ class Bonus extends React.Component {
                 title: "Reason",
                 dataIndex: "reason",
             },
+            {
+                title: "Status",
+                dataIndex: "status",
+            },
         ];
         this.state = {
             dataSource: [],
@@ -26,6 +30,7 @@ class Bonus extends React.Component {
             employeeData: {},
             reason: "",
             amount: "",
+            status: "Pending",
         };
     }
 
@@ -48,6 +53,7 @@ class Bonus extends React.Component {
                             key: i + 1,
                             amount: d.amount,
                             reason: d.reason,
+                            status: d.status,
                         };
                     });
                     this.setState({
@@ -70,11 +76,12 @@ class Bonus extends React.Component {
         });
     };
     handleAdd = () => {
-        const { reason, amount, dataSource } = this.state;
+        const { reason, amount, dataSource, status } = this.state;
         const newData = {
             key: dataSource.length + 1,
             reason,
             amount,
+            status,
         };
         this.setState({
             dataSource: [...dataSource, newData],
@@ -116,10 +123,12 @@ class Bonus extends React.Component {
         const data = {
             reason,
             amount,
+            status: "Pending",
         };
         this.setState({
             reason,
             amount,
+            status: "Pending",
         });
         axios
             .post(`${backendURL}/bonus/request`, data, {
