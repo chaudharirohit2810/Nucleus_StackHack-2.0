@@ -32,10 +32,6 @@ class HRAuth extends React.Component {
                         "hrtoken",
                         String(res.data.result.token)
                     );
-                    localStorage.setItem(
-                        "hrID",
-                        String(res.data.result.parsedEmployee._id)
-                    );
                     this.props.history.push("/hr/home");
                 }
             })

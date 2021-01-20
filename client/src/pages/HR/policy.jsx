@@ -26,7 +26,10 @@ class Policy extends React.Component {
     }
     async componentDidMount() {
         try {
-            const response = await axios.get(`${backendURL}/policy/get`);
+            const hrtoken = localStorage.getItem("hrtoken");
+            const response = await axios.get(`${backendURL}/policy/get`, {
+                headers: { hrtoken },
+            });
             if (!response.data.error) {
                 this.setState({
                     policyText: response.data.result.policyData,
@@ -65,8 +68,9 @@ class Policy extends React.Component {
         const data = {
             policyData: this.state.policyText,
         };
+        const hrtoken = localStorage.getItem("hrtoken");
         axios
-            .post(`${backendURL}/policy/add`, data)
+            .post(`${backendURL}/policy/add`, data, { headers: { hrtoken } })
             .then(response => {
                 if (!response.data.error) {
                     this.setState({

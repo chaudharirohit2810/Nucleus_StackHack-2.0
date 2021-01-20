@@ -94,13 +94,14 @@ const AttendanceCalendar = ({
             key: "attendance",
         });
         const data = {
-            employeeId: localStorage.getItem("employeeID"),
             presentDays: [new Date().valueOf(), ...presentDays],
         };
+        let token = localStorage.getItem("employeetoken");
         axios
-            .post(`${backendURL}/attendance/`, data)
+            .post(`${backendURL}/attendance/`, data, {
+                headers: { employeetoken: token },
+            })
             .then(res => {
-                console.log(res.data);
                 setPresentDays(prev => [...prev, new Date().valueOf()]);
                 message.success({
                     content: "Attendance marked",

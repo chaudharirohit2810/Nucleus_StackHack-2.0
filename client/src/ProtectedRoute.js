@@ -9,9 +9,9 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
     const [validated, setValidated] = useState(false);
 
     useEffect(() => {
-        const verifyToken = async () => {
+        const verifyToken = () => {
             let token = localStorage.getItem("employeetoken");
-            await axios
+            axios
                 .post(`${backendURL}/employee/verify`, {
                     headers: { employeetoken: token },
                 })
@@ -35,9 +35,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
             />
         );
     } else if (!credentialsValid && validated) {
-        if (localStorage.getItem("employeeID") !== null) {
-            localStorage.removeItem("employeeID");
-        }
+        localStorage.clear();
         return <Redirect to="/" />;
     } else {
         return (

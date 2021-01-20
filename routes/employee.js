@@ -3,6 +3,7 @@ const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const config = require("config");
+const { authEmployee, authHR } = require("../middleware/auth");
 
 async function compareHashedPassword(password, dbpassword) {
     try {
@@ -128,19 +129,19 @@ router.route("/register").post(async (req, res) => {
     }
 });
 
-router.route("/details/:id").get(async (req, res) => {
+router.route("/details/").get(authEmployee, async (req, res) => {
     try {
-        const employee = await Employee.findById(req.params.id);
+        const employeeID = req.headers["employeeID"];
+        const employee = await Employee.findById(employeeID);
         res.status(200).json(employee);
     } catch (error) {
         res.status(400).json(error.message);
     }
 });
 
-router.route("/hrdetails/:id").get(async (req, res) => {
+router.route("/hrdetails").get(authHR, async (req, res) => {
     try {
-        const { id } = req.params;
-        console.log(id);
+        const id = req.header("employeeID");
         await Employee.aggregate([
             { $addFields: { employeeId: { $toString: "$_id" } } },
             {
@@ -181,7 +182,7 @@ router.route("/hrdetails/:id").get(async (req, res) => {
     }
 });
 
-router.route("/").get(async (req, res) => {
+router.route("/").get(authHR, async (req, res) => {
     try {
         const employees = await Employee.find();
         res.status(200).send(employees);

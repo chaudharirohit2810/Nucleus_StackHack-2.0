@@ -1,9 +1,10 @@
 const router = require("express").Router();
+const { authEmployee, authHR } = require("../middleware/auth");
 const Leave = require("../models/Leave");
 const Types = require("mongoose").Types;
 // const jwtUtils = require("../middleware");
 
-router.route("/updateStatus").post(async (req, res) => {
+router.route("/updateStatus").post(authHR, async (req, res) => {
     try {
         const { ID, status } = req.body;
         await Leave.updateOne({ _id: ID }, { $set: { status } });
@@ -19,7 +20,7 @@ router.route("/updateStatus").post(async (req, res) => {
     }
 });
 
-router.route("/getAllLeaves").get(async (req, res) => {
+router.route("/getAllLeaves").get(authHR, async (req, res) => {
     try {
         await Leave.aggregate([
             {
@@ -41,16 +42,17 @@ router.route("/getAllLeaves").get(async (req, res) => {
             res.status(200).json({ result: data, error: false });
         });
     } catch (error) {
-        return res.status(500).json({
+        return res.status(400).json({
             result: "Failed to fetch Leaves !",
             error: true,
         });
     }
 });
 
-router.route("/getByEmployee").get(async (req, res) => {
+router.route("/getByEmployee").get(authEmployee, async (req, res) => {
     try {
-        const employeeID = Types.ObjectId(req.headers.employeeid);
+        var employeeID = req.headers["employeeID"];
+        employeeID = Types.ObjectId(employeeID);
         const employeeLeaves = await Leave.find({
             employeeID,
         });
@@ -66,16 +68,18 @@ router.route("/getByEmployee").get(async (req, res) => {
             });
         }
     } catch (error) {
-        return res.status(500).json({
+        return res.status(400).json({
             result: "Failed to fetch Leaves !",
             error: true,
         });
     }
 });
 
-router.route("/add").post(async (req, res) => {
+router.route("/add").post(authEmployee, async (req, res) => {
     try {
-        const { employeeID, reason, status, startDate, endDate } = req.body;
+        const employeeID = req.headers["employeeID"];
+        console.log(employeeID);
+        const { reason, status, startDate, endDate } = req.body;
         const EID = Types.ObjectId(employeeID);
         const newLeave = new Leave({
             employeeID: EID,
@@ -93,8 +97,8 @@ router.route("/add").post(async (req, res) => {
             error: false,
         });
     } catch (error) {
-        return res.status(500).json({
-            result: "Leave was not added !",
+        return res.status(400).json({
+            result: "Leave addition failed !",
             error: true,
         });
     }

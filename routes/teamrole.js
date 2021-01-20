@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Team = require("../models/team");
 const Role = require("../models/role");
+const { authEmployeeOrHR, authHR } = require("../middleware/auth");
 
 router.route("/").get(async (req, res) => {
     try {
@@ -12,7 +13,7 @@ router.route("/").get(async (req, res) => {
     }
 });
 
-router.route("/team").put(async (req, res) => {
+router.route("/team").put(authHR, async (req, res) => {
     try {
         let teams = await Team.findOne();
         if (!teams) {
@@ -29,7 +30,7 @@ router.route("/team").put(async (req, res) => {
     }
 });
 
-router.route("/role").put(async (req, res) => {
+router.route("/role").put(authHR, async (req, res) => {
     try {
         let roles = await Role.findOne();
         if (!roles) {

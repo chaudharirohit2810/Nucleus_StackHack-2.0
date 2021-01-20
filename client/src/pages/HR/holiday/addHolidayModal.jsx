@@ -45,9 +45,9 @@ const AddHolidayModal = ({
             dateNumber: data["date"].date(),
             days: days[data["date"].day()],
         };
-
+        const hrtoken = localStorage.getItem("hrtoken");
         axios
-            .post(backendURL + "/holidays/", data)
+            .post(backendURL + "/holidays/", data, { headers: { hrtoken } })
             .then(res => {
                 form.resetFields();
                 setLoading(false);

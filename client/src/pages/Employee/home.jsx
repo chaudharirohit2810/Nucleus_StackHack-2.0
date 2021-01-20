@@ -14,10 +14,12 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        const id = localStorage.getItem("employeeID");
+        let token = localStorage.getItem("employeetoken");
         // console.log(id)
         axios
-            .get(`${backendURL}/employee/details/${id}`)
+            .get(`${backendURL}/employee/details/`, {
+                headers: { employeetoken: token },
+            })
             .then(res => {
                 // console.log(res);
                 this.setState({

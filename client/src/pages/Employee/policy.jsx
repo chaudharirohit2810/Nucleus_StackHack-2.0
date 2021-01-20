@@ -22,22 +22,21 @@ class Policy extends React.Component {
     }
     async componentDidMount() {
         try {
-            const response = await axios.get(`${backendURL}/policy/get`);
-            if (!response.data.error) {
-                this.setState({
-                    policyText: response.data.result.policyData,
-                    loading: !this.state.loading,
-                });
-            }
+            const token = localStorage.getItem("employeetoken");
+
+            const response = await axios.get(`${backendURL}/policy/get`, {
+                headers: { employeetoken: token },
+            });
+            this.setState({
+                policyText: response.data.result.policyData,
+                loading: !this.state.loading,
+            });
         } catch (error) {
-            if (error.response && error.response.data.error) {
-                this.setState({
-                    policyText: error.response.data.result,
-                    loading: !this.state.loading,
-                });
-                message.error({ content: "Issue fetching Policy !" });
-            }
-            console.log(error.message);
+            this.setState({
+                policyText: "Something went wrong",
+                loading: !this.state.loading,
+            });
+            message.error({ content: "Failed to fetch policy !" });
         }
     }
     render() {

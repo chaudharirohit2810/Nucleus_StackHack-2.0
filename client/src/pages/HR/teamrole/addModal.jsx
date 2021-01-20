@@ -18,8 +18,11 @@ const AddModal = ({
             data: allTeams,
         };
         setLoading(true);
+        const hrtoken = localStorage.getItem("hrtoken");
         axios
-            .put(`${backendURL}/teamrole/${label}`, data)
+            .put(`${backendURL}/teamrole/${label}`, data, {
+                headers: { hrtoken },
+            })
             .then(res => {
                 setLoading(false);
                 form.resetFields();

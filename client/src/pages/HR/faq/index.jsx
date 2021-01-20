@@ -25,8 +25,9 @@ const FAQ = () => {
     const [faqs, setFaqs] = useState([]);
 
     useEffect(() => {
+        const hrtoken = localStorage.getItem("hrtoken");
         axios
-            .get(`${backendURL}/faq/`)
+            .get(`${backendURL}/faq/`, { headers: { hrtoken } })
             .then(res => {
                 setFaqs(prev => [...prev, ...res.data]);
                 setLoading(false);

@@ -14,8 +14,9 @@ const AddFAQModal = ({
 
     const handleOk = data => {
         setLoading(true);
+        const hrtoken = localStorage.getItem("hrtoken");
         axios
-            .post(backendURL + "/faq/", data)
+            .post(backendURL + "/faq/", data, { headers: { hrtoken } })
             .then(res => {
                 form.resetFields();
                 setLoading(false);

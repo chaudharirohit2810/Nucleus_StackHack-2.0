@@ -70,8 +70,10 @@ class LeaveTable extends React.Component {
 
     async componentDidMount() {
         try {
+            const token = localStorage.getItem("hrtoken");
             const response = await axios.get(
-                `${backendURL}/leave/getAllLeaves`
+                `${backendURL}/leave/getAllLeaves`,
+                { headers: { hrtoken: token } }
             );
             if (!response.data.error) {
                 const result = response.data.result;
@@ -137,8 +139,13 @@ class LeaveTable extends React.Component {
             this.state.status !== "" ? this.state.status : "Pending";
         const ID = this.state.employeeData[Number(this.state.editIndex)]._id;
         const status = this.state.status;
+        const token = localStorage.getItem("hrtoken");
         axios
-            .post(`${backendURL}/leave/updateStatus`, { ID, status })
+            .post(
+                `${backendURL}/leave/updateStatus`,
+                { ID, status },
+                { headers: { hrtoken: token } }
+            )
             .then(response => {
                 if (!response.data.error) {
                     message.success({ content: response.data.result });

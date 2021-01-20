@@ -1,7 +1,8 @@
 const Policy = require("../models/Policy");
 const router = require("express").Router();
+const { authEmployeeOrHR, authHR } = require("../middleware/auth");
 
-router.route("/add").post(async (req, res) => {
+router.route("/add").post(authHR, async (req, res) => {
     try {
         const { policyData } = req.body;
         const policy = await Policy.find();
@@ -33,7 +34,7 @@ router.route("/add").post(async (req, res) => {
     }
 });
 
-router.route("/get").get(async (req, res) => {
+router.route("/get").get(authEmployeeOrHR, async (req, res) => {
     try {
         const policy = await Policy.find();
         if (policy !== undefined && policy !== null && policy.length !== 0) {
@@ -48,7 +49,7 @@ router.route("/get").get(async (req, res) => {
             });
         }
     } catch (error) {
-        return res.status(500).json({
+        return res.status(400).json({
             result: "",
             error: true,
         });

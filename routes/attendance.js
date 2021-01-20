@@ -1,10 +1,14 @@
 const router = require("express").Router();
 const Attendance = require("../models/attendance");
+const jwt = require("jsonwebtoken");
+const config = require("config");
+const { authEmployee } = require("../middleware/auth");
+
 // const jwtUtils = require("../middleware");
 
-router.route("/:id").get(async (req, res) => {
+router.route("/").get(authEmployee, async (req, res) => {
     try {
-        const employeeId = req.params.id;
+        const employeeId = req.headers["employeeID"];
         var record = await Attendance.findOne({ employeeId });
         if (record) {
             res.status(200).send(record);
@@ -12,15 +16,17 @@ router.route("/:id").get(async (req, res) => {
             throw Error("Record does not exists");
         }
     } catch (err) {
+        console.log(err.message);
         res.status(400).send(err.message);
     }
 });
 
-router.route("/").post(async (req, res) => {
+router.route("/").post(authEmployee, async (req, res) => {
     try {
+        const employeeId = req.headers["employeeID"];
         // console.log(req.body);
         var record = await Attendance.findOne({
-            employeeId: req.body.employeeId,
+            employeeId: employeeId,
         });
 
         if (record) {
@@ -30,6 +36,7 @@ router.route("/").post(async (req, res) => {
                 presentDays: req.body.presentDays,
             });
         } else {
+            const data = [employeeId, ...req.body];
             const attend = new Attendance(req.body);
             await attend.save();
         }

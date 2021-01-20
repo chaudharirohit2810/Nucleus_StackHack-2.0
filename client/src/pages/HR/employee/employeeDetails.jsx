@@ -16,8 +16,15 @@ const EmployeeDetails = props => {
     const id = props.match.params.id;
     const his = useHistory();
     useEffect(() => {
+        const token = localStorage.getItem("hrtoken");
+        // console.log(id);
         axios
-            .get(`${backendURL}/employee/hrdetails/${id}`)
+            .get(`${backendURL}/employee/hrdetails`, {
+                headers: {
+                    hrtoken: token,
+                    employeeID: id,
+                },
+            })
             .then(res => {
                 setUser(res.data);
 

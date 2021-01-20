@@ -8,9 +8,11 @@ const Attendance = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const employeeID = localStorage.getItem("employeeID");
+        let token = localStorage.getItem("employeetoken");
         axios
-            .get(`${backendURL}/attendance/${employeeID}`)
+            .get(`${backendURL}/attendance/`, {
+                headers: { employeetoken: token },
+            })
             .then(res => {
                 // console.log(res.data);
                 setPresentDays(res.data.presentDays);

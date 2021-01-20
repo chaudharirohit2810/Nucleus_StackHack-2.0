@@ -10,9 +10,14 @@ const { Title } = Typography;
 function Holiday() {
     const [holidays, setHolidays] = useState([]);
     const [loading, setLoading] = useState(true);
+    const token = localStorage.getItem("employeetoken");
     useEffect(() => {
         axios
-            .get(`${backendURL}/holidays/`)
+            .get(`${backendURL}/holidays/`, {
+                headers: {
+                    employeetoken: token,
+                },
+            })
             .then(res => {
                 setHolidays(res.data);
                 setLoading(false);

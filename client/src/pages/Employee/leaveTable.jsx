@@ -138,15 +138,12 @@ class LeaveTable extends React.Component {
 
     async componentDidMount() {
         try {
-            let employeeid = "";
-            if (localStorage.getItem("employeeID") !== null) {
-                employeeid = localStorage.getItem("employeeID");
-            }
+            let token = localStorage.getItem("employeetoken");
             const response = await axios.get(
                 `${backendURL}/leave/getByEmployee`,
                 {
                     headers: {
-                        employeeid,
+                        employeetoken: token,
                     },
                 }
             );
@@ -230,12 +227,8 @@ class LeaveTable extends React.Component {
         const endDate = String(range[1]._d);
         this.loadModal();
         this.showModal();
-        let employeeID = "";
-        if (localStorage.getItem("employeeID") !== null) {
-            employeeID = localStorage.getItem("employeeID");
-        }
+        let token = localStorage.getItem("employeetoken");
         const data = {
-            employeeID,
             reason,
             status: "Pending",
             startDate: startDate,
@@ -248,7 +241,9 @@ class LeaveTable extends React.Component {
             status: "Pending",
         });
         axios
-            .post(`${backendURL}/leave/add`, data)
+            .post(`${backendURL}/leave/add`, data, {
+                headers: { employeetoken: token },
+            })
             .then(response => {
                 if (!response.data.error) {
                     this.handleAdd();

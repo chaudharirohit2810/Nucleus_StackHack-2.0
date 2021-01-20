@@ -19,7 +19,10 @@ class FAQ extends React.Component {
     }
     async componentDidMount() {
         try {
-            const response = await axios.get(`${backendURL}/faq/`);
+            const token = localStorage.getItem("employeetoken");
+            const response = await axios.get(`${backendURL}/faq/`, {
+                headers: { employeetoken: token },
+            });
             if (
                 response !== undefined ||
                 response !== null ||
@@ -37,6 +40,10 @@ class FAQ extends React.Component {
             }
         } catch (error) {
             console.log(error.message);
+            this.setState({
+                faqs: [],
+                loading: !this.state.loading,
+            });
         }
     }
     render() {

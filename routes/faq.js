@@ -1,7 +1,8 @@
 const router = require("express").Router();
+const { authEmployeeOrHR, authHR } = require("../middleware/auth");
 const FAQ = require("../models/faq");
 
-router.route("/").post(async (req, res) => {
+router.route("/").post(authHR, async (req, res) => {
     try {
         var faq = new FAQ(req.body);
         await faq.save();
@@ -11,7 +12,7 @@ router.route("/").post(async (req, res) => {
     }
 });
 
-router.route("/").get(async (req, res) => {
+router.route("/").get(authEmployeeOrHR, async (req, res) => {
     try {
         const faqs = await FAQ.find();
         res.status(200).send(faqs);

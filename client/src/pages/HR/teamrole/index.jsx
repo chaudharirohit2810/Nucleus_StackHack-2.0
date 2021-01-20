@@ -25,6 +25,8 @@ const TeamRole = () => {
                 setRoleLoading(false);
             })
             .catch(err => {
+                setTeamLoading(false);
+                setRoleLoading(false);
                 console.error(err.message);
             });
     }, []);

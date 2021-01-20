@@ -22,7 +22,10 @@ class HRHome extends React.Component {
     }
     async componentDidMount() {
         try {
-            const response = await axios.get(`${backendURL}/employee/`);
+            const token = localStorage.getItem("hrtoken");
+            const response = await axios.get(`${backendURL}/employee/`, {
+                headers: { hrtoken: token },
+            });
             this.setState({
                 employees: response.data,
                 loading: !this.state.loading,

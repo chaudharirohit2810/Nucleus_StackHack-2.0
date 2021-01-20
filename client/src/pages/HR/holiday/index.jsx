@@ -22,8 +22,9 @@ const Holiday = () => {
     const [holidays, setHolidays] = useState([]);
 
     useEffect(() => {
+        const hrtoken = localStorage.getItem("hrtoken");
         axios
-            .get(`${backendURL}/holidays/`)
+            .get(`${backendURL}/holidays/`, { headers: { hrtoken } })
             .then(res => {
                 setHolidays(res.data);
                 setLoading(false);

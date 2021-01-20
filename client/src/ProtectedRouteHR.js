@@ -9,9 +9,9 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
     const [validated, setValidated] = useState(false);
 
     useEffect(() => {
-        const verifyToken = async () => {
+        const verifyToken = () => {
             let token = localStorage.getItem("hrtoken");
-            await axios
+            axios
                 .post(`${backendURL}/hr/verify`, {
                     headers: { hrtoken: token },
                 })
