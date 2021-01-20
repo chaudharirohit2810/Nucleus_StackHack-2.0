@@ -6,10 +6,12 @@ import { Drawer, DrawerMobile, Footer } from "./components";
 const MainLayout = ({ children, type }) => {
     const { props } = children;
     function logoutDashboard() {
-        if (localStorage.getItem("employeeEmail") !== null) {
-            localStorage.removeItem("employeeEmail");
+        localStorage.clear();
+        if (type == 1) {
+            props.history.replace("/");
+        } else {
+            props.history.replace("/hr/login");
         }
-        props.history.replace("/");
     }
 
     return (
