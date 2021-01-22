@@ -109,21 +109,6 @@ class LeaveTable extends React.Component {
                 title: "End Date",
                 dataIndex: "endDate",
             },
-            // {
-            //     title: "operation",
-            //     dataIndex: "operation",
-            //     render: (_, record) =>
-            //         this.state.dataSource.length >= 1 ? (
-            //             <Popconfirm
-            //                 title="Sure to delete?"
-            //                 onConfirm={() => this.handleDelete(record.key)}
-            //             >
-            //                 <span style={{ color: "red", cursor: "pointer" }}>
-            //                     Delete
-            //                 </span>
-            //             </Popconfirm>
-            //         ) : null,
-            // },
         ];
         this.state = {
             dataSource: [],
@@ -179,8 +164,15 @@ class LeaveTable extends React.Component {
                         dataSource,
                         loading: false,
                     });
+                } else {
+                    this.setState({
+                        loading: false,
+                    });
                 }
             } else {
+                this.setState({
+                    loading: false,
+                });
                 console.log(response.data.result);
             }
         } catch (error) {

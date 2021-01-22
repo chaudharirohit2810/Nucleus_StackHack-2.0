@@ -20,10 +20,33 @@ class LeaveTable extends React.Component {
                 width: 100,
                 // editable: true,
                 fixed: "left",
+                sorter: (a, b) => a.name.localeCompare(b.name),
+                sortDirections: ["descend", "ascend"],
             },
             {
                 title: "Status",
                 dataIndex: "status",
+                filters: [
+                    { text: "Approve", value: "Approve", color: "red" },
+                    { text: "Reject", value: "Reject" },
+                    { text: "Pending", value: "Pending" },
+                ],
+                render(text, record) {
+                    return {
+                        props: {
+                            style: {
+                                color:
+                                    text === "Reject"
+                                        ? "#e76f51"
+                                        : text === "Approve"
+                                        ? "#2a9d8f"
+                                        : "#577590",
+                            },
+                        },
+                        children: <b>{text}</b>,
+                    };
+                },
+                onFilter: (value, record) => record.status.indexOf(value) === 0,
             },
             {
                 title: "Start Date",
@@ -87,23 +110,13 @@ class LeaveTable extends React.Component {
                     const dataSource = result.map((d, i) => {
                         return {
                             key: i,
-                            status: (
-                                <span
-                                    style={{
-                                        color:
-                                            d.status === "Reject"
-                                                ? "#e76f51"
-                                                : d.status === "Approve"
-                                                ? "#2a9d8f"
-                                                : "#577590",
-                                    }}
-                                >
-                                    <b>{d.status}</b>
-                                </span>
-                            ),
+                            status: d.status,
                             startDate: new Date(d.startDate).toUTCString(),
                             endDate: new Date(d.endDate).toUTCString(),
-                            name: d.employeeData[0].name,
+                            name:
+                                d.employeeData !== undefined
+                                    ? d.employeeData[0].name
+                                    : "",
                         };
                     });
                     this.setState({

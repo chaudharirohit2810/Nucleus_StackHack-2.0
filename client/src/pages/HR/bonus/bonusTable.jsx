@@ -19,14 +19,39 @@ class BonusTable extends React.Component {
                 dataIndex: "name",
                 // width: "15%",
                 // editable: true,
+                sorter: (a, b) => a.name.localeCompare(b.name),
+                sortDirections: ["descend", "ascend"],
             },
             {
                 title: "Status",
                 dataIndex: "status",
+                filters: [
+                    { text: "Approve", value: "Approve", color: "red" },
+                    { text: "Reject", value: "Reject" },
+                    { text: "Pending", value: "Pending" },
+                ],
+                render(text, record) {
+                    return {
+                        props: {
+                            style: {
+                                color:
+                                    text === "Reject"
+                                        ? "#e76f51"
+                                        : text === "Approve"
+                                        ? "#2a9d8f"
+                                        : "#577590",
+                            },
+                        },
+                        children: <b>{text}</b>,
+                    };
+                },
+                onFilter: (value, record) => record.status.indexOf(value) === 0,
             },
             {
                 title: "Bonus Amount",
                 dataIndex: "amount",
+                sorter: (a, b) => a.amount - b.amount,
+                sortDirections: ["descend", "ascend"],
             },
             {
                 title: "Reason",
@@ -71,23 +96,13 @@ class BonusTable extends React.Component {
                     const dataSource = result.map((d, i) => {
                         return {
                             key: i,
-                            status: (
-                                <span
-                                    style={{
-                                        color:
-                                            d.status === "Reject"
-                                                ? "#e76f51"
-                                                : d.status === "Approve"
-                                                ? "#2a9d8f"
-                                                : "#577590",
-                                    }}
-                                >
-                                    <b>{d.status}</b>
-                                </span>
-                            ),
+                            status: d.status,
                             reason: d.reason,
                             amount: d.amount,
-                            name: d.employeeData[0].name,
+                            name:
+                                d.employeeData !== undefined
+                                    ? d.employeeData[0].name
+                                    : "",
                         };
                     });
                     this.setState({
@@ -129,28 +144,7 @@ class BonusTable extends React.Component {
         });
         let dataSource = [...this.state.dataSource];
         dataSource[Number(this.state.editIndex)]["status"] =
-            this.state.status !== "" ? (
-                <span
-                    style={{
-                        color:
-                            this.state.status === "Reject"
-                                ? "#e76f51"
-                                : this.state.status === "Approve"
-                                ? "#2a9d8f"
-                                : "#577590",
-                    }}
-                >
-                    <b>{this.state.status}</b>
-                </span>
-            ) : (
-                <span
-                    style={{
-                        color: "#577590",
-                    }}
-                >
-                    <b>Pending</b>
-                </span>
-            );
+            this.state.status !== "" ? this.state.status : "Pending";
         const ID = this.state.employeeData[Number(this.state.editIndex)]._id;
         const status = this.state.status;
         const token = localStorage.getItem("hrtoken");
