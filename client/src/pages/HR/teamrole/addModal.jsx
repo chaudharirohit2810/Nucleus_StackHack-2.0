@@ -18,9 +18,10 @@ const AddModal = ({
         if (
             items.find(item => item.toLowerCase() === value.team.toLowerCase())
         ) {
-            message.error({ content: `${label} already exists` });
             setLoading(false);
+            message.error({ content: `${label} already exists` });
             onCancel();
+            return;
         }
         const allTeams = [...items, value.team];
         const data = {

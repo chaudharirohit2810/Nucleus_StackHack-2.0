@@ -133,6 +133,7 @@ class LeaveTable extends React.Component {
             startDate: "",
             endDate: "",
             status: "",
+            loading: true,
         };
     }
 
@@ -155,19 +156,25 @@ class LeaveTable extends React.Component {
                             key: i + 1,
                             reason: d.reason,
                             status: d.status,
-                            startDate: d.startDate,
-                            endDate: d.endDate,
+                            startDate: new Date(
+                                d.startDate
+                            ).toLocaleDateString(),
+                            endDate: new Date(d.endDate).toLocaleDateString(),
                         };
                     });
                     this.setState({
                         employeeData: result,
                         dataSource,
+                        loading: false,
                     });
                 }
             } else {
                 console.log(response.data.result);
             }
         } catch (error) {
+            this.setState({
+                loading: false,
+            });
             console.log(error.message);
         }
     }
@@ -314,6 +321,7 @@ class LeaveTable extends React.Component {
                     bordered
                     dataSource={dataSource}
                     columns={columns}
+                    loading={this.state.loading}
                 />
             </div>
         );

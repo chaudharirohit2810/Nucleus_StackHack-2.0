@@ -65,6 +65,7 @@ class LeaveTable extends React.Component {
             editModalVisible: false,
             editIndex: "",
             status: "",
+            loading: true,
         };
     }
 
@@ -82,14 +83,15 @@ class LeaveTable extends React.Component {
                         return {
                             key: i,
                             status: d.status,
-                            startDate: d.startDate,
-                            endDate: d.endDate,
+                            startDate: new Date(d.startDate).toDateString(),
+                            endDate: new Date(d.endDate).toDateString(),
                             name: d.employeeData[0].name,
                         };
                     });
                     this.setState({
                         employeeData: result,
                         dataSource,
+                        loading: false,
                     });
                 }
             } else {
@@ -101,6 +103,7 @@ class LeaveTable extends React.Component {
             if (error.response && error.response.data.error) {
                 const data = error.response.data;
                 message.error({ content: data.result });
+                this.state({ loading: false });
             }
         }
     }
@@ -253,6 +256,7 @@ class LeaveTable extends React.Component {
                     rowClassName={() => "editable-row"}
                     bordered
                     dataSource={dataSource}
+                    loading={this.state.loading}
                     columns={columns}
                 />
             </div>
