@@ -151,7 +151,11 @@ class Policy extends React.Component {
                       policyText !== null &&
                       policyText !== "" ? (
                         <Space direction="vertical">
-                            <Text>{policyText}</Text>
+                            {policyText.split("\n").map(item => (
+                                <p style={{ textIndent: "20px", margin: "0" }}>
+                                    {item}
+                                </p>
+                            ))}
                         </Space>
                     ) : (
                         <Empty>

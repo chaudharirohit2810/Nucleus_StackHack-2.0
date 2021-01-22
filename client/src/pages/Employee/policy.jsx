@@ -41,6 +41,9 @@ class Policy extends React.Component {
     }
     render() {
         const { policyText, loading } = this.state;
+        {
+            console.log(policyText);
+        }
         return (
             <div>
                 <Layout>
@@ -51,7 +54,11 @@ class Policy extends React.Component {
                       policyText !== null &&
                       policyText !== "" ? (
                         <Space direction="vertical">
-                            <Text>{policyText}</Text>
+                            {policyText.split("\n").map(item => (
+                                <p style={{ textIndent: "20px", margin: "0" }}>
+                                    {item}
+                                </p>
+                            ))}
                         </Space>
                     ) : (
                         <Empty />

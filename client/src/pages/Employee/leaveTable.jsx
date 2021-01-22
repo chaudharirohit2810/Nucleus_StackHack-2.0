@@ -157,10 +157,8 @@ class LeaveTable extends React.Component {
                             key: i + 1,
                             reason: d.reason,
                             status: d.status,
-                            startDate: new Date(
-                                d.startDate
-                            ).toLocaleDateString(),
-                            endDate: new Date(d.endDate).toLocaleDateString(),
+                            startDate: new Date(d.startDate).toUTCString(),
+                            endDate: new Date(d.endDate).toUTCString(),
                         };
                     });
                     this.setState({
@@ -192,8 +190,8 @@ class LeaveTable extends React.Component {
             key: dataSource.length + 1,
             reason,
             status,
-            startDate,
-            endDate,
+            startDate: new Date(startDate).toUTCString(),
+            endDate: new Date(endDate).toUTCString(),
         };
         this.setState({
             dataSource: [...dataSource, newData],
@@ -318,7 +316,7 @@ class LeaveTable extends React.Component {
                 </Button>
                 <Table
                     scroll={{
-                        x: 1200,
+                        x: 500,
                     }}
                     components={components}
                     rowClassName={() => "editable-row"}
