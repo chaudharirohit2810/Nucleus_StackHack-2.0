@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal } from "antd";
+import { Button, Form, Input, Modal, message } from "antd";
 import axios from "axios";
 import React, { useState } from "react";
 import { backendURL } from "../../../config";
@@ -13,11 +13,19 @@ const AddModal = ({
     const [loading, setLoading] = useState(false);
     const [form] = Form.useForm();
     const handleOk = value => {
+        setLoading(true);
+
+        if (
+            items.find(item => item.toLowerCase() === value.team.toLowerCase())
+        ) {
+            message.error({ content: `${label} already exists` });
+            setLoading(false);
+            onCancel();
+        }
         const allTeams = [...items, value.team];
         const data = {
             data: allTeams,
         };
-        setLoading(true);
         const hrtoken = localStorage.getItem("hrtoken");
         axios
             .put(`${backendURL}/teamrole/${label}`, data, {

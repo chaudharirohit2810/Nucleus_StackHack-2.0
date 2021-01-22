@@ -1,4 +1,5 @@
 const Employee = require("../models/Employee");
+const Attendance = require("../models/attendance");
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -27,13 +28,13 @@ async function returnHashedPassowrd(password) {
 
 router.route("/verify").post(async (req, res) => {
     const token = req.body.headers["employeetoken"];
-    if (!token) return res.status(400).json({ result: false });
+    if (!token) res.status(400).json({ result: false });
     try {
         await jwt.verify(token, config.get("jwtEmployeeSecret"));
-        return res.status(200).json({ result: true });
+        res.status(200).json({ result: true });
     } catch (error) {
         console.log(error.message);
-        return res.status(400).json({ result: false });
+        res.status(400).json({ result: false });
     }
 });
 
@@ -59,19 +60,20 @@ router.route("/login").post(async (req, res) => {
                             }
                         );
                     } else
-                        return res.status(403).json({
+                        res.status(403).json({
                             result: "Invalid password !",
                             error: true,
                         });
                 })
                 .catch(error => console.log(error.message));
         } else {
-            return res
-                .status(403)
-                .json({ result: "Employee is not registered !", error: true });
+            res.status(403).json({
+                result: "Employee is not registered !",
+                error: true,
+            });
         }
     } catch (error) {
-        return res.status(500).json({
+        res.status(400).json({
             result: "Employee Login Failed !",
             error: true,
         });
@@ -93,7 +95,7 @@ router.route("/register").post(async (req, res) => {
         } = req.body;
         const employee = await Employee.findOne({ username });
         if (employee) {
-            return res.status(409).send({
+            res.status(409).send({
                 result: "Employee Already Exists !",
                 error: true,
             });
@@ -116,13 +118,13 @@ router.route("/register").post(async (req, res) => {
                         .catch(error => console.log(error.message));
                 })
                 .catch(error => console.log(error.message));
-            return res.status(200).json({
+            res.status(200).json({
                 result: "Employee Registeration Successful !",
                 error: false,
             });
         }
     } catch (error) {
-        return res.status(500).json({
+        res.status(400).json({
             result: "Employee Registeration Failed !",
             error: true,
         });
@@ -141,45 +143,51 @@ router.route("/details/").get(authEmployee, async (req, res) => {
 
 router.route("/hrdetails").get(authHR, async (req, res) => {
     try {
-        // const id = req.header("employeeID");
         const username = req.header("username");
-        await Employee.aggregate([
-            { $addFields: { employeeId: { $toString: "$_id" } } },
-            {
-                $lookup: {
-                    from: "attendances",
-                    localField: "employeeId",
-                    foreignField: "employeeId",
-                    as: "attendanceData",
-                },
+
+        let employee = await Employee.findOne({ username });
+        employee = JSON.stringify(employee);
+        employee = JSON.parse(employee);
+
+        let attendance = await Attendance.findOne({ employeeId: employee._id });
+        attendance = JSON.stringify(attendance);
+        attendance = JSON.parse(attendance);
+
+        const data = {
+            ...employee,
+            attendanceData: {
+                presentDays: attendance.presentDays,
             },
-            // $unwind the array to denormalize
-            { $unwind: "$attendanceData" },
-
-            // Then match on the condtion for tb2
-            { $match: { username: `${username}` } },
-
-            {
-                $project: {
-                    username: 1,
-                    name: 1,
-                    email: 1,
-                    phone: 1,
-                    team: 1,
-                    role: 1,
-                    salary: 1,
-                    "attendanceData.presentDays": 1, //if need full mapping then mapping:1
-                },
-            },
-        ]).exec(function (err, data) {
-            if (err) {
-                throw err;
-            }
-
-            res.status(200).json(data[0]);
-        });
+        };
+        res.status(200).send(data);
     } catch (error) {
         res.status(400).send(error.message);
+    }
+});
+
+router.route("/getTeamMembers").get(authEmployee, async (req, res) => {
+    try {
+        const { team, username } = req.headers;
+        const members = await Employee.find({ team });
+        if (members !== undefined && members !== null && members.length !== 0) {
+            let newMembers = JSON.parse(JSON.stringify(members));
+            let data = [];
+            data = newMembers.filter(member => member.username !== username);
+            res.status(200).json({
+                result: data,
+                error: false,
+            });
+        } else {
+            res.status(200).json({
+                result: [],
+                error: false,
+            });
+        }
+    } catch (error) {
+        res.status(400).json({
+            result: "Failed to fetch Employee Team Members !",
+            error: true,
+        });
     }
 });
 

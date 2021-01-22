@@ -1,27 +1,27 @@
+const Loan = require("../models/Loan");
 const router = require("express").Router();
 const { authEmployee, authHR } = require("../middleware/auth");
-const Leave = require("../models/Leave");
 const Types = require("mongoose").Types;
 
-router.route("/updateStatus").post(authHR, async (req, res) => {
+router.route("/updateLoan").post(authHR, async (req, res) => {
     try {
         const { ID, status } = req.body;
-        await Leave.updateOne({ _id: ID }, { $set: { status } });
+        await Loan.updateOne({ _id: ID }, { $set: { status } });
         res.status(200).json({
-            result: "Leave Updated !",
+            result: "Loan Status Updated !",
             error: false,
         });
     } catch (error) {
         res.status(400).json({
-            result: "Failed to update Leave !",
+            result: "Failed to update Loan Status !",
             error: true,
         });
     }
 });
 
-router.route("/getAllLeaves").get(authHR, async (req, res) => {
+router.route("/getAllLoans").get(authHR, async (req, res) => {
     try {
-        await Leave.aggregate([
+        await Loan.aggregate([
             {
                 $lookup: {
                     from: "employees",
@@ -34,7 +34,7 @@ router.route("/getAllLeaves").get(authHR, async (req, res) => {
             if (err) {
                 res.status(400).json({
                     result:
-                        "Failed to fetch Leaves, Error joining collections !",
+                        "Failed to fetch Loans, Error joining collections !",
                     error: true,
                 });
             }
@@ -42,62 +42,51 @@ router.route("/getAllLeaves").get(authHR, async (req, res) => {
         });
     } catch (error) {
         res.status(400).json({
-            result: "Failed to fetch Leaves !",
+            result: "Failed to fetch Loans !",
             error: true,
         });
     }
 });
 
-router.route("/getByEmployee").get(authEmployee, async (req, res) => {
-    try {
-        var employeeID = req.headers["employeeID"];
-        employeeID = Types.ObjectId(employeeID);
-        const employeeLeaves = await Leave.find({
-            employeeID,
-        });
-        if (employeeLeaves !== undefined && employeeLeaves !== null) {
-            res.status(200).json({
-                result: employeeLeaves,
-                error: false,
-            });
-        } else {
-            res.status(200).json({
-                result: [],
-                error: false,
-            });
-        }
-    } catch (error) {
-        res.status(400).json({
-            result: "Failed to fetch Leaves !",
-            error: true,
-        });
-    }
-});
-
-router.route("/add").post(authEmployee, async (req, res) => {
+router.route("/getLoansByID").get(authEmployee, async (req, res) => {
     try {
         const employeeID = req.headers["employeeID"];
-        console.log(employeeID);
-        const { reason, status, startDate, endDate } = req.body;
         const EID = Types.ObjectId(employeeID);
-        const newLeave = new Leave({
-            employeeID: EID,
-            reason,
-            status,
-            startDate,
-            endDate,
-        });
-        newLeave
-            .save()
-            .then(p => res.json(p))
-            .catch(error => console.log(error.message));
+        const loans = await Loan.find({ employeeID: EID });
         res.status(200).json({
-            result: "Leave Submitted !",
+            result: loans,
             error: false,
         });
     } catch (error) {
         res.status(400).json({
-            result: "Leave addition failed !",
+            result: "Failed to fetch Loans !",
+            error: true,
+        });
+    }
+});
+
+router.route("/request").post(authEmployee, async (req, res) => {
+    try {
+        const employeeID = req.headers["employeeID"];
+        const { reason, amount, status } = req.body;
+        const EID = Types.ObjectId(employeeID);
+        const newLoan = new Loan({
+            employeeID: EID,
+            reason,
+            amount,
+            status,
+        });
+        newLoan
+            .save()
+            .then(p => res.json(p))
+            .catch(error => console.log(error.message));
+        res.status(200).json({
+            result: "Loan Requested !",
+            error: false,
+        });
+    } catch (error) {
+        res.status(400).json({
+            result: "Failed to request Loan !",
             error: true,
         });
     }

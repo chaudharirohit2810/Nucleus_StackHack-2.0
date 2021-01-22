@@ -38,7 +38,7 @@ const Holiday = () => {
     const handleSuccess = data => {
         setHolidays(prev => [...prev, data]);
         setModalVisible(false);
-        message.success({ content: "New FAQ Added" });
+        message.success({ content: "New Holiday Added" });
     };
 
     const handleError = () => {

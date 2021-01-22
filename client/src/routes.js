@@ -5,6 +5,8 @@ import {
     LeaveTable,
     Policy,
     Holiday,
+    Loan,
+    Bonus,
 } from "./pages/Employee";
 
 import {
@@ -15,6 +17,8 @@ import {
     Leaves as HRLeaves,
     TeamRole as HRTeamRole,
     EmployeeDetails as HREmployeeDetails,
+    Bonus as HRBonus,
+    Loan as HRLoan,
 } from "./pages/HR";
 
 export const EmployeeRoutes = [
@@ -27,6 +31,16 @@ export const EmployeeRoutes = [
         path: "attendence",
         exact: true,
         component: Attendance,
+    },
+    {
+        path: "loan",
+        exact: true,
+        component: Loan,
+    },
+    {
+        path: "bonus",
+        exact: true,
+        component: Bonus,
     },
     {
         path: "submitLeave",
@@ -70,6 +84,16 @@ export const HRRoutes = [
         path: "policy",
         exact: true,
         component: HRPolicy,
+    },
+    {
+        path: "bonus",
+        exact: true,
+        component: HRBonus,
+    },
+    {
+        path: "loan",
+        exact: true,
+        component: HRLoan,
     },
     {
         path: "holiday",

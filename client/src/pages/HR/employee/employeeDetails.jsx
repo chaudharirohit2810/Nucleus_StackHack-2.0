@@ -27,8 +27,11 @@ const EmployeeDetails = props => {
             })
             .then(res => {
                 setUser(res.data);
-
-                setPresentDays(res.data.attendanceData.presentDays);
+                setPresentDays(prev =>
+                    res.data.attendanceData
+                        ? res.data.attendanceData.presentDays
+                        : prev
+                );
                 setLoading(false);
             })
             .catch(err => {

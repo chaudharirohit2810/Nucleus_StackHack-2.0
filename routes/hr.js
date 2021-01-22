@@ -26,13 +26,13 @@ async function returnHashedPassowrd(password) {
 
 router.route("/verify").post(async (req, res) => {
     const token = req.body.headers["hrtoken"];
-    if (!token) return res.status(400).json({ result: false });
+    if (!token) res.status(400).json({ result: false });
     try {
         await jwt.verify(token, config.get("jwtHRSecret"));
-        return res.status(200).json({ result: true });
+        res.status(200).json({ result: true });
     } catch (error) {
         console.log(error.message);
-        return res.status(400).json({ result: false });
+        res.status(400).json({ result: false });
     }
 });
 
@@ -58,19 +58,20 @@ router.route("/login").post(async (req, res) => {
                             }
                         );
                     } else
-                        return res.status(403).json({
+                        res.status(403).json({
                             result: "Invalid password !",
                             error: true,
                         });
                 })
                 .catch(error => console.log(error.message));
         } else {
-            return res
-                .status(403)
-                .json({ result: "HR is not registered !", error: true });
+            res.status(403).json({
+                result: "HR is not registered !",
+                error: true,
+            });
         }
     } catch (error) {
-        return res.status(500).json({
+        res.status(400).json({
             result: "HR Login Failed !",
             error: true,
         });
@@ -89,7 +90,7 @@ router.route("/register").post(async (req, res) => {
         } = req.body;
         const employee = await HR.findOne({ email });
         if (employee) {
-            return res.status(409).send({
+            res.status(409).send({
                 result: "HR Already Exists !",
                 error: true,
             });
@@ -109,13 +110,13 @@ router.route("/register").post(async (req, res) => {
                         .catch(error => console.log(error.message));
                 })
                 .catch(error => console.log(error.message));
-            return res.status(200).json({
+            res.status(200).json({
                 result: "HR Registeration Successful !",
                 error: false,
             });
         }
     } catch (error) {
-        return res.status(500).json({
+        res.status(400).json({
             result: "HR Registeration Failed !",
             error: true,
         });
