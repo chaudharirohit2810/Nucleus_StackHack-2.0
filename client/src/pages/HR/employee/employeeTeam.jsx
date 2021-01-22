@@ -1,5 +1,5 @@
 import React from "react";
-import { Collapse, Row, Input } from "antd";
+import { Collapse, Row, Input, Empty } from "antd";
 import { CaretRightOutlined, SearchOutlined } from "@ant-design/icons";
 import EmployeeContainer from "./employeeContainer";
 import TeamLoading from "./teamLoading";
@@ -83,16 +83,27 @@ class employeeTeam extends React.Component {
                 </Row>
                 <TeamLoading loading={loading} />
                 {!loading ? (
-                    <Collapse
-                        bordered={false}
-                        // defaultActiveKey={["1"]}
-                        expandIcon={({ isActive }) => (
-                            <CaretRightOutlined rotate={isActive ? 90 : 0} />
+                    <>
+                        {finalEmployee && finalEmployee.length !== 0 ? (
+                            <Collapse
+                                bordered={false}
+                                // defaultActiveKey={["1"]}
+                                expandIcon={({ isActive }) => (
+                                    <CaretRightOutlined
+                                        rotate={isActive ? 90 : 0}
+                                    />
+                                )}
+                                style={style}
+                            >
+                                {finalEmployee}
+                            </Collapse>
+                        ) : (
+                            <Empty
+                                description={"No record found"}
+                                style={{ marginTop: "1rem" }}
+                            />
                         )}
-                        style={style}
-                    >
-                        {finalEmployee}
-                    </Collapse>
+                    </>
                 ) : null}
             </div>
         );
