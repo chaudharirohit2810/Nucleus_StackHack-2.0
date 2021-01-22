@@ -52,6 +52,7 @@ class BonusTable extends React.Component {
             editModalVisible: false,
             editIndex: "",
             status: "",
+            loading: true,
         };
     }
 
@@ -70,7 +71,20 @@ class BonusTable extends React.Component {
                     const dataSource = result.map((d, i) => {
                         return {
                             key: i,
-                            status: d.status,
+                            status: (
+                                <span
+                                    style={{
+                                        color:
+                                            d.status === "Reject"
+                                                ? "#e76f51"
+                                                : d.status === "Approve"
+                                                ? "#2a9d8f"
+                                                : "#577590",
+                                    }}
+                                >
+                                    <b>{d.status}</b>
+                                </span>
+                            ),
                             reason: d.reason,
                             amount: d.amount,
                             name: d.employeeData[0].name,
@@ -79,11 +93,13 @@ class BonusTable extends React.Component {
                     this.setState({
                         employeeData: result,
                         dataSource,
+                        loading: false,
                     });
                 }
             } else {
                 console.log(response.data.result);
                 message.error({ content: response.data.result });
+                this.setState({ loading: false });
             }
         } catch (error) {
             console.log(error.message);
@@ -91,6 +107,7 @@ class BonusTable extends React.Component {
                 const data = error.response.data;
                 message.error({ content: data.result });
             }
+            this.setState({ loading: false });
         }
     }
 
@@ -112,7 +129,28 @@ class BonusTable extends React.Component {
         });
         let dataSource = [...this.state.dataSource];
         dataSource[Number(this.state.editIndex)]["status"] =
-            this.state.status !== "" ? this.state.status : "Pending";
+            this.state.status !== "" ? (
+                <span
+                    style={{
+                        color:
+                            this.state.status === "Reject"
+                                ? "#e76f51"
+                                : this.state.status === "Approve"
+                                ? "#2a9d8f"
+                                : "#577590",
+                    }}
+                >
+                    <b>{this.state.status}</b>
+                </span>
+            ) : (
+                <span
+                    style={{
+                        color: "#577590",
+                    }}
+                >
+                    <b>Pending</b>
+                </span>
+            );
         const ID = this.state.employeeData[Number(this.state.editIndex)]._id;
         const status = this.state.status;
         const token = localStorage.getItem("hrtoken");
@@ -212,13 +250,14 @@ class BonusTable extends React.Component {
                 </Modal>
                 <Table
                     scroll={{
-                        x: 1200,
+                        x: 500,
                     }}
                     components={components}
                     rowClassName={() => "editable-row"}
                     bordered
                     dataSource={dataSource}
                     columns={columns}
+                    loading={this.state.loading}
                 />
             </div>
         );

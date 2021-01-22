@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Menu } from "antd";
 import {
     HomeOutlined,
@@ -11,11 +11,14 @@ import {
     FileTextOutlined,
     MoneyCollectOutlined,
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const { SubMenu } = Menu;
 
 const HRMenu = ({ setVisible }) => {
+    const his = useHistory();
+    const [path, setPath] = useState(his.location.pathname.split("/")[2]);
+
     const HRRoutes = [
         {
             title: "Home",
@@ -66,7 +69,7 @@ const HRMenu = ({ setVisible }) => {
     ];
     return (
         <Menu
-            defaultSelectedKeys={`home`}
+            defaultSelectedKeys={path}
             mode="inline"
             style={{
                 display: "flex",

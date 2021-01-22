@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Input, Select, Tag } from "antd";
+import { Row, Input, Select, Tag, Empty } from "antd";
 import EmployeeCard from "./employeeCard";
 import CardLoading from "./cardLoading";
 import {
@@ -157,16 +157,23 @@ const EmployeeContainer = ({
             {loading ? (
                 <CardLoading number={employees.length} />
             ) : (
-                <Row>
-                    {employeeList.map((item, index) => (
-                        <EmployeeCard
-                            employee={item}
-                            key={index}
-                            isVisibleList={filters}
-                            detailsVisible={detailsVisible}
-                        />
-                    ))}
-                </Row>
+                <>
+                    {console.log(employeeList.length)}
+                    {employeeList && employeeList.length !== 0 ? (
+                        <Row>
+                            {employeeList.map((item, index) => (
+                                <EmployeeCard
+                                    employee={item}
+                                    key={index}
+                                    isVisibleList={filters}
+                                    detailsVisible={detailsVisible}
+                                />
+                            ))}
+                        </Row>
+                    ) : (
+                        <Empty style={{ marginTop: "2.5rem" }} />
+                    )}
+                </>
             )}
         </>
     );

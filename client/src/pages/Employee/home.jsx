@@ -87,14 +87,10 @@ class Home extends React.Component {
                         </>
                     )}
                     {!memberLoading ? (
-                        memberData !== undefined && memberData.length !== 0 ? (
-                            <EmployeeContainer
-                                employees={memberData}
-                                detailsVisible={false}
-                            />
-                        ) : (
-                            <Empty />
-                        )
+                        <EmployeeContainer
+                            employees={memberData}
+                            detailsVisible={false}
+                        />
                     ) : (
                         <CardLoading number={3} />
                     )}

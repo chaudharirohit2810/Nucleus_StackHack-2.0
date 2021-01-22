@@ -156,7 +156,20 @@ class LeaveTable extends React.Component {
                         return {
                             key: i + 1,
                             reason: d.reason,
-                            status: d.status,
+                            status: (
+                                <span
+                                    style={{
+                                        color:
+                                            d.status === "Reject"
+                                                ? "#e76f51"
+                                                : d.status === "Approve"
+                                                ? "#2a9d8f"
+                                                : "#577590",
+                                    }}
+                                >
+                                    <b>{d.status}</b>
+                                </span>
+                            ),
                             startDate: new Date(d.startDate).toUTCString(),
                             endDate: new Date(d.endDate).toUTCString(),
                         };
@@ -189,7 +202,20 @@ class LeaveTable extends React.Component {
         const newData = {
             key: dataSource.length + 1,
             reason,
-            status,
+            status: (
+                <span
+                    style={{
+                        color:
+                            status === "Reject"
+                                ? "#e76f51"
+                                : status === "Approve"
+                                ? "#2a9d8f"
+                                : "#577590",
+                    }}
+                >
+                    <b>{status}</b>
+                </span>
+            ),
             startDate: new Date(startDate).toUTCString(),
             endDate: new Date(endDate).toUTCString(),
         };

@@ -87,9 +87,22 @@ class LeaveTable extends React.Component {
                     const dataSource = result.map((d, i) => {
                         return {
                             key: i,
-                            status: d.status,
-                            startDate: new Date(d.startDate).toDateString(),
-                            endDate: new Date(d.endDate).toDateString(),
+                            status: (
+                                <span
+                                    style={{
+                                        color:
+                                            d.status === "Reject"
+                                                ? "#e76f51"
+                                                : d.status === "Approve"
+                                                ? "#2a9d8f"
+                                                : "#577590",
+                                    }}
+                                >
+                                    <b>{d.status}</b>
+                                </span>
+                            ),
+                            startDate: new Date(d.startDate).toUTCString(),
+                            endDate: new Date(d.endDate).toUTCString(),
                             name: d.employeeData[0].name,
                         };
                     });
@@ -258,7 +271,7 @@ class LeaveTable extends React.Component {
                 </Modal>
                 <Table
                     scroll={{
-                        x: 1200,
+                        x: 500,
                     }}
                     components={components}
                     rowClassName={() => "editable-row"}

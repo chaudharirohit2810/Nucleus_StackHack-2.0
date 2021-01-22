@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Typography, Tabs } from "antd";
+import { Typography, Tabs, Divider } from "antd";
 import BonusTable from "./bonusTable";
 import LendForm from "./lendForm";
 
@@ -11,6 +11,7 @@ class Bonus extends Component {
         return (
             <div>
                 <Title level={2}>Bonus</Title>
+                <Divider style={{ marginTop: "0" }} />
                 <Tabs
                     defaultActiveKey="1"
                     size="large"

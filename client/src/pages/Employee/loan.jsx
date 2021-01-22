@@ -31,6 +31,7 @@ class Loan extends React.Component {
             reason: "",
             amount: "",
             status: "Pending",
+            loading: true,
         };
     }
 
@@ -53,12 +54,26 @@ class Loan extends React.Component {
                             key: i + 1,
                             amount: d.amount,
                             reason: d.reason,
-                            status: d.status,
+                            status: (
+                                <span
+                                    style={{
+                                        color:
+                                            d.status === "Reject"
+                                                ? "#e76f51"
+                                                : d.status === "Approve"
+                                                ? "#2a9d8f"
+                                                : "#577590",
+                                    }}
+                                >
+                                    <b>{d.status}</b>
+                                </span>
+                            ),
                         };
                     });
                     this.setState({
                         employeeData: result,
                         dataSource,
+                        loading: false,
                     });
                 }
             } else {
@@ -66,6 +81,7 @@ class Loan extends React.Component {
             }
         } catch (error) {
             console.log(error.message);
+            this.setState({ loading: false });
         }
     }
 
@@ -81,7 +97,20 @@ class Loan extends React.Component {
             key: dataSource.length + 1,
             reason,
             amount,
-            status,
+            status: (
+                <span
+                    style={{
+                        color:
+                            status === "Reject"
+                                ? "#e76f51"
+                                : status === "Approve"
+                                ? "#2a9d8f"
+                                : "#577590",
+                    }}
+                >
+                    <b>{status}</b>
+                </span>
+            ),
         };
         this.setState({
             dataSource: [...dataSource, newData],
@@ -195,13 +224,14 @@ class Loan extends React.Component {
                 </Button>
                 <Table
                     scroll={{
-                        x: 1200,
+                        x: 500,
                     }}
                     components={components}
                     rowClassName={() => "editable-row"}
                     bordered
                     dataSource={dataSource}
                     columns={columns}
+                    loading={this.state.loading}
                 />
             </div>
         );
