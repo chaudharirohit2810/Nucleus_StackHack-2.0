@@ -195,6 +195,9 @@ class Bonus extends React.Component {
                     Request Bonus
                 </Button>
                 <Table
+                    scroll={{
+                        x: 1200,
+                    }}
                     components={components}
                     rowClassName={() => "editable-row"}
                     bordered

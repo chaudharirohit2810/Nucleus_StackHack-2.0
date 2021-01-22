@@ -194,6 +194,9 @@ class Loan extends React.Component {
                     Request Loan
                 </Button>
                 <Table
+                    scroll={{
+                        x: 1200,
+                    }}
                     components={components}
                     rowClassName={() => "editable-row"}
                     bordered

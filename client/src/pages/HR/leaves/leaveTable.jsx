@@ -17,8 +17,9 @@ class LeaveTable extends React.Component {
             {
                 title: "Employee Name",
                 dataIndex: "name",
-                // width: "15%",
+                width: 100,
                 // editable: true,
+                fixed: "left",
             },
             {
                 title: "Status",
@@ -35,6 +36,8 @@ class LeaveTable extends React.Component {
             {
                 title: "Reason",
                 dataIndex: "reason",
+                // fixed: "right",
+                // width: 100,
                 render: (_, record) =>
                     this.state.dataSource.length >= 1 ? (
                         <span
@@ -47,6 +50,8 @@ class LeaveTable extends React.Component {
             },
             {
                 title: "Edit",
+                fixed: "right",
+                width: 80,
                 dataIndex: "operation",
                 render: (_, record) =>
                     this.state.dataSource.length >= 1 ? (
@@ -249,6 +254,9 @@ class LeaveTable extends React.Component {
                     <p>{reason}</p>
                 </Modal>
                 <Table
+                    scroll={{
+                        x: 1200,
+                    }}
                     components={components}
                     rowClassName={() => "editable-row"}
                     bordered

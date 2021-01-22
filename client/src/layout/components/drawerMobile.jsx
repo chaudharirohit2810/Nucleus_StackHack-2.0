@@ -15,7 +15,7 @@ const NavBar = ({ type }) => {
 
     const logoutDashboard = () => {
         localStorage.clear();
-        if (type == 1) {
+        if (type === 1) {
             his.replace("/");
         } else {
             his.replace("/hr/login");
