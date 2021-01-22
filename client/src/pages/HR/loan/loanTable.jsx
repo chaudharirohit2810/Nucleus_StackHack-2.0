@@ -17,8 +17,9 @@ class LoanTable extends React.Component {
             {
                 title: "Employee Name",
                 dataIndex: "name",
-                // width: "15%",
+                // width: 100,
                 // editable: true,
+                // fixed: "left",
             },
             {
                 title: "Status",
@@ -35,6 +36,8 @@ class LoanTable extends React.Component {
             {
                 title: "Edit",
                 dataIndex: "operation",
+                fixed: "right",
+                width: 80,
                 render: (_, record) =>
                     this.state.dataSource.length >= 1 ? (
                         <EditOutlined
@@ -206,6 +209,9 @@ class LoanTable extends React.Component {
                     </Radio.Group>
                 </Modal>
                 <Table
+                    scroll={{
+                        x: 1200,
+                    }}
                     components={components}
                     rowClassName={() => "editable-row"}
                     bordered

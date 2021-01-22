@@ -7,7 +7,7 @@ const MainLayout = ({ children, type }) => {
     const { props } = children;
     function logoutDashboard() {
         localStorage.clear();
-        if (type == 1) {
+        if (type === 1) {
             props.history.replace("/");
         } else {
             props.history.replace("/hr/login");

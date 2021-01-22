@@ -1,6 +1,6 @@
 import React from "react";
 import "antd/dist/antd.css";
-import { Tabs, message, Typography } from "antd";
+import { Tabs, message, Typography, Divider } from "antd";
 import Login from "./Login";
 import Register from "./Register";
 import { backendURL } from "../../../config";

@@ -93,8 +93,9 @@ class LeaveTable extends React.Component {
             {
                 title: "Reason",
                 dataIndex: "reason",
-                width: "30%",
+                // width: 120,
                 // editable: true,
+                // fixed: "left",
             },
             {
                 title: "Status",
@@ -316,6 +317,9 @@ class LeaveTable extends React.Component {
                     Mark New Leave
                 </Button>
                 <Table
+                    scroll={{
+                        x: 1200,
+                    }}
                     components={components}
                     rowClassName={() => "editable-row"}
                     bordered

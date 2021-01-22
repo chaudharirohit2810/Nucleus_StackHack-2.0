@@ -1,11 +1,12 @@
 import React from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Typography } from "antd";
 import {
     UserOutlined,
     LockOutlined,
     EyeTwoTone,
     EyeInvisibleOutlined,
 } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 const Login = ({ onFinish }) => {
     return (
@@ -55,12 +56,16 @@ const Login = ({ onFinish }) => {
                     placeholder="Password"
                 />
             </Form.Item>
-
-            <Form.Item>
+            {/* <Row> */}
+            <Form.Item style={{ margin: "0" }}>
                 <Button type="primary" htmlType="submit">
                     Log in
                 </Button>
             </Form.Item>
+            <Form.Item style={{ marginTop: "0.5rem", padding: "0" }}>
+                <Link to="/hr/login">Are you a HR? Login Here</Link>
+            </Form.Item>
+            {/* </Row> */}
         </Form>
     );
 };

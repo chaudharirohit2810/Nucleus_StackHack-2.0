@@ -35,6 +35,8 @@ class BonusTable extends React.Component {
             {
                 title: "Edit",
                 dataIndex: "operation",
+                fixed: "right",
+                width: 80,
                 render: (_, record) =>
                     this.state.dataSource.length >= 1 ? (
                         <EditOutlined
@@ -209,6 +211,9 @@ class BonusTable extends React.Component {
                     </Radio.Group>
                 </Modal>
                 <Table
+                    scroll={{
+                        x: 1200,
+                    }}
                     components={components}
                     rowClassName={() => "editable-row"}
                     bordered

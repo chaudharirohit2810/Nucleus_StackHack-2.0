@@ -6,6 +6,7 @@ import {
     EyeTwoTone,
     EyeInvisibleOutlined,
 } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 const Login = ({ onFinish }) => {
     return (
@@ -55,10 +56,13 @@ const Login = ({ onFinish }) => {
                 />
             </Form.Item>
 
-            <Form.Item>
+            <Form.Item style={{ margin: "0" }}>
                 <Button type="primary" htmlType="submit">
                     Log in
                 </Button>
+            </Form.Item>
+            <Form.Item style={{ marginTop: "0.5rem", padding: "0" }}>
+                <Link to="/">Are you a Employee? Login Here</Link>
             </Form.Item>
         </Form>
     );

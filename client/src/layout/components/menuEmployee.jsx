@@ -72,6 +72,7 @@ const MyMenu = ({ setVisible }) => {
     ];
     return (
         <Menu
+            defaultSelectedKeys={`home`}
             mode="inline"
             style={{
                 display: "flex",
