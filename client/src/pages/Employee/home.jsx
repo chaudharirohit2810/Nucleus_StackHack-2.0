@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Divider, Empty, Skeleton, Typography } from "antd";
+import { Divider, Skeleton, Typography } from "antd";
 import { backendURL } from "../../config";
 import UserDetails from "../components/userDetails";
 import CardLoading from "../HR/employee/cardLoading";

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Input, Button, Row, Typography, Divider, Space } from "antd";
+import { Form, Input, Button, Typography, Divider } from "antd";
 import { UserOutlined, MailOutlined } from "@ant-design/icons";
 import { DropDown, Password, Salary } from "./components";
 import { backendURL } from "../../../../config";

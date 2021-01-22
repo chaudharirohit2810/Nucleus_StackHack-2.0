@@ -13,7 +13,7 @@ import TextArea from "antd/lib/input/TextArea";
 import axios from "axios";
 import { backendURL } from "../../config";
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 class Policy extends React.Component {
     constructor(props) {
         super(props);

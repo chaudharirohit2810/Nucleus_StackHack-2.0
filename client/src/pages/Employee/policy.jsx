@@ -1,17 +1,9 @@
 import React from "react";
-import {
-    // Button,
-    Layout,
-    Space,
-    Typography,
-    message,
-    Skeleton,
-    Empty,
-} from "antd";
+import { Layout, Space, Typography, message, Skeleton, Empty } from "antd";
 import axios from "axios";
 import { backendURL } from "../../config";
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 class Policy extends React.Component {
     constructor(props) {
         super(props);
