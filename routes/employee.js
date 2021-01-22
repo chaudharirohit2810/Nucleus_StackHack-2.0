@@ -144,7 +144,6 @@ router.route("/details/").get(authEmployee, async (req, res) => {
 router.route("/hrdetails").get(authHR, async (req, res) => {
     try {
         const username = req.header("username");
-
         let employee = await Employee.findOne({ username });
         employee = JSON.stringify(employee);
         employee = JSON.parse(employee);
@@ -156,7 +155,10 @@ router.route("/hrdetails").get(authHR, async (req, res) => {
         const data = {
             ...employee,
             attendanceData: {
-                presentDays: attendance.presentDays,
+                presentDays:
+                    attendance !== undefined && attendance !== null
+                        ? attendance.presentDays
+                        : [],
             },
         };
         res.status(200).send(data);

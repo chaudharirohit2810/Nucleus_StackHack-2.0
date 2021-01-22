@@ -62,7 +62,7 @@ const Login = ({ onFinish }) => {
                 </Button>
             </Form.Item>
             <Form.Item style={{ marginTop: "0.5rem", padding: "0" }}>
-                <Link to="/">Are you a Employee? Login Here</Link>
+                <Link to="/">Are you an Employee? Login Here</Link>
             </Form.Item>
         </Form>
     );

@@ -158,8 +158,7 @@ const EmployeeContainer = ({
                 <CardLoading number={employees.length} />
             ) : (
                 <>
-                    {console.log(employeeList.length)}
-                    {employeeList && employeeList.length !== 0 ? (
+                    {employeeList !== undefined && employeeList.length !== 0 ? (
                         <Row>
                             {employeeList.map((item, index) => (
                                 <EmployeeCard
