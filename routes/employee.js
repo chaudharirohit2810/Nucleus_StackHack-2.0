@@ -167,6 +167,25 @@ router.route("/hrdetails").get(authHR, async (req, res) => {
     }
 });
 
+router.route("/promote").put(authHR, async (req, res) => {
+    try {
+        const { salary, team, role } = req.body;
+        const username = req.header("username");
+        await Employee.findOneAndUpdate(
+            { username },
+            {
+                salary: salary,
+                team: team,
+                role: role,
+            }
+        );
+        res.status(200).send("Employee Promoted/Demoted!");
+    } catch (error) {
+        console.log(error.message);
+        res.status(400).send(error.message);
+    }
+});
+
 router.route("/getTeamMembers").get(authEmployee, async (req, res) => {
     try {
         const { team, username } = req.headers;

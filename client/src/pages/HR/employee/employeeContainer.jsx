@@ -170,7 +170,10 @@ const EmployeeContainer = ({
                             ))}
                         </Row>
                     ) : (
-                        <Empty style={{ marginTop: "2.5rem" }} />
+                        <Empty
+                            style={{ marginTop: "2.5rem" }}
+                            description={"No record found"}
+                        />
                     )}
                 </>
             )}

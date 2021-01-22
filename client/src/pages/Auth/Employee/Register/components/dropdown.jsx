@@ -2,12 +2,14 @@ import React from "react";
 import { Form, Select } from "antd";
 const { Option } = Select;
 
-const DropDown = ({ options, name, loading }) => (
+const DropDown = ({ options, name, loading, style, initialValue }) => (
     <Form.Item
         name={name}
         hasFeedback
+        initialValue={initialValue ? initialValue : ""}
         className="input__element"
-        rules={[{ required: true, message: `Please select your ${name}!` }]}
+        style={style ? style : {}}
+        rules={[{ required: true, message: `Please select a ${name}!` }]}
     >
         <Select
             placeholder={`Please select a ${name}`}

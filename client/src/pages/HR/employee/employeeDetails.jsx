@@ -4,8 +4,9 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import UserDetails from "../../components/userDetails";
 import AttendanceCalendar from "../../components/attendanceCalendar";
-import { Divider, Skeleton, Typography } from "antd";
+import { Button, Divider, Skeleton, Typography } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import EmployeePromoteCard from "./employeePromoteCard";
 
 const { Title } = Typography;
 
@@ -13,6 +14,11 @@ const EmployeeDetails = props => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [presentDays, setPresentDays] = useState([]);
+    const [employeeModalVisible, setEmployeeModalVisible] = useState(false);
+    const [teamLoading, setteamLoading] = useState(true);
+    const [teams, setTeams] = useState([]);
+    const [roles, setRoles] = useState([]);
+
     const username = props.match.params.username;
     const his = useHistory();
     useEffect(() => {
@@ -38,7 +44,32 @@ const EmployeeDetails = props => {
                 console.error(err.message);
                 setLoading(false);
             });
+
+        axios
+            .get(`${backendURL}/teamrole/`)
+            .then(res => {
+                setTeams(prev => (res.data.teams ? res.data.teams.data : prev));
+                setRoles(prev => (res.data.roles ? res.data.roles.data : prev));
+                setteamLoading(false);
+            })
+            .catch(err => {
+                console.error(err.message);
+                setteamLoading(false);
+            });
     }, []);
+
+    const onPromoteUpdate = value => {
+        setUser(prev => ({
+            ...prev,
+            ...value,
+        }));
+        setEmployeeModalVisible(false);
+    };
+
+    const onPromoteCancel = () => {
+        setEmployeeModalVisible(false);
+    };
+
     return (
         <>
             <ArrowLeftOutlined
@@ -52,7 +83,39 @@ const EmployeeDetails = props => {
                 onClick={() => his.goBack()}
             />
             <UserDetails user={user} loading={loading} />
-            <Divider style={{ marginTop: "0" }} />
+            {user && (
+                <EmployeePromoteCard
+                    isVisible={employeeModalVisible}
+                    onPromoteCancel={onPromoteCancel}
+                    onPromoteUpdate={onPromoteUpdate}
+                    data={{
+                        salary: user.salary,
+                        team: user.team,
+                        role: user.role,
+                    }}
+                    teamLoading={teamLoading}
+                    teams={teams}
+                    roles={roles}
+                    username={username}
+                />
+            )}
+            {loading ? (
+                <Skeleton.Button
+                    active
+                    size="large"
+                    style={{ width: "100%" }}
+                />
+            ) : (
+                <Button
+                    type="primary"
+                    style={{ width: "175px", marginTop: "0" }}
+                    onClick={() => setEmployeeModalVisible(true)}
+                >
+                    Promote/Demote
+                </Button>
+            )}
+            <Divider />
+
             {loading ? (
                 <Skeleton active paragraph={{ rows: 0 }} />
             ) : (
