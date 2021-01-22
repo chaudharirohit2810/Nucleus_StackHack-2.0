@@ -13,6 +13,8 @@ class Loan extends React.Component {
                 dataIndex: "amount",
                 width: "30%",
                 // editable: true,
+                sorter: (a, b) => a.amount - b.amount,
+                sortDirections: ["descend", "ascend"],
             },
             {
                 title: "Reason",
@@ -21,6 +23,27 @@ class Loan extends React.Component {
             {
                 title: "Status",
                 dataIndex: "status",
+                filters: [
+                    { text: "Approve", value: "Approve", color: "red" },
+                    { text: "Reject", value: "Reject" },
+                    { text: "Pending", value: "Pending" },
+                ],
+                render(text, record) {
+                    return {
+                        props: {
+                            style: {
+                                color:
+                                    text === "Reject"
+                                        ? "#e76f51"
+                                        : text === "Approve"
+                                        ? "#2a9d8f"
+                                        : "#577590",
+                            },
+                        },
+                        children: <b>{text}</b>,
+                    };
+                },
+                onFilter: (value, record) => record.status.indexOf(value) === 0,
             },
         ];
         this.state = {
@@ -54,20 +77,7 @@ class Loan extends React.Component {
                             key: i + 1,
                             amount: d.amount,
                             reason: d.reason,
-                            status: (
-                                <span
-                                    style={{
-                                        color:
-                                            d.status === "Reject"
-                                                ? "#e76f51"
-                                                : d.status === "Approve"
-                                                ? "#2a9d8f"
-                                                : "#577590",
-                                    }}
-                                >
-                                    <b>{d.status}</b>
-                                </span>
-                            ),
+                            status: d.status,
                         };
                     });
                     this.setState({
@@ -97,20 +107,7 @@ class Loan extends React.Component {
             key: dataSource.length + 1,
             reason,
             amount,
-            status: (
-                <span
-                    style={{
-                        color:
-                            status === "Reject"
-                                ? "#e76f51"
-                                : status === "Approve"
-                                ? "#2a9d8f"
-                                : "#577590",
-                    }}
-                >
-                    <b>{status}</b>
-                </span>
-            ),
+            status,
         };
         this.setState({
             dataSource: [...dataSource, newData],

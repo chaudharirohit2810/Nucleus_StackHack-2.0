@@ -100,6 +100,27 @@ class LeaveTable extends React.Component {
             {
                 title: "Status",
                 dataIndex: "status",
+                filters: [
+                    { text: "Approve", value: "Approve", color: "red" },
+                    { text: "Reject", value: "Reject" },
+                    { text: "Pending", value: "Pending" },
+                ],
+                render(text, record) {
+                    return {
+                        props: {
+                            style: {
+                                color:
+                                    text === "Reject"
+                                        ? "#e76f51"
+                                        : text === "Approve"
+                                        ? "#2a9d8f"
+                                        : "#577590",
+                            },
+                        },
+                        children: <b>{text}</b>,
+                    };
+                },
+                onFilter: (value, record) => record.status.indexOf(value) === 0,
             },
             {
                 title: "Start Date",
@@ -141,20 +162,7 @@ class LeaveTable extends React.Component {
                         return {
                             key: i + 1,
                             reason: d.reason,
-                            status: (
-                                <span
-                                    style={{
-                                        color:
-                                            d.status === "Reject"
-                                                ? "#e76f51"
-                                                : d.status === "Approve"
-                                                ? "#2a9d8f"
-                                                : "#577590",
-                                    }}
-                                >
-                                    <b>{d.status}</b>
-                                </span>
-                            ),
+                            status: d.status,
                             startDate: new Date(d.startDate).toUTCString(),
                             endDate: new Date(d.endDate).toUTCString(),
                         };
@@ -194,20 +202,7 @@ class LeaveTable extends React.Component {
         const newData = {
             key: dataSource.length + 1,
             reason,
-            status: (
-                <span
-                    style={{
-                        color:
-                            status === "Reject"
-                                ? "#e76f51"
-                                : status === "Approve"
-                                ? "#2a9d8f"
-                                : "#577590",
-                    }}
-                >
-                    <b>{status}</b>
-                </span>
-            ),
+            status,
             startDate: new Date(startDate).toUTCString(),
             endDate: new Date(endDate).toUTCString(),
         };
