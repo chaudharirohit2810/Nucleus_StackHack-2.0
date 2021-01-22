@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Divider, Skeleton, Typography } from "antd";
+import { Divider, Skeleton, Typography, message } from "antd";
 import { backendURL } from "../../config";
 import UserDetails from "../components/userDetails";
 import CardLoading from "../HR/employee/cardLoading";
@@ -17,6 +17,8 @@ class Home extends React.Component {
             memberData: [],
             user: null,
             error: "",
+            modalVisible: false,
+            buttonLoading: false,
         };
     }
 
@@ -63,12 +65,68 @@ class Home extends React.Component {
             });
         }
     }
+    handleModal = () => {
+        this.setState({
+            modalVisible: !this.state.modalVisible,
+        });
+    };
+    handleButtonLoading = () => {
+        this.setState({
+            buttonLoading: !this.state.buttonLoading,
+        });
+    };
+    handleSubmit = values => {
+        this.handleButtonLoading();
+        let newUser = this.state.user;
+        const { name, email, phone } = values;
+        const employeetoken = localStorage.getItem("employeetoken");
+        const data = {
+            name,
+            email,
+            phone,
+        };
+        newUser.name = name;
+        newUser.email = email;
+        newUser.phone = phone;
+        axios
+            .post(`${backendURL}/employee/updateProfile`, data, {
+                headers: { employeetoken },
+            })
+            .then(response => {
+                this.handleButtonLoading();
+                this.setState({
+                    user: newUser,
+                });
+                this.handleModal();
+                message.success({ content: response.data.result });
+            })
+            .catch(error => {
+                this.handleButtonLoading();
+                if (error.response && error.response.data.error) {
+                    const data = error.response.data;
+                    message.error({ content: data.result });
+                }
+            });
+    };
 
     render() {
-        const { user, memberData, memberLoading } = this.state;
+        const {
+            user,
+            memberData,
+            memberLoading,
+            modalVisible,
+            buttonLoading,
+        } = this.state;
         return (
             <div>
-                <UserDetails user={user} loading={this.state.userLoading} />
+                <UserDetails
+                    handleModal={this.handleModal}
+                    handleSubmit={this.handleSubmit}
+                    user={user}
+                    loading={this.state.userLoading}
+                    modalVisible={modalVisible}
+                    buttonLoading={buttonLoading}
+                />
                 <div
                     style={{
                         marginTop: "2rem",

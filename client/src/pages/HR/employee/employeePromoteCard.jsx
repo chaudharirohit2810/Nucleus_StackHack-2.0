@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Modal, Form, Button, Input, message } from "antd";
 import { DropDown } from "../../Auth/Employee/Register/components";
 import axios from "axios";
@@ -90,7 +90,7 @@ const EmployeePromoteCard = ({
                     rules={[
                         {
                             required: true,
-                            message: `Please enter the name!`,
+                            message: `Please enter the salary !`,
                         },
                     ]}
                 >

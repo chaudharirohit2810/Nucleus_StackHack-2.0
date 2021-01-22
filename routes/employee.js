@@ -179,7 +179,7 @@ router.route("/promote").put(authHR, async (req, res) => {
                 role: role,
             }
         );
-        res.status(200).send("Employee Promoted/Demoted!");
+        res.status(200).send("Employee Promoted / Demoted!");
     } catch (error) {
         console.log(error.message);
         res.status(400).send(error.message);
@@ -207,6 +207,26 @@ router.route("/getTeamMembers").get(authEmployee, async (req, res) => {
     } catch (error) {
         res.status(400).json({
             result: "Failed to fetch Employee Team Members !",
+            error: true,
+        });
+    }
+});
+
+router.route("/updateProfile").post(authEmployee, async (req, res) => {
+    try {
+        const { name, email, phone } = req.body;
+        const employeeID = req.headers["employeeID"];
+        await Employee.findOneAndUpdate(
+            { _id: employeeID },
+            { name, email, phone }
+        );
+        res.status(200).json({
+            result: "Updated your Profile !",
+            error: false,
+        });
+    } catch (error) {
+        res.status(400).json({
+            result: "Failed to update your profile !",
             error: true,
         });
     }

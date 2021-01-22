@@ -15,6 +15,7 @@ const Login = ({ onFinish }) => {
             style={{
                 maxWidth: "700px",
                 minWidth: "300px",
+                marginTop: "1rem",
             }}
             initialValues={{
                 remember: true,
