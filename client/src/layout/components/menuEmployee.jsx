@@ -10,6 +10,7 @@ import {
     InfoCircleOutlined,
     MoneyCollectOutlined,
     FileTextOutlined,
+    DollarCircleOutlined,
 } from "@ant-design/icons";
 import { Link, useHistory } from "react-router-dom";
 
@@ -43,7 +44,7 @@ const MyMenu = ({ setVisible }) => {
         },
         {
             title: "Payroll",
-            icon: <LaptopOutlined />,
+            icon: <MoneyCollectOutlined />,
             content: [
                 {
                     title: "Request Loan",
@@ -53,7 +54,7 @@ const MyMenu = ({ setVisible }) => {
                 {
                     title: "Request Bonus",
                     path: "bonus",
-                    icon: <MoneyCollectOutlined />,
+                    icon: <DollarCircleOutlined />,
                 },
             ],
         },
@@ -63,14 +64,20 @@ const MyMenu = ({ setVisible }) => {
             icon: <SmileOutlined />,
         },
         {
-            title: "FAQs",
-            path: "faq",
-            icon: <QuestionCircleOutlined />,
-        },
-        {
-            title: "Policies",
-            path: "policy",
-            icon: <InfoCircleOutlined />,
+            title: "Support",
+            icon: <LaptopOutlined />,
+            content: [
+                {
+                    title: "FAQs",
+                    path: "faq",
+                    icon: <QuestionCircleOutlined />,
+                },
+                {
+                    title: "Policies",
+                    path: "policy",
+                    icon: <InfoCircleOutlined />,
+                },
+            ],
         },
     ];
     return (
