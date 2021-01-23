@@ -1,6 +1,7 @@
 import React from "react";
 import { Table, Button, Modal, message } from "antd";
 import LoanModal from "../components/loanModal";
+import { FilterFilled } from "@ant-design/icons";
 import axios from "axios";
 import { backendURL } from "../../config";
 
@@ -28,6 +29,14 @@ class Loan extends React.Component {
                     { text: "Reject", value: "Reject" },
                     { text: "Pending", value: "Pending" },
                 ],
+                filterIcon: filtered => (
+                    <FilterFilled
+                        style={{
+                            color: filtered ? "#1890ff" : "#9254de",
+                            fontSize: "0.9rem",
+                        }}
+                    />
+                ),
                 render(text, record) {
                     return {
                         props: {

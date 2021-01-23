@@ -1,6 +1,6 @@
 import React from "react";
 import { Table, Modal, Button, Radio, message } from "antd";
-import { EditOutlined } from "@ant-design/icons";
+import { EditOutlined, FilterFilled } from "@ant-design/icons";
 import axios from "axios";
 import { backendURL } from "../../../config";
 
@@ -31,6 +31,14 @@ class LeaveTable extends React.Component {
                     { text: "Reject", value: "Reject" },
                     { text: "Pending", value: "Pending" },
                 ],
+                filterIcon: filtered => (
+                    <FilterFilled
+                        style={{
+                            color: filtered ? "#1890ff" : "#9254de",
+                            fontSize: "0.9rem",
+                        }}
+                    />
+                ),
                 render(text, record) {
                     return {
                         props: {

@@ -71,7 +71,7 @@ const EmployeeDetails = props => {
     };
 
     return (
-        <>
+        <div>
             <ArrowLeftOutlined
                 style={{
                     width: "30px",
@@ -82,7 +82,7 @@ const EmployeeDetails = props => {
                 }}
                 onClick={() => his.goBack()}
             />
-            <UserDetails user={user} loading={loading} />
+            <UserDetails isHR={true} user={user} loading={loading} />
             {user && (
                 <EmployeePromoteCard
                     isVisible={employeeModalVisible}
@@ -130,7 +130,7 @@ const EmployeeDetails = props => {
                     loading={loading}
                 />
             </div>
-        </>
+        </div>
     );
 };
 

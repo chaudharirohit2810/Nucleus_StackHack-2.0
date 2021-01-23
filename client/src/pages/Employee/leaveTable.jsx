@@ -1,90 +1,9 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
-import { Table, Input, Button, Form, Modal, message } from "antd";
+import React from "react";
+import { Table, Button, Modal, message } from "antd";
+import { FilterFilled } from "@ant-design/icons";
 import SubmitLeave from "./submitLeave";
 import axios from "axios";
 import { backendURL } from "../../config";
-
-const EditableContext = React.createContext(null);
-
-const EditableRow = ({ index, ...props }) => {
-    const [form] = Form.useForm();
-    return (
-        <Form form={form} component={false}>
-            <EditableContext.Provider value={form}>
-                <tr {...props} />
-            </EditableContext.Provider>
-        </Form>
-    );
-};
-
-const EditableCell = ({
-    title,
-    editable,
-    children,
-    dataIndex,
-    record,
-    handleSave,
-    ...restProps
-}) => {
-    const [editing, setEditing] = useState(false);
-    const inputRef = useRef(null);
-    const form = useContext(EditableContext);
-    useEffect(() => {
-        if (editing) {
-            inputRef.current.focus();
-        }
-    }, [editing]);
-
-    const toggleEdit = () => {
-        setEditing(!editing);
-        form.setFieldsValue({
-            [dataIndex]: record[dataIndex],
-        });
-    };
-
-    const save = async () => {
-        try {
-            const values = await form.validateFields();
-            toggleEdit();
-            handleSave({ ...record, ...values });
-        } catch (errInfo) {
-            console.log("Save failed:", errInfo);
-        }
-    };
-
-    let childNode = children;
-
-    if (editable) {
-        childNode = editing ? (
-            <Form.Item
-                style={{
-                    margin: 0,
-                }}
-                name={dataIndex}
-                rules={[
-                    {
-                        required: true,
-                        message: `${title} is required.`,
-                    },
-                ]}
-            >
-                <Input ref={inputRef} onPressEnter={save} onBlur={save} />
-            </Form.Item>
-        ) : (
-            <div
-                className="editable-cell-value-wrap"
-                style={{
-                    paddingRight: 24,
-                }}
-                onClick={toggleEdit}
-            >
-                {children}
-            </div>
-        );
-    }
-
-    return <td {...restProps}>{childNode}</td>;
-};
 
 class LeaveTable extends React.Component {
     constructor(props) {
@@ -100,6 +19,14 @@ class LeaveTable extends React.Component {
             {
                 title: "Status",
                 dataIndex: "status",
+                filterIcon: filtered => (
+                    <FilterFilled
+                        style={{
+                            color: filtered ? "#1890ff" : "#9254de",
+                            fontSize: "0.9rem",
+                        }}
+                    />
+                ),
                 filters: [
                     { text: "Approve", value: "Approve", color: "red" },
                     { text: "Reject", value: "Reject" },
@@ -282,12 +209,7 @@ class LeaveTable extends React.Component {
 
     render() {
         const { dataSource } = this.state;
-        const components = {
-            body: {
-                row: EditableRow,
-                cell: EditableCell,
-            },
-        };
+        const components = {};
         const columns = this.columns.map(col => {
             if (!col.editable) {
                 return col;

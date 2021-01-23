@@ -3,10 +3,9 @@ import {
     DollarCircleFilled,
     MailFilled,
     PhoneFilled,
-    EditOutlined,
     EditTwoTone,
 } from "@ant-design/icons";
-import { Col, Row, Skeleton, Space, Typography, Button, Tooltip } from "antd";
+import { Col, Row, Skeleton, Space, Typography, Tooltip } from "antd";
 import ProfileForm from "./profileForm";
 
 const { Title, Text } = Typography;
@@ -25,13 +24,14 @@ class UserDetails extends React.Component {
             handleModal,
             modalVisible,
             buttonLoading,
+            isHR
         } = this.props;
         return (
             <div style={{ marginBottom: "2rem" }}>
                 {loading ? (
                     <Skeleton active paragraph={{ rows: 2 }} />
                 ) : (
-                    <>
+                    <div>
                         <ProfileForm
                             buttonLoading={buttonLoading}
                             handleModal={handleModal}
@@ -41,16 +41,17 @@ class UserDetails extends React.Component {
                         />
                         <Title level={3} style={{ marginBottom: "0" }}>
                             {user.name}
-                            <Tooltip title="Edit Profile" placement="right">
+                            {isHR !== true ? <Tooltip title="Edit Profile" placement="right">
                                 <EditTwoTone
                                     style={{
-                                        marginLeft: "0.5rem",
+                                        marginLeft: "1.5rem",
                                         fontSize: "24px",
                                     }}
                                     color="#0000FF"
                                     onClick={handleModal}
                                 />
-                            </Tooltip>
+                            </Tooltip>: null}
+                            
                         </Title>
 
                         <Title
@@ -120,7 +121,7 @@ class UserDetails extends React.Component {
                                 )}
                             </Space>
                         </Col>
-                    </>
+                    </div>
                 )}
             </div>
         );
