@@ -70,14 +70,16 @@ class LendForm extends React.Component {
         });
         const hrtoken = localStorage.getItem("hrtoken");
         const { employee, amount, reason } = values;
+        let name = "";
         let employeeID = "";
         for (let i = 0; i < this.state.employees.length; i++) {
             if (this.state.employees[i]["username"] === employee) {
                 employeeID = this.state.employees[i]["_id"];
+                name = this.state.employees[i]["name"];
                 break;
             }
         }
-        console.log(employeeID);
+        // console.log(employeeID);
         const data = {
             employeeID,
             amount,
