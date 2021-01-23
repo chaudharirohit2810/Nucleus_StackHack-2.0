@@ -4,6 +4,7 @@ import {
     MailFilled,
     PhoneFilled,
     EditOutlined,
+    EditTwoTone,
 } from "@ant-design/icons";
 import { Col, Row, Skeleton, Space, Typography, Button, Tooltip } from "antd";
 import ProfileForm from "./profileForm";
@@ -41,15 +42,13 @@ class UserDetails extends React.Component {
                         <Title level={3} style={{ marginBottom: "0" }}>
                             {user.name}
                             <Tooltip title="Edit Profile" placement="right">
-                                <Button
-                                    type="primary"
-                                    shape="circle"
-                                    onClick={handleModal}
+                                <EditTwoTone
                                     style={{
-                                        marginLeft: "2.5rem",
+                                        marginLeft: "0.5rem",
+                                        fontSize: "24px",
                                     }}
-                                    icon={<EditOutlined />}
-                                    size="large"
+                                    color="#0000FF"
+                                    onClick={handleModal}
                                 />
                             </Tooltip>
                         </Title>

@@ -10,6 +10,7 @@ const Salary = ({ marks, name }) => {
             </Text>
             <Form.Item
                 name={name}
+                initialValue={10000}
                 style={{ margin: "0px 16px 16px 16px", padding: "0px 16px" }}
             >
                 <Slider marks={marks} min={10000} max={300000} step={1000} />
