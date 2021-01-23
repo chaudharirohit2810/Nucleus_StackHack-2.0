@@ -71,21 +71,19 @@ class Bonus extends React.Component {
             );
             if (!response.data.error) {
                 const result = response.data.result;
-                if (result.length !== 0) {
-                    const dataSource = result.map((d, i) => {
-                        return {
-                            key: i + 1,
-                            amount: d.amount,
-                            reason: d.reason,
-                            status: d.status,
-                        };
-                    });
-                    this.setState({
-                        employeeData: result,
-                        dataSource,
-                        loading: false,
-                    });
-                }
+                const dataSource = result.map((d, i) => {
+                    return {
+                        key: i + 1,
+                        amount: d.amount,
+                        reason: d.reason,
+                        status: d.status,
+                    };
+                });
+                this.setState({
+                    employeeData: result,
+                    dataSource,
+                    loading: false,
+                });
             } else {
                 console.log(response.data.result);
                 this.setState({ loading: false });
