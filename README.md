@@ -73,8 +73,6 @@ Implementation of project for StackHack2.0 hackathon on Hackerearth.
 
 ## Deployment Instructions
 
-### Backend
-
 -   **Prerequisites**:
 
     -   Ubuntu 18.04 > Server
@@ -84,12 +82,16 @@ Implementation of project for StackHack2.0 hackathon on Hackerearth.
 
 -   Clone the Project:\
     `git clone https://github.com/chaudharirohit2810/StackHack-2.0`
+
 -   Navigate to root project directory:\
     `cd StackHack2.0`
--   Install Pm2:\
-    `sudo npm install pm2@latest -g`
+
+### Backend
+
 -   Install Dependencies required for backend:\
     `npm install`
+-   Install Pm2:\
+    `sudo npm install pm2@latest -g`
 -   Start the backend server:\
     `pm2 start index.js --name stackhack_backend`
 -   Save PM2 Process list and corresponding environments:\
@@ -98,7 +100,7 @@ Implementation of project for StackHack2.0 hackathon on Hackerearth.
     `cd /etc/nginx/sites-enabled`
 -   Open default file as a root:\
     `sudo vim default`
--   Copy following configuration in server block of default
+-   Copy following configuration in server block of default file:
 
     ```
     location /api/ {
@@ -108,4 +110,33 @@ Implementation of project for StackHack2.0 hackathon on Hackerearth.
         proxy_set_header Host $host;
         proxy_cache_bypass $http_upgrade;
     }
+    ```
+
+### Frontend:
+
+-   Install Dependencies required for backend:\
+    `npm run client-install`
+-   Open the config.js file in client/src folder:\
+    `cd client/src && vim config.js`
+-   Change the backendURL to the url of Backend which is:\
+    `http://<ip_address>/api`
+-   Navigate to client folder:\
+    `cd ..`
+-   Build the react project:\
+    `npm run build`\
+    This will create a build folder in client directory. The app is ready to be deployed!
+-   Navigate to nginx conf file:\
+    `cd /etc/nginx/sites-enabled`
+-   Open default file as a root:\
+    `sudo vim default`
+-   Copy following configuration in server block of default file:
+
+    ```
+      root <path_to_build_folder>;
+
+      index index.html index.htm;
+
+      location / {
+              try_files $uri $uri/ /index.html;
+      }
     ```
