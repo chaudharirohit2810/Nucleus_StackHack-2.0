@@ -1,8 +1,5 @@
 import React from "react";
-import { Table, Modal, Button, Radio, message } from "antd";
-import { EditOutlined, FilterFilled } from "@ant-design/icons";
-import axios from "axios";
-import { backendURL } from "../../../config";
+import { Table, Modal, Button, Radio } from "antd";
 
 const radioStyle = {
     display: "block",
