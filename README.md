@@ -24,40 +24,81 @@
 
 ## 👨🏻‍💻 About The Project
 
-Implementation of project for StackHack2.0 hackathon on Hackerearth.
+This application promises to provide a single platform with not so complicated and very simple virtual travel of all the daily / long term activities observed in any company between a HR and company employees. This project delivers a simple solution to track activities such as bonuses, leaves, employee attendance, etc. at one place with organized and informative views, both for HR as well as employee. Employees can visit this portal, mark their attendance, request for leaves / bonuses, checkout FAQs, checkout what team they have been allotted to, etc. A HR being an admin on this portal has additional privileges on top of employees i.e. to keep a watch on all the employees, grant bonuses or approve leaves, update company policy, and much more. (More detailed overview of features given below).
 
 ## 🌟 Features
 
 ### Employee
 
+-   Dashboard:
+
+    -   [x] Update Profile
+
+    -   [x] Checkout Team Members
+
+    -   [x] Search (Name), Sort and Filter options (Email, Phone, Team, Role)
+
 -   Attendance & Leave Management:
 
     -   [x] Mark & View Attendance
+
     -   [x] Request a Leave
 
 -   Payroll Management:
 
     -   [x] Request for loans
+
     -   [x] Request for bonus
 
--   Company related docs
+-   Company related docs:
+
     -   [x] Checkout FAQs
+
     -   [x] Read Company Policy
+
     -   [x] Checkout company holidays
 
 ### HR
 
--   Promote or Demote Employees
--   Add company FAQs
--   Edit company policy
--   Add declared holidays
--   Approve/Reject Leaves, Loans and Bonus
--   Grant Bonus to hardworking employees
+-   Dashboard:
 
-### Other
+    -   [x] Organised views to navigate:
+        -   All Employees
+        -   Employees grouped team wise
+        -   Employees grouped role wise
+    -   [x] Search (Name, Team, Role), Sort and Filter options (Email, Phone, Team, Role)
 
--   JWT Based Authentication
--   Intituitive UI
+-   Dashboard -> Employee Details:
+
+    -   [x] Checkout Details of each employee (In detailed view)
+    -   [x] Promote or Demote Employees
+
+-   Attendance & Leave Management:
+
+    -   [x] View Employee Attendance (Filter options between months, year, days)
+
+    -   [x] Approve / Reject pending employee Leave
+
+-   Payroll Management:
+
+    -   [x] Approve / Reject requested loans
+
+    -   [x] Approve / Reject requested bonus
+    -   [x] Grant Bonus to hardworking employees
+
+-   Company related docs:
+
+    -   [x] Add and Update company FAQs
+
+    -   [x] Add and Update company policy
+
+    -   [x] Add declared holidays
+
+### Additional
+
+-   [x] JWT Based Authentication
+
+-   [x] Intituitive UI
 
 ## Getting Started
 
