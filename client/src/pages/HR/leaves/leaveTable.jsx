@@ -112,38 +112,28 @@ class LeaveTable extends React.Component {
                 `${backendURL}/leave/getAllLeaves`,
                 { headers: { hrtoken: token } }
             );
-            if (!response.data.error) {
-                const result = response.data.result;
-                if (result.length !== 0) {
-                    const dataSource = result.map((d, i) => {
-                        return {
-                            key: i,
-                            status: d.status,
-                            startDate: new Date(d.startDate).toUTCString(),
-                            endDate: new Date(d.endDate).toUTCString(),
-                            name:
-                                d.employeeData !== undefined
-                                    ? d.employeeData[0].name
-                                    : "",
-                        };
-                    });
-                    this.setState({
-                        employeeData: result,
-                        dataSource,
-                        loading: false,
-                    });
-                }
-            } else {
-                console.log(response.data.result);
-                message.error({ content: response.data.result });
-            }
+            const result = response.data.result;
+            const dataSource = result.map((d, i) => {
+                return {
+                    key: i,
+                    status: d.status,
+                    startDate: new Date(d.startDate).toUTCString(),
+                    endDate: new Date(d.endDate).toUTCString(),
+                    name:
+                        d.employeeData !== undefined
+                            ? d.employeeData[0].name
+                            : "",
+                };
+            });
+            this.setState({
+                employeeData: result,
+                dataSource,
+                loading: false,
+            });
         } catch (error) {
             console.log(error.message);
-            if (error.response && error.response.data.error) {
-                const data = error.response.data;
-                message.error({ content: data.result });
-                this.state({ loading: false });
-            }
+            message.error({ content: "Something went wrong" });
+            this.state({ loading: false });
         }
     }
 

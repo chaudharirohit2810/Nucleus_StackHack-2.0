@@ -96,39 +96,28 @@ class LoanTable extends React.Component {
             const response = await axios.get(`${backendURL}/loan/getAllLoans`, {
                 headers: { hrtoken: token },
             });
-            if (!response.data.error) {
-                const result = response.data.result;
-                if (result.length !== 0) {
-                    const dataSource = result.map((d, i) => {
-                        return {
-                            key: i,
-                            status: d.status,
-                            reason: d.reason,
-                            amount: d.amount,
-                            name:
-                                d.employeeData !== undefined
-                                    ? d.employeeData[0].name
-                                    : "",
-                        };
-                    });
-                    this.setState({
-                        employeeData: result,
-                        dataSource,
-                        loading: false,
-                    });
-                }
-            } else {
-                console.log(response.data.result);
-                message.error({ content: response.data.result });
-                this.setState({ loading: false });
-            }
+            const result = response.data.result;
+            const dataSource = result.map((d, i) => {
+                return {
+                    key: i,
+                    status: d.status,
+                    reason: d.reason,
+                    amount: d.amount,
+                    name:
+                        d.employeeData !== undefined
+                            ? d.employeeData[0].name
+                            : "",
+                };
+            });
+            this.setState({
+                employeeData: result,
+                dataSource,
+                loading: false,
+            });
         } catch (error) {
             console.log(error.message);
             this.setState({ loading: false });
-            if (error.response && error.response.data.error) {
-                const data = error.response.data;
-                message.error({ content: data.result });
-            }
+            message.error({ content: "Something went wrong!" });
         }
     }
 

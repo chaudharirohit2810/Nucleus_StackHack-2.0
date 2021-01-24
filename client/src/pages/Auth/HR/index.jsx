@@ -38,10 +38,8 @@ class HRAuth extends React.Component {
                 }
             })
             .catch(error => {
-                if (error.response && error.response.data.error) {
-                    const data = error.response.data;
-                    message.error({ content: data.result, key });
-                }
+                console.log(error.message);
+                message.error({ content: "Invalid credentials", key });
             });
     };
 
@@ -57,10 +55,7 @@ class HRAuth extends React.Component {
                 }
             })
             .catch(error => {
-                if (error.response && error.response.data.error) {
-                    const data = error.response.data;
-                    message.error({ content: data.result, key });
-                }
+                message.error({ content: "Username already exists", key });
             });
         // console.log("User Registered: ", values);
     };
@@ -76,7 +71,7 @@ class HRAuth extends React.Component {
                                 textAlign: "center",
                                 display: "block",
                                 marginBottom: "0.5rem",
-                                color: "#fff",
+                                color: "#121212",
                             }}
                         />
                         <Title className="hero__header__title">Nucleus</Title>

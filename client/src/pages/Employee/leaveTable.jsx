@@ -82,33 +82,26 @@ class LeaveTable extends React.Component {
                     },
                 }
             );
-            if (!response.data.error) {
-                const result = response.data.result;
-                if (result.length !== 0) {
-                    const dataSource = result.map((d, i) => {
-                        return {
-                            key: i + 1,
-                            reason: d.reason,
-                            status: d.status,
-                            startDate: new Date(d.startDate).toUTCString(),
-                            endDate: new Date(d.endDate).toUTCString(),
-                        };
-                    });
-                    this.setState({
-                        employeeData: result,
-                        dataSource,
-                        loading: false,
-                    });
-                } else {
-                    this.setState({
-                        loading: false,
-                    });
-                }
+            const result = response.data.result;
+            if (result.length !== 0) {
+                const dataSource = result.map((d, i) => {
+                    return {
+                        key: i + 1,
+                        reason: d.reason,
+                        status: d.status,
+                        startDate: new Date(d.startDate).toUTCString(),
+                        endDate: new Date(d.endDate).toUTCString(),
+                    };
+                });
+                this.setState({
+                    employeeData: result,
+                    dataSource,
+                    loading: false,
+                });
             } else {
                 this.setState({
                     loading: false,
                 });
-                console.log(response.data.result);
             }
         } catch (error) {
             this.setState({
