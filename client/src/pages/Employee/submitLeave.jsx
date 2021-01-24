@@ -6,16 +6,16 @@ const { RangePicker } = DatePicker;
 
 const layout = {
     labelCol: {
-        span: 8
+        span: 8,
     },
     wrapperCol: {
-        span: 10
-    }
+        span: 10,
+    },
 };
 
 const validateMessages = {
     // eslint-disable-next-line no-template-curly-in-string
-    required: "${label} is required!"
+    required: "${label} is required!",
 };
 
 export default class submitLeave extends React.Component {
@@ -32,32 +32,32 @@ export default class submitLeave extends React.Component {
         return current && current < moment().endOf("day");
     };
 
-    onFinish = values => {
-        // console.log(values);
-        const { range, reason } = values;
-        // Date Object
-        // can convert into string
-        // decided on database fi   eld
-        const startDate = range[0]._d;
-        const endDate = range[1]._d;
-        this.props.loadModal();
-        this.props.showModal();
-        this.props.handleAdd();
-        this.props.loadModal();
-    };
+    // onFinish = values => {
+    //     // console.log(values);
+    //     const { range, reason } = values;
+    //     // Date Object
+    //     // can convert into string
+    //     // decided on database fi   eld
+    //     const startDate = range[0]._d;
+    //     const endDate = range[1]._d;
+    //     this.props.loadModal();
+    //     this.props.showModal();
+    //     this.props.handleAdd();
+    //     this.props.loadModal();
+    // };
     render() {
         return (
             <Layout
                 style={{
-                    marginTop: "2rem"
+                    marginTop: "2rem",
                 }}
             >
                 <Form
                     {...layout}
                     name="Leave"
-                    onFinish={this.onFinish}
+                    onFinish={this.props.onFinish}
                     style={{
-                        marginTop: "2rem"
+                        marginTop: "2rem",
                     }}
                     validateMessages={validateMessages}
                 >
@@ -67,8 +67,8 @@ export default class submitLeave extends React.Component {
                         wrapperCol={{ ...layout.wrapperCol }}
                         rules={[
                             {
-                                required: true
-                            }
+                                required: true,
+                            },
                         ]}
                     >
                         <RangePicker
@@ -84,8 +84,8 @@ export default class submitLeave extends React.Component {
                         label="Reason"
                         rules={[
                             {
-                                required: true
-                            }
+                                required: true,
+                            },
                         ]}
                     >
                         <Input.TextArea
@@ -108,5 +108,3 @@ export default class submitLeave extends React.Component {
         );
     }
 }
-
-

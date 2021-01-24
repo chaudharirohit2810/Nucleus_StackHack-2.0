@@ -1,60 +1,87 @@
 import React from "react";
-import { Collapse, Typography } from "antd";
+import axios from "axios";
+import { backendURL } from "../../config";
+import { Collapse, Typography, Skeleton, Empty } from "antd";
+import _ from "lodash";
 
 const { Panel } = Collapse;
 const { Title } = Typography;
 
 const Header = ({ title }) => <h1>{title}</h1>;
 
-const FAQ = () => {
-    const faqs = [
-        {
-            question:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
-            answer:
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!"
-        },
-        {
-            question:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
-            answer:
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!"
-        },
-        {
-            question:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
-            answer:
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!"
-        },
-        {
-            question:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
-            answer:
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!"
-        },
-        {
-            question:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, doloremque.",
-            answer:
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat amet officiis voluptates facere consectetur! Aliquid cumque, unde asperiores ab tenetur molestiae corporis velit eveniet, non quas animi voluptatibus, ipsa quos!"
+class FAQ extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            faqs: [],
+            loading: true,
+        };
+    }
+    async componentDidMount() {
+        try {
+            const token = localStorage.getItem("employeetoken");
+            const response = await axios.get(`${backendURL}/faq/`, {
+                headers: { employeetoken: token },
+            });
+            if (
+                response !== undefined ||
+                response !== null ||
+                response.length !== 0
+            ) {
+                this.setState({
+                    faqs: response.data,
+                    loading: !this.state.loading,
+                });
+            } else {
+                this.setState({
+                    faqs: [],
+                    loading: !this.state.loading,
+                });
+            }
+        } catch (error) {
+            console.log(error.message);
+            this.setState({
+                faqs: [],
+                loading: !this.state.loading,
+            });
         }
-    ];
-
-    return (
-        <div>
-            <Title level={2}>Frequently Asked Questions</Title>
-            <Collapse defaultActiveKey={["1"]}>
-                {faqs.map((item, index) => (
-                    <Panel
-                        header={<Header title={item.question} />}
-                        key={index + 1}
-                    >
-                        <p style={{ paddingLeft: 24 }}>{item.answer}</p>
-                    </Panel>
-                ))}
-            </Collapse>
-        </div>
-    );
-};
+    }
+    render() {
+        const { faqs, loading } = this.state;
+        return (
+            <div>
+                <Title level={2}>Frequently Asked Questions</Title>
+                {loading ? (
+                    _.times(5, i => (
+                        <div key={i} style={{ marginBottom: "2rem" }}>
+                            <Skeleton
+                                active
+                                loading={loading}
+                                title={{ width: "50%" }}
+                                paragraph={{ rows: 1, width: "95%" }}
+                            />
+                        </div>
+                    ))
+                ) : faqs.length !== 0 ? (
+                    <Collapse defaultActiveKey={["1"]}>
+                        {faqs.map((item, index) => (
+                            <Panel
+                                header={<Header title={item.question} />}
+                                key={index + 1}
+                            >
+                                <p style={{ paddingLeft: 24 }}>{item.answer}</p>
+                            </Panel>
+                        ))}
+                    </Collapse>
+                ) : (
+                    <Empty
+                        style={{ marginTop: "2rem" }}
+                        description="No FAQS Available"
+                    />
+                )}
+            </div>
+        );
+    }
+}
 
 export default FAQ;

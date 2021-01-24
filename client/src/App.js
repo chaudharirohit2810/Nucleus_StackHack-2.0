@@ -1,17 +1,20 @@
 import React from "react";
-import Auth from "./pages/Auth";
+import EmployeeAuth from "./pages/Auth/Employee";
+import HRAuth from "./pages/Auth/HR";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Employee } from "./layouts";
-import routes from "./routes";
+import MainLayout from "./layout";
+import { EmployeeRoutes, HRRoutes } from "./routes";
 import withTracker from "./withTracker";
+import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRouteHR from "./ProtectedRouteHR";
 
 const EmployeeContainer = () => (
-    <Employee>
-        {routes.map((route, index) => {
+    <MainLayout type={1}>
+        {EmployeeRoutes.map((route, index) => {
             return (
-                <Route
+                <ProtectedRoute
                     key={index}
-                    path={route.path}
+                    path={`/employee/${route.path}`}
                     exact={route.exact}
                     component={withTracker(props => {
                         return <route.component {...props} />;
@@ -19,15 +22,34 @@ const EmployeeContainer = () => (
                 />
             );
         })}
-    </Employee>
+    </MainLayout>
+);
+
+const HRContainer = () => (
+    <MainLayout type={2}>
+        {HRRoutes.map((route, index) => {
+            return (
+                <ProtectedRouteHR
+                    key={index}
+                    path={`/hr/${route.path}`}
+                    exact={route.exact}
+                    component={withTracker(props => {
+                        return <route.component {...props} />;
+                    })}
+                />
+            );
+        })}
+    </MainLayout>
 );
 
 function App() {
     return (
         <Router>
             <Switch>
-                <Route exact path="/" component={Auth} />
+                <Route exact path="/" component={EmployeeAuth} />
+                <Route exact path="/hr/login" component={HRAuth} />
                 <Route path="/employee" component={EmployeeContainer} />
+                <Route path="/hr" component={HRContainer} />
             </Switch>
         </Router>
     );

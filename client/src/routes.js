@@ -1,37 +1,113 @@
-// import React from "react";
-// import { Redirect } from "react-router-dom";
-import { Employee } from "./layouts";
-
 import {
     Attendance,
     FAQ,
     Home,
     LeaveTable,
-} from "./pages/Employee"
+    Policy,
+    Holiday,
+    Loan,
+    Bonus,
+} from "./pages/Employee";
 
-export default [
+import {
+    Home as HRHome,
+    FAQ as HRFAQ,
+    Policy as HRPolicy,
+    Holiday as HRHoliday,
+    Leaves as HRLeaves,
+    TeamRole as HRTeamRole,
+    EmployeeDetails as HREmployeeDetails,
+    Bonus as HRBonus,
+    Loan as HRLoan,
+} from "./pages/HR";
+
+export const EmployeeRoutes = [
     {
-        path: "/employee/home",
+        path: "home",
         exact: true,
-        layout: Employee,
         component: Home,
     },
     {
-        path: "/employee/attendence",
+        path: "attendence",
         exact: true,
-        layout: Employee,
         component: Attendance,
     },
     {
-        path: "/employee/submitLeave",
+        path: "loan",
         exact: true,
-        layout: Employee,
+        component: Loan,
+    },
+    {
+        path: "bonus",
+        exact: true,
+        component: Bonus,
+    },
+    {
+        path: "submitLeave",
+        exact: true,
         component: LeaveTable,
     },
     {
-        path: "/employee/faq",
+        path: "faq",
         exact: true,
-        layout: Employee,
         component: FAQ,
+    },
+    {
+        path: "policy",
+        exact: true,
+        component: Policy,
+    },
+    {
+        path: "holiday",
+        exact: true,
+        component: Holiday,
+    },
+];
+
+export const HRRoutes = [
+    {
+        path: "home",
+        exact: true,
+        component: HRHome,
+    },
+    {
+        path: "checkLeaves",
+        exact: true,
+        component: HRLeaves,
+    },
+    {
+        path: "faq",
+        exact: true,
+        component: HRFAQ,
+    },
+    {
+        path: "policy",
+        exact: true,
+        component: HRPolicy,
+    },
+    {
+        path: "bonus",
+        exact: true,
+        component: HRBonus,
+    },
+    {
+        path: "loan",
+        exact: true,
+        component: HRLoan,
+    },
+    {
+        path: "holiday",
+        exact: true,
+        component: HRHoliday,
+    },
+    {
+        path: "teamrole",
+        exact: true,
+        component: HRTeamRole,
+    },
+    {
+        path: "employeeDetails/:username",
+        exact: true,
+        component: HREmployeeDetails,
     },
 ];

@@ -1,62 +1,39 @@
-import React from "react";
-import { Calendar } from "antd";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { backendURL } from "../../config";
+import AttendanceCalendar from "../components/attendanceCalendar";
 
 const Attendance = () => {
-    const dateFullCellRender = value => {
-        const absentDates = [5, 7, 8, 9, 15, 18, 21, 23, 25];
-        const presentDates = [6, 10, 11, 16, 17, 29, 30];
-        var absentColor = "#ff1744";
-        var presentColor = "#00e676";
+    const [presentDays, setPresentDays] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-        return (
-            <div
-                className="ant-picker-cell-inner"
-                style={{
-                    backgroundColor: absentDates.find(
-                        item => item === value.date()
-                    )
-                        ? absentColor
-                        : presentColor,
-                    width: "60%",
-                    height: "30px",
-                    margin: "0px auto",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    textAlign: "center"
-                }}
-            >
-                <div>
-                    <span style={{ fontWeight: "bold" }}>{value.date()}</span>
-                </div>
-            </div>
-        );
-    };
-
-    function getMonthData(value) {
-        if (value.month() === 8) {
-            return 1394;
-        }
-    }
-
-    function monthCellRender(value) {
-        const num = getMonthData(value);
-        return num ? (
-            <div className="notes-month">
-                <section>{num}</section>
-                <span>Backlog number</span>
-            </div>
-        ) : null;
-    }
+    useEffect(() => {
+        let token = localStorage.getItem("employeetoken");
+        axios
+            .get(`${backendURL}/attendance/`, {
+                headers: { employeetoken: token },
+            })
+            .then(res => {
+                // console.log(res.data);
+                setPresentDays(res.data.presentDays);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error(err.message);
+                setLoading(false);
+            });
+    }, []);
 
     return (
-        <div style={{ maxWidth: "80vw", margin: "0px auto" }}>
-            <Calendar
-                // dateCellRender={dateCellRender}
-                dateFullCellRender={dateFullCellRender}
-                monthCellRender={monthCellRender}
-                fullscreen={false}
-            />
+        <div>
+            <div style={{ maxWidth: "80vw", margin: "0px auto" }}>
+                <AttendanceCalendar
+                    presentDays={presentDays}
+                    setPresentDays={setPresentDays}
+                    isButtonVisible={true}
+                    loading={loading}
+                />
+            </div>
         </div>
     );
 };
