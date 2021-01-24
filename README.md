@@ -72,6 +72,7 @@ This application promises to provide a single platform with not so complicated a
 
     -   [x] Checkout Details of each employee (In detailed view)
     -   [x] Promote or Demote Employees
+    -   [x] Track Attendance at individual level
 
 -   Attendance & Leave Management:
 
@@ -99,6 +100,14 @@ This application promises to provide a single platform with not so complicated a
 -   [x] JWT Based Authentication
 
 -   [x] Intituitive UI
+
+## Built with
+
+-   MongoDB (Database)
+-   Express
+-   ReactJS
+-   NodeJS
+-   Ant Design
 
 ## Getting Started
 
