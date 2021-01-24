@@ -65,10 +65,8 @@ Implementation of project for StackHack2.0 hackathon on Hackerearth.
 2. Clone the Project using `git clone https://github.com/chaudharirohit2810/StackHack-2.0` or you can download the zip and unzip it.
 3. Navigate to Project root directory: `cd StackHack2.0`
 4. Run `npm install` to install dependencies required for backend
-5. Navigate to client directory: `cd client`
-6. Run `npm install` to install dependencies required for frontend
-7. Navigate to project root directory `cd ..`
-8. Run `npm run dev` to start the project. This will start Backend on port 5000 while frontend will run on 3000
-9. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-10. The page will reload if you make edits.\
-    You will also see any lint errors in the console.
+5. Run `npm run client-install` to install dependencies required for frontend
+6. Run `npm run dev` to start the project. This will start backend on port 5000 while frontend will run on 3000
+7. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+8. The page will reload if you make edits.\
+   You will also see any lint errors in the console.
