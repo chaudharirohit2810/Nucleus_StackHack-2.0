@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 
 const Login = ({ onFinish }) => {
     return (
+        <div>
         <Form
             name="normal_login"
             style={{
@@ -67,6 +68,7 @@ const Login = ({ onFinish }) => {
             </Form.Item>
             {/* </Row> */}
         </Form>
+        </div>
     );
 };
 

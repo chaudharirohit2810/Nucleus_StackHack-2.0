@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-// import { Drawer, Button } from "antd";
-import { MenuOutlined } from "@ant-design/icons";
+import { MenuOutlined, LoginOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router-dom";
 import "./drawerMobile.css";
 import EmployeeMenu from "./menuEmployee";
@@ -51,7 +50,12 @@ const NavBar = ({ type }) => {
                 </Col>
                 <Col></Col>
                 <Col>
-                    <Button type="primary" danger onClick={logoutDashboard}>
+                    <Button
+                        type="primary"
+                        icon={<LoginOutlined />}
+                        danger
+                        onClick={logoutDashboard}
+                    >
                         Logout
                     </Button>
                     <Drawer

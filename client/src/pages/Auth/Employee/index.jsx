@@ -6,7 +6,7 @@ import Register from "./Register";
 import { backendURL } from "../../../config";
 import axios from "axios";
 import "./login.css";
-import { UserOutlined } from "@ant-design/icons";
+import { UserOutlined, LoginOutlined, FormOutlined } from "@ant-design/icons";
 const { Title } = Typography;
 
 const { TabPane } = Tabs;
@@ -86,10 +86,34 @@ class EmployeeAuth extends React.Component {
                 </div>
                 <div className="equal__width hero__login__form">
                     <Tabs size="large" style={{ width: "100%" }}>
-                        <TabPane tab="Login" key="login">
+                        <TabPane
+                            tab={
+                                <div>
+                                    Login
+                                    <LoginOutlined
+                                        style={{
+                                            marginLeft: "0.8rem",
+                                        }}
+                                    />
+                                </div>
+                            }
+                            key="login"
+                        >
                             <Login onFinish={this.onFinish} />
                         </TabPane>
-                        <TabPane key="register" tab="Register">
+                        <TabPane
+                            key="register"
+                            tab={
+                                <div>
+                                    Register
+                                    <FormOutlined
+                                        style={{
+                                            marginLeft: "0.8rem",
+                                        }}
+                                    />
+                                </div>
+                            }
+                        >
                             <Register onFinish={this.register} />
                         </TabPane>
                     </Tabs>

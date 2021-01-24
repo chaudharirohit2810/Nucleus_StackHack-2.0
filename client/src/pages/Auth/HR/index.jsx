@@ -5,7 +5,7 @@ import React from "react";
 import { backendURL } from "../../../config";
 import Login from "./Login";
 import Register from "./Register";
-import { UserOutlined } from "@ant-design/icons";
+import { UserOutlined, LoginOutlined, FormOutlined } from "@ant-design/icons";
 
 const { TabPane } = Tabs;
 const { Title } = Typography;
@@ -87,10 +87,34 @@ class HRAuth extends React.Component {
                 </div>
                 <div className="equal__width hero__login__form">
                     <Tabs size="large" style={{ width: "100%" }}>
-                        <TabPane tab="Login" key="login">
+                        <TabPane
+                            tab={
+                                <div>
+                                    Login
+                                    <LoginOutlined
+                                        style={{
+                                            marginLeft: "0.8rem",
+                                        }}
+                                    />
+                                </div>
+                            }
+                            key="login"
+                        >
                             <Login onFinish={this.onFinish} />
                         </TabPane>
-                        <TabPane key="register" tab="Register">
+                        <TabPane
+                            key="register"
+                            tab={
+                                <div>
+                                    Register
+                                    <FormOutlined
+                                        style={{
+                                            marginLeft: "0.8rem",
+                                        }}
+                                    />
+                                </div>
+                            }
+                        >
                             <Register onFinish={this.register} />
                         </TabPane>
                     </Tabs>

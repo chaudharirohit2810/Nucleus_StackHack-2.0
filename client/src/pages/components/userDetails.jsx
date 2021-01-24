@@ -4,6 +4,7 @@ import {
     MailFilled,
     PhoneFilled,
     EditTwoTone,
+    UserOutlined,
 } from "@ant-design/icons";
 import { Col, Row, Skeleton, Space, Typography, Tooltip } from "antd";
 import ProfileForm from "./profileForm";
@@ -24,7 +25,7 @@ class UserDetails extends React.Component {
             handleModal,
             modalVisible,
             buttonLoading,
-            isHR
+            isHR,
         } = this.props;
         return (
             <div style={{ marginBottom: "2rem" }}>
@@ -40,18 +41,24 @@ class UserDetails extends React.Component {
                             user={user}
                         />
                         <Title level={3} style={{ marginBottom: "0" }}>
+                            <UserOutlined
+                                style={{
+                                    marginRight: "0.5rem",
+                                }}
+                            />
                             {user.name}
-                            {isHR !== true ? <Tooltip title="Edit Profile" placement="right">
-                                <EditTwoTone
-                                    style={{
-                                        marginLeft: "1.5rem",
-                                        fontSize: "24px",
-                                    }}
-                                    color="#0000FF"
-                                    onClick={handleModal}
-                                />
-                            </Tooltip>: null}
-                            
+                            {isHR !== true ? (
+                                <Tooltip title="Edit Profile" placement="right">
+                                    <EditTwoTone
+                                        style={{
+                                            marginLeft: "1.5rem",
+                                            fontSize: "24px",
+                                        }}
+                                        color="#0000FF"
+                                        onClick={handleModal}
+                                    />
+                                </Tooltip>
+                            ) : null}
                         </Title>
 
                         <Title
