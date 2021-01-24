@@ -70,3 +70,42 @@ Implementation of project for StackHack2.0 hackathon on Hackerearth.
 7. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 8. The page will reload if you make edits.\
    You will also see any lint errors in the console.
+
+## Deployment Instructions
+
+### Backend
+
+-   **Prerequisites**:
+
+    -   Ubuntu 18.04 > Server
+    -   Nginx: [Installation instructions](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04)
+    -   MongoDB: [Installation instruction](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
+    -   Node.js & npm: [Installation instructions](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04)
+
+-   Clone the Project:\
+    `git clone https://github.com/chaudharirohit2810/StackHack-2.0`
+-   Navigate to root project directory:\
+    `cd StackHack2.0`
+-   Install Pm2:\
+    `sudo npm install pm2@latest -g`
+-   Install Dependencies required for backend:\
+    `npm install`
+-   Start the backend server:\
+    `pm2 start index.js --name stackhack_backend`
+-   Save PM2 Process list and corresponding environments:\
+    `pm2 save`
+-   Navigate to nginx conf file:\
+    `cd /etc/nginx/sites-enabled`
+-   Open default file as a root:\
+    `sudo vim default`
+-   Copy following configuration in server block of default
+
+    ```
+    location /api/ {
+        proxy_pass http://localhost:5000/;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade'
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+    ```
